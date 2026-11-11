@@ -124,7 +124,13 @@ func fetchManifest(force bool) (*Manifest, error) {
 	if strings.HasPrefix(u, "file://") || !strings.Contains(u, "://") {
 		data, err = os.ReadFile(strings.TrimPrefix(u, "file://"))
 	} else {
-		req, _ := http.NewRequest("GET", u, nil)
+		// raw.githubusercontent.com caches files for ~5 minutes; a changing query string
+		// makes a freshly pushed update visible right away.
+		fu := u
+		if !strings.Contains(fu, "?") {
+			fu += fmt.Sprintf("?t=%d", time.Now().Unix()/30)
+		}
+		req, _ := http.NewRequest("GET", fu, nil)
 		req.Header.Set("Cache-Control", "no-cache")
 		req.Header.Set("User-Agent", "VibeClubLauncher/"+LauncherVersion)
 		c := &http.Client{Timeout: 20 * time.Second}

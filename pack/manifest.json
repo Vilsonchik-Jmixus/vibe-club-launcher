@@ -15,7 +15,7 @@
  "launcher": {
   "version": "1.0.3",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
-  "sha1": "0aed8fca8ab8269d7f36cfbef471ed3b36de5d2a",
+  "sha1": "ae375d49573d1734f6678694dad209828000b471",
   "size": 12354560
  },
  "news": [
@@ -4888,7 +4888,7 @@
  "launcherLinux": {
   "version": "1.0.3",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher-linux-x64",
-  "sha1": "6fe3d52a55f59c9f146e89bdf14e10bc2609a609",
+  "sha1": "d7b5ce4cb6bfd9ff45952c1e4f20fe390e0f48e6",
   "size": 12034232
  }
 }
