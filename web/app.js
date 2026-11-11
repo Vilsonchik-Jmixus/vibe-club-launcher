@@ -103,6 +103,7 @@ function render() {
   if (S.remoteError) hint = 'Нет связи с сервером обновлений: ' + S.remoteError;
   else if (!S.installed) hint = 'Сначала установи сборку — это займёт несколько минут';
   else if (busy) hint = 'Идёт ' + jobName(job.kind) + '… можно открыть вкладку установки';
+  else if (S.profile && S.profile.kind && S.profile.kind !== 'official') hint = 'Игра запускается через ' + S.profile.name + (S.profile.profile ? ' (профиль «' + S.profile.profile + '»)' : '') + (S.profile.loaderOk === false ? ' — проверь версию NeoForge в профиле!' : '');
   $('mainHint').textContent = hint;
   renderNews(R ? R.news : null);
 
@@ -128,7 +129,7 @@ function render() {
 
   // skin
   $('tglSlim').classList.toggle('on', !!S.skinSlim);
-  $('skinStatus').textContent = S.hasSkin ? 'Выбран свой скин — он появится в игре при следующем входе.' : 'Скин не выбран — в игре будет стандартный.';
+  $('skinStatus').textContent = S.hasSkin ? 'Выбран свой скин — он появится в игре при следующем входе.' : 'Скин не выбран — на модели пример. Загрузи свой PNG, и он появится здесь и в игре.';
 }
 
 function jobName(k) { return { install: 'установка', update: 'обновление', repair: 'проверка файлов', reinstall: 'переустановка' }[k] || 'операция'; }
@@ -158,9 +159,14 @@ $('btnPlay').onclick = async () => {
     const ok = await confirmBox('Вышло обновление', `Доступна версия ${S.remote.version}. Без неё на сервер может не пустить. Обновить сейчас?`, 'Обновить');
     if (ok) { startJob('update'); return; }
   }
-  try { await api('play', { method: 'POST' }); toast('Открываю лаунчер Minecraft: выбери профиль «Vibe Club» и нажми «Играть»'); }
+  try {
+    const r = await api('play', { method: 'POST' });
+    toast(r.loaderOk === false ? r.message + '. Внимание: в профиле стоит ' + r.loader + ', а нужен NeoForge ' + (S.remote && S.remote.loader ? S.remote.loader.version : '') : r.message);
+  }
   catch (e) {
-    if (e.message === 'NO_OFFICIAL_LAUNCHER') {
+    if (e.message.startsWith('NO_LAUNCHER:')) {
+      toast('Не нашёл ' + e.message.slice(12) + ' на этом компьютере. Открой его сам и нажми Play на профиле со сборкой.', true);
+    } else if (e.message === 'NO_OFFICIAL_LAUNCHER') {
       const ok = await confirmBox('Не найден лаунчер Minecraft', 'Сборка установлена, профиль «Vibe Club» готов. Кнопка «Играть» открывает официальный Minecraft Launcher, но на этом компьютере его нет. Скачать его с minecraft.net? После установки войди в аккаунт и снова нажми «Играть».', 'Скачать');
       if (ok) api('open-url?u=' + encodeURIComponent('https://www.minecraft.net/download'), { method: 'POST' });
     } else toast(e.message, true);
@@ -199,7 +205,7 @@ async function pickFolder() {
     if (!r.path) return;
     S = await api('settings', { method: 'POST', json: { installDir: r.path } });
     render();
-    toast(r.mode === 'profile' ? 'Найден профиль Minecraft — сборка встанет прямо в него: ' + r.path + '. Миры и настройки останутся, старые моды уберу в папку mods_backup_vibeclub.'
+    toast(r.mode === 'profile' ? 'Найден профиль' + (r.kind && r.kind !== 'official' ? ' ' + r.launcher : ' Minecraft') + ' — сборка встанет прямо в него: ' + r.path + '. Миры и настройки останутся, старые моды уберу в папку mods_backup_vibeclub.'
       : r.mode === 'installed' ? 'Здесь уже стоит Vibe Club: ' + r.path : 'Папка сборки: ' + r.path);
   } catch (e) { toast(e.message, true); }
 }
@@ -288,7 +294,7 @@ $('btnPause').onclick = () => api('pause', { method: 'POST' });
 $('btnCancel').onclick = async () => { const ok = await confirmBox('Остановить?', 'Уже скачанные файлы сохранятся, продолжить можно позже.', 'Остановить'); if (ok) api('cancel', { method: 'POST' }); };
 
 // ---- skin
-let skinImg = null; let skinBack = false;
+let skinImg = null;
 $('btnSkinUpload').onclick = () => $('skinFile').click();
 $('skinFile').onchange = async (e) => {
   const f = e.target.files[0]; e.target.value = '';
@@ -300,60 +306,131 @@ $('skinFile').onchange = async (e) => {
     await loadSkin(); await refresh(false);
   } catch (er) { toast(er.message, true); }
 };
-$('btnSkinReset').onclick = async () => { await api('skin', { method: 'DELETE' }); skinImg = null; drawSkin(); await refresh(false); toast('Скин сброшен'); };
+$('btnSkinReset').onclick = async () => { await api('skin', { method: 'DELETE' }); skinImg = null; buildModel(); await refresh(false); toast('Скин сброшен'); };
 $('tglSlim').onclick = async () => {
   const on = !$('tglSlim').classList.contains('on');
   $('tglSlim').classList.toggle('on', on);
   await api('skin-model?slim=' + (on ? '1' : '0'), { method: 'POST' });
   if (S) S.skinSlim = on;
-  drawSkin();
+  buildModel();
 };
-$('rotL').onclick = $('rotR').onclick = () => { skinBack = !skinBack; drawSkin(); $('rotLabel').textContent = skinBack ? 'Сзади' : 'Спереди'; };
 
 async function loadSkin() {
   try {
     const r = await fetch(API + 'skin?t=' + Date.now());
-    if (!r.ok) { skinImg = null; drawSkin(); return; }
+    if (!r.ok) { skinImg = null; buildModel(); return; }
     const blob = await r.blob();
     const img = new Image();
-    img.onload = () => { skinImg = img; drawSkin(); };
+    img.onload = () => { skinImg = img; buildModel(); };
     img.src = URL.createObjectURL(blob);
-  } catch (e) { skinImg = null; drawSkin(); }
+  } catch (e) { skinImg = null; buildModel(); }
 }
 
-// Draws a flat front/back view (16x32 px) of a Minecraft skin, including the outer layer.
-function drawSkin() {
-  const c = $('skinCanvas'); const ph = $('skinPlaceholder');
-  if (!skinImg) { c.classList.add('hidden'); ph.classList.remove('hidden'); return; }
-  c.classList.remove('hidden'); ph.classList.add('hidden');
-  const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.clearRect(0, 0, 16, 32);
-  const legacy = skinImg.height === 32;
+// ---- 3D skin viewer (CSS 3D, no libraries)
+const PX = 8.5;                       // screen pixels per skin pixel
+let yaw = -28, pitch = -8, autoSpin = true, dragging = null;
+
+// Neutral original skin used when the player has not uploaded one.
+function defaultSkin() {
+  const c = document.createElement('canvas'); c.width = 64; c.height = 64; const x = c.getContext('2d');
+  const box = (u, v, w, h, d, col) => { x.fillStyle = col; x.fillRect(u, v + d, 2 * (w + d), h); x.fillRect(u + d, v, 2 * w, d); };
+  box(0, 0, 8, 8, 8, '#c99a7a');                         // head
+  x.fillStyle = '#4a2b23'; x.fillRect(8, 0, 8, 8); x.fillRect(0, 8, 32, 2); x.fillRect(24, 8, 8, 6); // hair
+  x.fillStyle = '#fff'; x.fillRect(9, 12, 2, 1); x.fillRect(13, 12, 2, 1);
+  x.fillStyle = '#5b2a7e'; x.fillRect(10, 12, 1, 1); x.fillRect(13, 12, 1, 1);
+  x.fillStyle = '#a0675a'; x.fillRect(11, 14, 2, 1);
+  box(16, 16, 8, 12, 4, '#7b2f86');                      // shirt
+  x.fillStyle = '#e8a64f'; x.fillRect(20, 20, 8, 1);
+  box(40, 16, 4, 12, 4, '#c99a7a'); x.fillStyle = '#6a2774'; x.fillRect(40, 20, 16, 5); x.fillRect(44, 16, 4, 4);
+  box(32, 48, 4, 12, 4, '#c99a7a'); x.fillRect(32, 52, 16, 5); x.fillRect(36, 48, 4, 4);
+  box(0, 16, 4, 12, 4, '#2c2140'); x.fillStyle = '#1a1424'; x.fillRect(0, 29, 16, 3);
+  box(16, 48, 4, 12, 4, '#2c2140'); x.fillStyle = '#1a1424'; x.fillRect(16, 61, 16, 3);
+  return c;
+}
+
+// Converts an old 64x32 skin to 64x64 (left limbs = mirrored right limbs).
+function toModern(img) {
+  const c = document.createElement('canvas'); c.width = 64; c.height = 64; const x = c.getContext('2d');
+  x.imageSmoothingEnabled = false; x.drawImage(img, 0, 0);
+  if (img.height !== 32) return c;
+  const mirrorLimb = (su, sv, du, dv) => {
+    const faces = [[4, 0, 4, 4, 4, 0], [8, 0, 4, 4, 8, 0], [0, 4, 4, 12, 8, 4], [4, 4, 4, 12, 4, 4], [8, 4, 4, 12, 0, 4], [12, 4, 4, 12, 12, 4]];
+    for (const [sx, sy, w, h, dx, dy] of faces) {
+      x.save(); x.translate(du + dx + w, dv + dy); x.scale(-1, 1);
+      x.drawImage(img, su + sx, sv + sy, w, h, 0, 0, w, h); x.restore();
+    }
+  };
+  mirrorLimb(0, 16, 16, 48);  // leg
+  mirrorLimb(40, 16, 32, 48); // arm
+  return c;
+}
+
+function cuboid(tex, u, v, w, h, d, grow) {
+  const el = document.createElement('div'); el.className = 'cube';
+  const W = (w + grow) * PX, H = (h + grow) * PX, D = (d + grow) * PX;
+  const faces = [
+    ['front', u + d, v + d, w, h, W, H, `translateZ(${D / 2}px)`],
+    ['back', u + 2 * d + w, v + d, w, h, W, H, `rotateY(180deg) translateZ(${D / 2}px)`],
+    ['right', u, v + d, d, h, D, H, `rotateY(-90deg) translateZ(${W / 2}px)`],
+    ['left', u + d + w, v + d, d, h, D, H, `rotateY(90deg) translateZ(${W / 2}px)`],
+    ['top', u + d, v, w, d, W, D, `rotateX(90deg) translateZ(${H / 2}px)`],
+    ['bottom', u + d + w, v, w, d, W, D, `rotateX(-90deg) translateZ(${H / 2}px)`],
+  ];
+  for (const [, sx, sy, sw, sh, cw, ch, tr] of faces) {
+    const c = document.createElement('canvas'); c.width = sw; c.height = sh;
+    const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(tex, sx, sy, sw, sh, 0, 0, sw, sh);
+    c.style.width = cw + 'px'; c.style.height = ch + 'px';
+    c.style.transform = `translate(-50%,-50%) ${tr}`;
+    el.appendChild(c);
+  }
+  return el;
+}
+
+function buildModel() {
+  const root = $('skinModel'); if (!root) return;
+  root.innerHTML = '';
+  const tex = skinImg ? toModern(skinImg) : defaultSkin();
+  const legacy = skinImg && skinImg.height === 32;
   const slim = $('tglSlim').classList.contains('on');
   const aw = slim ? 3 : 4;
-  const part = (sx, sy, w, h, dx, dy, mirror) => {
-    if (mirror) { x.save(); x.translate(dx + w, dy); x.scale(-1, 1); x.drawImage(skinImg, sx, sy, w, h, 0, 0, w, h); x.restore(); }
-    else x.drawImage(skinImg, sx, sy, w, h, dx, dy, w, h);
-  };
-  const ax = 4 - aw; // arm offset on the left side for slim
-  if (!skinBack) {
-    part(8, 8, 8, 8, 4, 0); part(20, 20, 8, 12, 4, 8);
-    part(44, 20, aw, 12, ax, 8);                                   // right arm (viewer left)
-    if (legacy) part(44, 20, aw, 12, 12, 8, true); else part(36, 52, aw, 12, 12, 8); // left arm
-    part(4, 20, 4, 12, 4, 20);
-    if (legacy) part(4, 20, 4, 12, 8, 20, true); else part(20, 52, 4, 12, 8, 20);
-    part(40, 8, 8, 8, 4, 0);
-    if (!legacy) { part(20, 36, 8, 12, 4, 8); part(44, 36, aw, 12, ax, 8); part(52, 52, aw, 12, 12, 8); part(4, 36, 4, 12, 4, 20); part(4, 52, 4, 12, 8, 20); }
-  } else {
-    part(24, 8, 8, 8, 4, 0); part(32, 20, 8, 12, 4, 8);
-    const rb = 44 + aw + 4; // back of right arm
-    part(rb, 20, aw, 12, 12, 8);
-    if (legacy) part(rb, 20, aw, 12, ax, 8, true); else part(36 + aw + 4, 52, aw, 12, ax, 8);
-    part(12, 20, 4, 12, 8, 20);
-    if (legacy) part(12, 20, 4, 12, 4, 20, true); else part(28, 52, 4, 12, 4, 20);
-    part(56, 8, 8, 8, 4, 0);
-    if (!legacy) { part(32, 36, 8, 12, 4, 8); part(rb, 36, aw, 12, 12, 8); part(52 + aw + 4, 52, aw, 12, ax, 8); part(12, 36, 4, 12, 8, 20); part(12, 52, 4, 12, 4, 20); }
+  // [u, v, w, h, d, overlayU, overlayV, x, y] — x/y = centre in skin pixels, y up from the feet
+  const parts = [
+    [0, 0, 8, 8, 8, 32, 0, 0, 28, 1],
+    [16, 16, 8, 12, 4, 16, 32, 0, 18, 0.5],
+    [40, 16, aw, 12, 4, 40, 32, -(4 + aw / 2), 18, 0.5],
+    [32, 48, aw, 12, 4, 48, 48, 4 + aw / 2, 18, 0.5],
+    [0, 16, 4, 12, 4, 0, 32, -2, 6, 0.5],
+    [16, 48, 4, 12, 4, 0, 48, 2, 6, 0.5],
+  ];
+  for (const [u, v, w, h, d, ou, ov, cx, cy, g] of parts) {
+    const pos = `translate3d(${cx * PX}px, ${-cy * PX}px, 0)`;
+    const base = cuboid(tex, u, v, w, h, d, 0); base.style.transform = pos; root.appendChild(base);
+    if (!legacy || ou === 32) { const o = cuboid(tex, ou, ov, w, h, d, g); o.style.transform = pos; o.classList.add('overlay'); root.appendChild(o); }
   }
+  $('skinStage').classList.toggle('placeholder', !skinImg);
+  applyRot();
 }
+
+function applyRot() { const r = $('skinModel'); if (r) r.style.transform = `translateY(150px) rotateX(${pitch}deg) rotateY(${yaw}deg)`; }
+
+(function setupViewer() {
+  const st = $('skinStage');
+  st.addEventListener('pointerdown', (e) => { dragging = { x: e.clientX, y: e.clientY, yaw, pitch }; autoSpin = false; st.setPointerCapture(e.pointerId); st.classList.add('grabbing'); });
+  st.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    yaw = dragging.yaw + (e.clientX - dragging.x) * 0.6;
+    pitch = Math.max(-35, Math.min(25, dragging.pitch - (e.clientY - dragging.y) * 0.3));
+    applyRot();
+  });
+  const end = () => { dragging = null; st.classList.remove('grabbing'); };
+  st.addEventListener('pointerup', end); st.addEventListener('pointercancel', end);
+  $('rotL').onclick = () => { autoSpin = false; yaw -= 45; applyRot(); };
+  $('rotR').onclick = () => { autoSpin = false; yaw += 45; applyRot(); };
+  $('rotLabel').onclick = () => { autoSpin = !autoSpin; };
+  let last = performance.now();
+  const tick = (t) => { const dt = (t - last) / 1000; last = t; if (autoSpin && !dragging && $('view-skin').classList.contains('active')) { yaw += dt * 25; applyRot(); } requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+})();
 
 // ---- boot
 (async function boot() {

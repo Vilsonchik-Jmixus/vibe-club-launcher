@@ -499,6 +499,15 @@ func runJob(j *Job, kind JobKind) error {
 		return err
 	}
 
+	if pi := detectProfile(dir, m); pi.Kind != KindOfficial {
+		j.logf("Профиль %s «%s»: NeoForge и запуск — через %s", pi.Name, pi.Profile, pi.Name)
+		if !pi.LoaderOK {
+			j.logf("ВНИМАНИЕ: в профиле стоит %s, а сборке нужен NeoForge %s — поменяй версию в настройках профиля %s", pi.Loader, m.Loader.Version, pi.Name)
+		}
+		applyPendingSkin()
+		return nil
+	}
+
 	// Loader + profile in the official launcher.
 	j.set(func(s *JobStatus) {
 		s.Phase = "loader"

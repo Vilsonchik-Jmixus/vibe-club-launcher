@@ -180,3 +180,46 @@ func installDesktopEntry() {
 	_ = os.MkdirAll(filepath.Dir(desk), 0o755)
 	_ = os.WriteFile(desk, []byte(content), 0o644)
 }
+
+func startDetached(exe string, args ...string) error { return exec.Command(exe, args...).Start() }
+
+func lookFirst(names ...string) string {
+	for _, n := range names {
+		if p, err := exec.LookPath(n); err == nil {
+			return p
+		}
+	}
+	return ""
+}
+
+func flatpakApp(id string) bool {
+	fp, err := exec.LookPath("flatpak")
+	return err == nil && exec.Command(fp, "info", id).Run() == nil
+}
+
+func findCurseForge() (string, []string, bool) {
+	if p := lookFirst("curseforge", "CurseForge"); p != "" {
+		return p, nil, true
+	}
+	return "", nil, false
+}
+
+func findModrinthApp() (string, []string, bool) {
+	if p := lookFirst("modrinth-app", "ModrinthApp", "modrinth"); p != "" {
+		return p, nil, true
+	}
+	if flatpakApp("com.modrinth.ModrinthApp") {
+		return "flatpak", []string{"run", "com.modrinth.ModrinthApp"}, true
+	}
+	return "", nil, false
+}
+
+func findPrism(dataDir string) (string, []string, bool) {
+	if p := lookFirst("prismlauncher", "PrismLauncher"); p != "" {
+		return p, nil, true
+	}
+	if flatpakApp("org.prismlauncher.PrismLauncher") {
+		return "flatpak", []string{"run", "org.prismlauncher.PrismLauncher"}, true
+	}
+	return "", nil, false
+}

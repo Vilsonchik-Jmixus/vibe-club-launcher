@@ -153,3 +153,58 @@ func openAppWindow(url string) (*exec.Cmd, error) {
 var errNoPicker = errors.New("NO_PICKER")
 
 func installDesktopEntry() {}
+
+func startDetached(exe string, args ...string) error { return exec.Command(exe, args...).Start() }
+
+func firstExisting(paths ...string) string {
+	for _, p := range paths {
+		if p != "" {
+			if fi, err := os.Stat(p); err == nil && !fi.IsDir() {
+				return p
+			}
+		}
+	}
+	return ""
+}
+
+func findCurseForge() (string, []string, bool) {
+	la, pf86, pf := os.Getenv("LOCALAPPDATA"), os.Getenv("ProgramFiles(x86)"), os.Getenv("ProgramFiles")
+	if p := firstExisting(filepath.Join(la, "Programs", "CurseForge Windows", "CurseForge.exe"), filepath.Join(pf, "CurseForge Windows", "CurseForge.exe")); p != "" {
+		return p, nil, true
+	}
+	// Older CurseForge runs inside Overwolf.
+	if p := firstExisting(filepath.Join(pf86, "Overwolf", "OverwolfLauncher.exe"), filepath.Join(pf, "Overwolf", "OverwolfLauncher.exe")); p != "" {
+		return p, []string{"-launchapp", "cchhcaiapeikjbdbpfplgmpobbcdkdaphclbmkbj"}, true
+	}
+	return "", nil, false
+}
+
+func findModrinthApp() (string, []string, bool) {
+	la, pf := os.Getenv("LOCALAPPDATA"), os.Getenv("ProgramFiles")
+	p := firstExisting(
+		filepath.Join(la, "Modrinth App", "Modrinth App.exe"),
+		filepath.Join(la, "Programs", "Modrinth App", "Modrinth App.exe"),
+		filepath.Join(pf, "Modrinth App", "Modrinth App.exe"),
+		filepath.Join(la, "Modrinth App", "ModrinthApp.exe"),
+	)
+	if p == "" {
+		ms, _ := filepath.Glob(filepath.Join(la, "*odrinth*", "*.exe"))
+		for _, m := range ms {
+			if !strings.Contains(strings.ToLower(m), "uninstall") {
+				p = m
+				break
+			}
+		}
+	}
+	return p, nil, p != ""
+}
+
+func findPrism(dataDir string) (string, []string, bool) {
+	la, pf := os.Getenv("LOCALAPPDATA"), os.Getenv("ProgramFiles")
+	p := firstExisting(
+		filepath.Join(dataDir, "prismlauncher.exe"), // portable install
+		filepath.Join(la, "Programs", "PrismLauncher", "prismlauncher.exe"),
+		filepath.Join(pf, "PrismLauncher", "prismlauncher.exe"),
+	)
+	return p, nil, p != ""
+}

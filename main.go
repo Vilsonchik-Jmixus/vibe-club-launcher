@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.5"
+const LauncherVersion = "1.0.6"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -160,6 +160,7 @@ type StateResp struct {
 	ProfileExists   bool        `json:"profileExists"`
 	Job             *JobStatus  `json:"job,omitempty"`
 	HasSkin         bool        `json:"hasSkin"`
+	Profile         ProfileInfo `json:"profile"`
 	SkinSlim        bool        `json:"skinSlim"`
 }
 
@@ -200,10 +201,14 @@ func buildState(force bool) StateResp {
 			}
 		}
 		r.Remote = ri
+		r.Profile = detectProfile(s.InstallDir, m)
 		r.UpdateAvailable = r.Installed && r.LocalVersion != m.Version
 		if lr := m.launcherRelease(); lr != nil && versionLess(LauncherVersion, lr.Version) {
 			r.LauncherUpdate = lr
 		}
+	}
+	if r.Profile.Kind == "" {
+		r.Profile = detectProfile(s.InstallDir, nil)
 	}
 	if j := currentJob(); j != nil {
 		st := j.status()
@@ -301,7 +306,8 @@ func registerAPI(mux *http.ServeMux, p string) {
 		} else if isGameFolder(p) {
 			mode = "profile"
 		}
-		writeJSON(w, map[string]string{"path": p, "mode": mode})
+		pi := detectProfile(p, nil)
+		writeJSON(w, map[string]string{"path": p, "mode": mode, "launcher": pi.Name, "kind": pi.Kind})
 	})
 	h("settings", func(w http.ResponseWriter, r *http.Request) {
 		var in struct {
@@ -377,7 +383,12 @@ func registerAPI(mux *http.ServeMux, p string) {
 			writeErr(w, errors.New("сборка ещё не установлена"))
 			return
 		}
-		if m, err := fetchManifest(false); err == nil {
+		m, merr := fetchManifest(false)
+		if merr != nil {
+			m = nil
+		}
+		pi := detectProfile(s.InstallDir, m)
+		if pi.Kind == KindOfficial && m != nil {
 			if !loaderInstalled(m) || !profileExists() {
 				appendLog("Играть: нет NeoForge или профиля")
 				writeErr(w, errors.New("не хватает NeoForge или профиля — нажми «Проверить и починить файлы»"))
@@ -386,7 +397,8 @@ func registerAPI(mux *http.ServeMux, p string) {
 			_ = writeProfile(m) // refresh lastUsed so the launcher preselects Vibe Club
 		}
 		applyPendingSkin()
-		if err := launchOfficialLauncher(); err != nil {
+		msg, err := launchFor(pi, s.InstallDir)
+		if err != nil {
 			appendLog("Играть: " + err.Error())
 			writeErr(w, err)
 			return
@@ -394,7 +406,7 @@ func registerAPI(mux *http.ServeMux, p string) {
 		if s.CloseAfterLaunch {
 			go func() { time.Sleep(1500 * time.Millisecond); quit() }()
 		}
-		writeJSON(w, map[string]bool{"ok": true})
+		writeJSON(w, map[string]any{"ok": true, "message": msg, "loaderOk": pi.LoaderOK, "loader": pi.Loader})
 	})
 	h("skin", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
@@ -453,6 +465,14 @@ func registerAPI(mux *http.ServeMux, p string) {
 // suggestSubfolder returns p itself when it is empty, already a pack folder or an existing
 // Minecraft profile (CurseForge instance, official launcher game folder); otherwise p\VibeClub.
 func suggestSubfolder(p string) string {
+	if exists(filepath.Join(p, "instance.cfg")) { // Prism/MultiMC instance root
+		for _, sub := range []string{"minecraft", ".minecraft"} {
+			if fi, err := os.Stat(filepath.Join(p, sub)); err == nil && fi.IsDir() {
+				return filepath.Join(p, sub)
+			}
+		}
+		return filepath.Join(p, "minecraft")
+	}
 	if isInstalled(p) || isGameFolder(p) {
 		return p
 	}
