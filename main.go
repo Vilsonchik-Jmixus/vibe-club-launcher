@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.8"
+const LauncherVersion = "1.0.9"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.

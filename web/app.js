@@ -134,12 +134,43 @@ function render() {
 
 function jobName(k) { return { install: 'установка', update: 'обновление', repair: 'проверка файлов', reinstall: 'переустановка' }[k] || 'операция'; }
 
+let NEWS = []; let newsKey = ''; let newsSel = 0;
 function renderNews(list) {
+  const key = JSON.stringify(list || []);
+  if (key === newsKey) return;
+  newsKey = key; NEWS = list || [];
   const box = $('newsList');
-  if (!list || !list.length) { box.innerHTML = '<div class="news-empty">Новостей пока нет.<br>Здесь появятся обновления сборки и события сервера.</div>'; return; }
+  $('btnAllNews').classList.toggle('hidden', !NEWS.length);
+  if (!NEWS.length) { box.innerHTML = '<div class="news-empty">Новостей пока нет.<br>Здесь появятся обновления сборки и события сервера.</div>'; $('feedList').innerHTML = ''; $('feedRead').innerHTML = ''; return; }
   const marks = ['✧', '◇', '✦'];
-  box.innerHTML = list.slice(0, 3).map((n, i) => `<article><time>${esc(n.date)}</time><h2>${esc(n.title)}</h2><p>${esc(n.text)}</p><span class="news-mark">${marks[i % 3]}</span></article>`).join('');
+  box.innerHTML = NEWS.map((n, i) => `<article data-n="${i}" title="Читать подробнее"><time>${esc(n.date)}</time><h2>${esc(n.title)}</h2><p>${esc(n.text)}</p><span class="news-mark">${marks[i % 3]}</span></article>`).join('');
+  box.querySelectorAll('article').forEach((a) => a.addEventListener('click', () => openNews(+a.dataset.n)));
+  $('feedList').innerHTML = NEWS.map((n, i) => `<button data-n="${i}"><time>${esc(n.date)}</time><strong>${esc(n.title)}</strong></button>`).join('');
+  $('feedList').querySelectorAll('button').forEach((b) => b.addEventListener('click', () => showNews(+b.dataset.n)));
+  showNews(Math.min(newsSel, NEWS.length - 1));
 }
+function newsBody(t) {
+  let html = ''; let inList = false;
+  const close = () => { if (inList) { html += '</ul>'; inList = false; } };
+  String(t || '').split('\n').forEach((raw) => {
+    const l = raw.trim();
+    if (!l) { close(); return; }
+    if (/^[-•*] /.test(l)) { if (!inList) { html += '<ul>'; inList = true; } html += '<li>' + esc(l.slice(2)) + '</li>'; return; }
+    close();
+    if (l.startsWith('## ')) html += '<h3>' + esc(l.slice(3)) + '</h3>'; else html += '<p>' + esc(l) + '</p>';
+  });
+  close();
+  return html;
+}
+function showNews(i) {
+  const n = NEWS[i]; if (!n) return;
+  newsSel = i;
+  $('feedList').querySelectorAll('button').forEach((b) => b.classList.toggle('sel', +b.dataset.n === i));
+  $('feedRead').innerHTML = `<time>${esc(n.date)}</time><h2>${esc(n.title)}</h2><p class="lead">${esc(n.text)}</p>${newsBody(n.more)}`;
+  $('feedRead').scrollTop = 0;
+}
+function openNews(i) { go('news'); showNews(i); const b = $('feedList').querySelector(`[data-n="${i}"]`); if (b) b.scrollIntoView({ block: 'nearest' }); }
+$('btnAllNews').addEventListener('click', () => openNews(0));
 
 // ---- server status
 async function pollServer() {

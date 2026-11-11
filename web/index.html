@@ -13,6 +13,7 @@
   <header>
     <img class="logo" src="assets/logo.png" alt="Vibe Club" data-go="main" title="На главную">
     <nav>
+      <button class="plate nav" data-go="main"><span class="icon" data-icon="play"></span><span>Играть</span><i></i><b></b></button>
       <button class="plate nav" data-go="skin"><span class="icon" data-icon="skin"></span><span>Скин</span><i></i><b></b></button>
       <button class="plate nav" data-go="settings"><span class="icon" data-icon="settings"></span><span>Настройки</span><i></i><b></b></button>
       <button class="plate nav" id="btnOpenFolderTop"><span class="icon" data-icon="folder"></span><span>Папка сборки</span><i></i><b></b></button>
@@ -25,8 +26,8 @@
   <!-- 01 MAIN -->
   <div class="view" id="view-main">
     <section class="news panel">
-      <div class="section-head"><span class="chapter">01</span><h1>Новости</h1><span class="rule"></span><span class="diamond">◆</span></div>
-      <div id="newsList"></div>
+      <div class="section-head"><span class="chapter">01</span><h1>Новости</h1><span class="rule"></span><button class="news-all" id="btnAllNews">Все новости ›</button></div>
+      <div id="newsList" class="scroll"></div>
     </section>
     <section class="play-area">
       <div class="eyebrow"><span></span> ТВОЙ ВЕЧЕР В ОБЛАКАХ <span></span></div>
@@ -36,6 +37,17 @@
         <span class="badge hidden" id="updateBadge"></span>
       </div>
       <div class="quiet" id="mainHint">Уютный мир. Большие приключения.</div>
+    </section>
+  </div>
+
+  <!-- NEWS -->
+  <div class="view" id="view-news">
+    <section class="panel newsfeed">
+      <div class="section-head"><span class="chapter">01</span><h1>Лента обновлений</h1><span class="rule"></span><span class="diamond">◆</span></div>
+      <div class="newsfeed-body">
+        <div class="newsfeed-list scroll" id="feedList"></div>
+        <article class="newsfeed-read scroll" id="feedRead"></article>
+      </div>
     </section>
   </div>
 

@@ -56,6 +56,7 @@ type News struct {
 	Date  string `json:"date"`
 	Title string `json:"title"`
 	Text  string `json:"text"`
+	More  string `json:"more,omitempty"`
 }
 
 // PackFile is one file of the pack. Policy "managed" keeps it identical to the manifest,
