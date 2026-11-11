@@ -149,3 +149,9 @@ func openAppWindow(url string) (*exec.Cmd, error) {
 	}
 	return cmd, nil
 }
+
+var errNoPicker = errors.New("NO_PICKER")
+
+func replaceAndRestart(exe, newPath string) error { return errors.New("not used on Windows") }
+
+func installDesktopEntry() {}

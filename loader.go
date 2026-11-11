@@ -1,8 +1,10 @@
 package main
 
 import (
+	"archive/tar"
 	"archive/zip"
 	"bytes"
+	"compress/gzip"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
@@ -22,7 +24,15 @@ func minecraftDir() string {
 		return filepath.Join(v, ".minecraft")
 	}
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".minecraft")
+	std := filepath.Join(home, ".minecraft")
+	if _, err := os.Stat(std); err != nil {
+		// Flatpak launcher keeps its data in its sandbox.
+		fp := filepath.Join(home, ".var", "app", "com.mojang.Minecraft", ".minecraft")
+		if _, err := os.Stat(fp); err == nil {
+			return fp
+		}
+	}
+	return std
 }
 
 func loaderVersionID(m *Manifest) string {
@@ -187,8 +197,19 @@ func javaCandidates() []string {
 	if ms, _ := filepath.Glob(filepath.Join(appDataDir(), "java", "*", "bin", exe)); len(ms) > 0 {
 		c = append(c, ms...)
 	}
-	rt := filepath.Join("runtime", "java-runtime-delta", "windows-x64", "java-runtime-delta", "bin", exe)
+	plat := "windows-x64"
+	if !isWindows() {
+		plat = "linux"
+	}
+	rt := filepath.Join("runtime", "java-runtime-delta", plat, "java-runtime-delta", "bin", exe)
 	c = append(c, filepath.Join(minecraftDir(), rt))
+	if !isWindows() {
+		home, _ := os.UserHomeDir()
+		c = append(c, filepath.Join(home, ".var", "app", "com.mojang.Minecraft", ".minecraft", rt))
+		if ms, _ := filepath.Glob("/usr/lib/jvm/*21*/bin/java"); len(ms) > 0 {
+			c = append(c, ms...)
+		}
+	}
 	if la := os.Getenv("LOCALAPPDATA"); la != "" {
 		c = append(c, filepath.Join(la, "Packages", "Microsoft.4297127D64EC6_8wekyb3d8bbwe", "LocalCache", "Local", rt))
 	}
@@ -210,24 +231,31 @@ func findOrInstallJava(j *Job) (string, error) {
 			return p, nil
 		}
 	}
-	if !isWindows() {
-		return "", errors.New("не найдена Java 21")
-	}
 	j.set(func(s *JobStatus) { s.PhaseText = "Скачиваю Java 21 для установки NeoForge…" })
 	j.logf("Java 21 не найдена, скачиваю Temurin JRE 21")
-	zipPath := filepath.Join(appDataDir(), "cache", "jre21.zip")
-	u := "https://api.adoptium.net/v3/binary/latest/21/ga/windows/x64/jre/hotspot/normal/eclipse?project=jdk"
+	osName, ext, bin := "windows", ".zip", "java.exe"
+	if !isWindows() {
+		osName, ext, bin = "linux", ".tar.gz", "java"
+	}
+	zipPath := filepath.Join(appDataDir(), "cache", "jre21"+ext)
+	u := "https://api.adoptium.net/v3/binary/latest/21/ga/" + osName + "/x64/jre/hotspot/normal/eclipse?project=jdk"
 	if err := simpleDownload(j, u, zipPath); err != nil {
 		return "", fmt.Errorf("не удалось скачать Java: %w", err)
 	}
 	dst := filepath.Join(appDataDir(), "java")
-	if err := unzip(zipPath, dst); err != nil {
-		return "", fmt.Errorf("не удалось распаковать Java: %w", err)
+	var uerr error
+	if isWindows() {
+		uerr = unzip(zipPath, dst)
+	} else {
+		uerr = untarGz(zipPath, dst)
+	}
+	if uerr != nil {
+		return "", fmt.Errorf("не удалось распаковать Java: %w", uerr)
 	}
 	_ = os.Remove(zipPath)
-	ms, _ := filepath.Glob(filepath.Join(dst, "*", "bin", "java.exe"))
+	ms, _ := filepath.Glob(filepath.Join(dst, "*", "bin", bin))
 	if len(ms) == 0 {
-		return "", errors.New("Java распакована, но java.exe не найден")
+		return "", errors.New("Java распакована, но " + bin + " не найден")
 	}
 	return ms[0], nil
 }
@@ -268,4 +296,54 @@ func unzip(src, dst string) error {
 		}
 	}
 	return nil
+}
+
+func untarGz(src, dst string) error {
+	f, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	gz, err := gzip.NewReader(f)
+	if err != nil {
+		return err
+	}
+	tr := tar.NewReader(gz)
+	base, _ := filepath.Abs(dst)
+	for {
+		h, err := tr.Next()
+		if err == io.EOF {
+			return nil
+		}
+		if err != nil {
+			return err
+		}
+		p := filepath.Join(base, filepath.FromSlash(h.Name))
+		if !strings.HasPrefix(p, base+string(os.PathSeparator)) {
+			return fmt.Errorf("подозрительный путь в архиве: %s", h.Name)
+		}
+		switch h.Typeflag {
+		case tar.TypeDir:
+			_ = os.MkdirAll(p, 0o755)
+		case tar.TypeReg:
+			if err := os.MkdirAll(filepath.Dir(p), 0o755); err != nil {
+				return err
+			}
+			out, err := os.OpenFile(p, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, os.FileMode(h.Mode)&0o755|0o600)
+			if err != nil {
+				return err
+			}
+			_, err = io.Copy(out, tr)
+			out.Close()
+			if err != nil {
+				return err
+			}
+		case tar.TypeSymlink:
+			if filepath.IsAbs(h.Linkname) || strings.Contains(h.Linkname, "..") {
+				continue
+			}
+			_ = os.MkdirAll(filepath.Dir(p), 0o755)
+			_ = os.Symlink(h.Linkname, p)
+		}
+	}
 }

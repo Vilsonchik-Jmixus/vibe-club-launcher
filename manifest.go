@@ -23,7 +23,8 @@ type Manifest struct {
 	Minecraft  string     `json:"minecraft"`
 	Loader     Loader     `json:"loader"`
 	Server     ServerInfo `json:"server"`
-	Launcher   *Release   `json:"launcher,omitempty"`
+	Launcher   *Release   `json:"launcher,omitempty"`      // Windows exe
+	LauncherLx *Release   `json:"launcherLinux,omitempty"` // Linux x64 binary
 	News       []News     `json:"news,omitempty"`
 	JavaArgs   string     `json:"javaArgs,omitempty"`
 	ModCount   int        `json:"modCount,omitempty"`
@@ -221,20 +222,20 @@ const (
 )
 
 type JobStatus struct {
-	Running    bool     `json:"running"`
-	Kind       JobKind  `json:"kind"`
-	Phase      string   `json:"phase"`
-	PhaseText  string   `json:"phaseText"`
-	Total      int      `json:"total"`
-	Done       int      `json:"done"`
-	BytesTotal int64    `json:"bytesTotal"`
-	BytesDone  int64    `json:"bytesDone"`
-	Speed      float64  `json:"speed"`
-	Current    string   `json:"current"`
-	Paused     bool     `json:"paused"`
-	Error      string   `json:"error"`
-	Finished   bool     `json:"finished"`
-	Log        []string `json:"log"`
+	Running    bool         `json:"running"`
+	Kind       JobKind      `json:"kind"`
+	Phase      string       `json:"phase"`
+	PhaseText  string       `json:"phaseText"`
+	Total      int          `json:"total"`
+	Done       int          `json:"done"`
+	BytesTotal int64        `json:"bytesTotal"`
+	BytesDone  int64        `json:"bytesDone"`
+	Speed      float64      `json:"speed"`
+	Current    string       `json:"current"`
+	Paused     bool         `json:"paused"`
+	Error      string       `json:"error"`
+	Finished   bool         `json:"finished"`
+	Log        []string     `json:"log"`
 	Manual     []ManualItem `json:"manual,omitempty"`
 }
 
@@ -633,4 +634,12 @@ func moveForeignMods(dir string, m *Manifest) (int, string) {
 		}
 	}
 	return n, bdir
+}
+
+// launcherRelease returns the launcher build for this platform.
+func (m *Manifest) launcherRelease() *Release {
+	if isWindows() {
+		return m.Launcher
+	}
+	return m.LauncherLx
 }

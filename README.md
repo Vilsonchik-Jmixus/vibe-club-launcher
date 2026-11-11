@@ -25,3 +25,18 @@ GOOS=windows GOARCH=amd64 go build -trimpath -ldflags "-H windowsgui -s -w" -o V
 
 1. Собрать новый `pack/manifest.json` (`go run ./tools/mkmanifest ...`) с новым `version`.
 2. Закоммитить `pack/`. Лаунчеры игроков увидят «доступна версия …».
+
+## Linux
+
+Файл `VibeClubLauncher-linux-x64` (x86-64, без зависимостей):
+
+```sh
+chmod +x VibeClubLauncher-linux-x64
+./VibeClubLauncher-linux-x64
+```
+
+- Окно лаунчера открывается в Chrome/Chromium/Edge/Brave/Vivaldi/Яндекс Браузере (режим приложения), иначе — в браузере по умолчанию.
+- Выбор папки — через zenity или kdialog; если их нет, путь вводится вручную.
+- «Играть» запускает официальный Minecraft Launcher (`minecraft-launcher`, /opt/minecraft-launcher или Flatpak `com.mojang.Minecraft`).
+- Java 21 для установщика NeoForge берётся из лаунчера Minecraft/системы или скачивается (Temurin).
+- После первого запуска лаунчер появляется в меню приложений.

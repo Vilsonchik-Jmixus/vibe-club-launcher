@@ -188,7 +188,14 @@ $('btnSelfUpdate').onclick = async () => { try { await api('update-launcher', { 
 // ---- folder
 async function pickFolder() {
   try {
-    const r = await api('pick-folder', { method: 'POST' });
+    let r;
+    try { r = await api('pick-folder', { method: 'POST' }); }
+    catch (e) {
+      if (e.message !== 'NO_PICKER') throw e;
+      const typed = prompt('Введи путь к папке сборки (например ~/Games/VibeClub или папка профиля Minecraft):', (S && S.settings.installDir) || '');
+      if (!typed) return;
+      r = { path: typed };
+    }
     if (!r.path) return;
     S = await api('settings', { method: 'POST', json: { installDir: r.path } });
     render();

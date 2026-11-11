@@ -13,10 +13,10 @@
   "port": 25737
  },
  "launcher": {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
-  "sha1": "8bb6f82c8449cbde08649254f942a650f5ca537b",
-  "size": 12350976
+  "sha1": "0aed8fca8ab8269d7f36cfbef471ed3b36de5d2a",
+  "size": 12354560
  },
  "news": [
   {
@@ -4884,5 +4884,11 @@
    "size": 160,
    "policy": "once"
   }
- ]
+ ],
+ "launcherLinux": {
+  "version": "1.0.3",
+  "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher-linux-x64",
+  "sha1": "6fe3d52a55f59c9f146e89bdf14e10bc2609a609",
+  "size": 12034232
+ }
 }

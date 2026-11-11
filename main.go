@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.2"
+const LauncherVersion = "1.0.3"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -73,6 +73,7 @@ func main() {
 			waitIdleThenQuit()
 		}()
 	}
+	go installDesktopEntry()
 	go watchdog()
 	<-quitCh
 	if j := currentJob(); j != nil && j.status().Running {
@@ -199,8 +200,8 @@ func buildState(force bool) StateResp {
 		}
 		r.Remote = ri
 		r.UpdateAvailable = r.Installed && r.LocalVersion != m.Version
-		if m.Launcher != nil && versionLess(LauncherVersion, m.Launcher.Version) {
-			r.LauncherUpdate = m.Launcher
+		if lr := m.launcherRelease(); lr != nil && versionLess(LauncherVersion, lr.Version) {
+			r.LauncherUpdate = lr
 		}
 	}
 	if j := currentJob(); j != nil {
@@ -318,7 +319,13 @@ func registerAPI(mux *http.ServeMux, p string) {
 		}
 		s := updateSettings(func(s *Settings) {
 			if in.InstallDir != nil && *in.InstallDir != "" {
-				s.InstallDir = filepath.Clean(*in.InstallDir)
+				d := *in.InstallDir
+				if strings.HasPrefix(d, "~") {
+					if home, err := os.UserHomeDir(); err == nil {
+						d = home + d[1:]
+					}
+				}
+				s.InstallDir = filepath.Clean(d)
 			}
 			if in.MemoryGB != nil && *in.MemoryGB >= 2 && *in.MemoryGB <= 32 {
 				s.MemoryGB = *in.MemoryGB
@@ -474,7 +481,8 @@ func selfUpdate() error {
 	if err != nil {
 		return err
 	}
-	if m.Launcher == nil || !versionLess(LauncherVersion, m.Launcher.Version) {
+	rel := m.launcherRelease()
+	if rel == nil || !versionLess(LauncherVersion, rel.Version) {
 		return errors.New("обновлений лаунчера нет")
 	}
 	exe, err := os.Executable()
@@ -483,17 +491,17 @@ func selfUpdate() error {
 	}
 	newPath := exe + ".new"
 	j := &Job{cancel: make(chan struct{})}
-	if err := simpleDownload(j, m.Launcher.URL, newPath); err != nil {
+	if err := simpleDownload(j, rel.URL, newPath); err != nil {
 		return err
 	}
-	if m.Launcher.SHA1 != "" {
-		if h, _ := sha1File(newPath); !strings.EqualFold(h, m.Launcher.SHA1) {
+	if rel.SHA1 != "" {
+		if h, _ := sha1File(newPath); !strings.EqualFold(h, rel.SHA1) {
 			_ = os.Remove(newPath)
 			return errors.New("файл обновления повреждён")
 		}
 	}
 	if !isWindows() {
-		return errors.New("только Windows")
+		return replaceAndRestart(exe, newPath)
 	}
 	bat := filepath.Join(appDataDir(), "update.cmd")
 	script := fmt.Sprintf("@echo off\r\nping 127.0.0.1 -n 3 >nul\r\nmove /y \"%s\" \"%s\" >nul\r\nstart \"\" \"%s\"\r\ndel \"%%~f0\"\r\n", newPath, exe, exe)
