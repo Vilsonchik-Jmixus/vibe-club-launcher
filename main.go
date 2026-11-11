@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.0"
+const LauncherVersion = "1.0.1"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -292,10 +292,14 @@ func registerAPI(mux *http.ServeMux, p string) {
 		}
 		// A folder that already has other content gets a VibeClub subfolder, so we never mix
 		// the pack into e.g. the Desktop or Documents.
-		if p2 := suggestSubfolder(p); p2 != p {
-			p = p2
+		p = suggestSubfolder(p)
+		mode := "new"
+		if isInstalled(p) {
+			mode = "installed"
+		} else if isGameFolder(p) {
+			mode = "profile"
 		}
-		writeJSON(w, map[string]string{"path": p})
+		writeJSON(w, map[string]string{"path": p, "mode": mode})
 	})
 	h("settings", func(w http.ResponseWriter, r *http.Request) {
 		var in struct {
@@ -436,9 +440,10 @@ func registerAPI(mux *http.ServeMux, p string) {
 	})
 }
 
-// suggestSubfolder returns p itself when it is empty or already a pack folder, otherwise p\VibeClub.
+// suggestSubfolder returns p itself when it is empty, already a pack folder or an existing
+// Minecraft profile (CurseForge instance, official launcher game folder); otherwise p\VibeClub.
 func suggestSubfolder(p string) string {
-	if isInstalled(p) {
+	if isInstalled(p) || isGameFolder(p) {
 		return p
 	}
 	entries, err := os.ReadDir(p)
@@ -449,6 +454,16 @@ func suggestSubfolder(p string) string {
 		return p
 	}
 	return filepath.Join(p, "VibeClub")
+}
+
+// isGameFolder reports whether p already looks like a Minecraft profile folder.
+func isGameFolder(p string) bool {
+	for _, n := range []string{"mods", "config", "saves", "options.txt", "minecraftinstance.json", "resourcepacks"} {
+		if _, err := os.Stat(filepath.Join(p, n)); err == nil {
+			return true
+		}
+	}
+	return false
 }
 
 // selfUpdate downloads the new launcher next to the current exe and swaps it after exit.

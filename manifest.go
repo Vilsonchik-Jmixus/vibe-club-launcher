@@ -390,6 +390,14 @@ func runJob(j *Job, kind JobKind) error {
 		_ = saveState(dir, st)
 	}
 
+	// First install into an existing profile: jars that are not part of the pack (old versions,
+	// other mods) would clash with ours, so move them aside instead of deleting them.
+	if kind == JobInstall && len(st.Files) == 0 {
+		if n, bdir := moveForeignMods(dir, m); n > 0 {
+			j.logf("Чужие моды (%d шт.) перенесены в %s — их можно вернуть вручную", n, bdir)
+		}
+	}
+
 	// Work out which files need downloading.
 	j.set(func(s *JobStatus) {
 		s.Phase = "check"
@@ -597,4 +605,32 @@ func copyFileTo(src, dst string) error {
 		return err
 	}
 	return replaceFile(tmp, dst)
+}
+
+// moveForeignMods moves mods/*.jar that are not in the manifest into mods_backup_vibeclub_<date>.
+func moveForeignMods(dir string, m *Manifest) (int, string) {
+	want := map[string]bool{}
+	for _, f := range m.Files {
+		want[strings.ToLower(f.Path)] = true
+	}
+	modsDir := filepath.Join(dir, "mods")
+	entries, err := os.ReadDir(modsDir)
+	if err != nil {
+		return 0, ""
+	}
+	bdir := filepath.Join(dir, "mods_backup_vibeclub_"+time.Now().Format("2006-01-02_15-04"))
+	n := 0
+	for _, e := range entries {
+		name := e.Name()
+		if e.IsDir() || !strings.HasSuffix(strings.ToLower(name), ".jar") || want[strings.ToLower("mods/"+name)] {
+			continue
+		}
+		if err := os.MkdirAll(bdir, 0o755); err != nil {
+			return n, bdir
+		}
+		if os.Rename(filepath.Join(modsDir, name), filepath.Join(bdir, name)) == nil {
+			n++
+		}
+	}
+	return n, bdir
 }

@@ -113,7 +113,7 @@ function render() {
   $('spaceLine').textContent = R ? `Нужно ${fmtBytes(need)} • свободно ${fmtBytes(S.freeBytes)}` : (S.remoteError ? 'Нет связи с сервером обновлений' : '');
   $('btnDownload').disabled = !R || !!busy;
   $('btnDownload').querySelector('span:not(.icon)').textContent = S.installed ? 'ОБНОВИТЬ СБОРКУ' : 'СКАЧАТЬ СБОРКУ';
-  $('installHint').textContent = S.installed ? 'В этой папке уже есть сборка — докачаю только недостающее' : 'Твоё приключение начинается здесь';
+  $('installHint').textContent = S.installed ? 'В этой папке уже есть сборка — докачаю только недостающее' : 'Можно выбрать уже созданный профиль Minecraft (папку с mods и config) — сборка встанет прямо в него';
 
   // settings
   $('memRange').value = st.memoryGB; setMemLabel(st.memoryGB);
@@ -186,7 +186,9 @@ async function pickFolder() {
     const r = await api('pick-folder', { method: 'POST' });
     if (!r.path) return;
     S = await api('settings', { method: 'POST', json: { installDir: r.path } });
-    render(); toast('Папка сборки: ' + r.path);
+    render();
+    toast(r.mode === 'profile' ? 'Найден профиль Minecraft — сборка встанет прямо в него: ' + r.path + '. Миры и настройки останутся, старые моды уберу в папку mods_backup_vibeclub.'
+      : r.mode === 'installed' ? 'Здесь уже стоит Vibe Club: ' + r.path : 'Папка сборки: ' + r.path);
   } catch (e) { toast(e.message, true); }
 }
 $('btnPick').onclick = pickFolder;

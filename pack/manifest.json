@@ -1,5 +1,6 @@
 {
  "pack": "Vibe Club",
+ "version": "1.0",
  "minecraft": "1.21.1",
  "loader": {
   "type": "neoforge",
@@ -10,6 +11,12 @@
   "address": "vibeclub.mcmod.ru",
   "host": "65.108.18.28",
   "port": 25737
+ },
+ "launcher": {
+  "version": "1.0.1",
+  "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
+  "sha1": "512ffb5e2c18c7dab943bb7f7690f8eea16dc283",
+  "size": 12348928
  },
  "news": [
   {
@@ -28,7 +35,6 @@
    "text": "Сервер оптимизирован: дальние горизонты (Distant Horizons) и стабильные 20 TPS."
   }
  ],
- "version": "1.0",
  "baseUrl": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/files",
  "modCount": 321,
  "files": [
