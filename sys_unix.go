@@ -155,23 +155,6 @@ func openAppWindow(url string) (*exec.Cmd, error) {
 	return nil, openURL(url)
 }
 
-// replaceAndRestart swaps the running binary (allowed on Linux) and starts the new one.
-func replaceAndRestart(exe, newPath string) error {
-	if err := os.Chmod(newPath, 0o755); err != nil {
-		return err
-	}
-	if err := os.Rename(newPath, exe); err != nil {
-		return err
-	}
-	cmd := exec.Command(exe)
-	cmd.Stdout, cmd.Stderr = nil, nil
-	if err := cmd.Start(); err != nil {
-		return err
-	}
-	go func() { quit() }()
-	return nil
-}
-
 // installDesktopEntry adds the launcher to the application menu (once per binary location).
 func installDesktopEntry() {
 	exe, err := os.Executable()

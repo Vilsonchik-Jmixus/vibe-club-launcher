@@ -76,6 +76,7 @@ func ensureLoaderAndProfile(j *Job, m *Manifest) error {
 		j.logf("Запускаю установщик NeoForge: %s", java)
 		cmd := exec.Command(java, "-jar", inst, "--install-client", mc)
 		hideWindow(cmd)
+		cmd.Dir = filepath.Dir(inst) // the installer writes installer.log into the working dir
 		var out bytes.Buffer
 		cmd.Stdout, cmd.Stderr = &out, &out
 		err = cmd.Run()
@@ -84,6 +85,7 @@ func ensureLoaderAndProfile(j *Job, m *Manifest) error {
 			out.Reset()
 			cmd2 := exec.Command(java, "-jar", inst, "--installClient", mc)
 			hideWindow(cmd2)
+			cmd2.Dir = filepath.Dir(inst)
 			cmd2.Stdout, cmd2.Stderr = &out, &out
 			err = cmd2.Run()
 		}

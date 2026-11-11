@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.3"
+const LauncherVersion = "1.0.4"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -40,6 +40,7 @@ func quit() { quitOnce.Do(func() { close(quitCh) }) }
 func main() {
 	loadSettings()
 	appendLog("Запуск лаунчера " + LauncherVersion)
+	cleanupOldBinary()
 	applyPendingSkin()
 
 	ln, err := net.Listen("tcp", "127.0.0.1:0")
@@ -500,19 +501,43 @@ func selfUpdate() error {
 			return errors.New("файл обновления повреждён")
 		}
 	}
-	if !isWindows() {
-		return replaceAndRestart(exe, newPath)
+	return replaceAndRestart(exe, newPath)
+}
+
+// replaceAndRestart swaps in the downloaded launcher and starts it. A running exe cannot be
+// overwritten on Windows, but it can be renamed, so the old one becomes <exe>.old and is
+// removed on the next start.
+func replaceAndRestart(exe, newPath string) error {
+	_ = os.Chmod(newPath, 0o755)
+	old := exe + ".old"
+	_ = os.Remove(old)
+	if err := os.Rename(exe, old); err != nil {
+		return fmt.Errorf("не удалось заменить лаунчер: %w", err)
 	}
-	bat := filepath.Join(appDataDir(), "update.cmd")
-	script := fmt.Sprintf("@echo off\r\nping 127.0.0.1 -n 3 >nul\r\nmove /y \"%s\" \"%s\" >nul\r\nstart \"\" \"%s\"\r\ndel \"%%~f0\"\r\n", newPath, exe, exe)
-	if err := os.WriteFile(bat, []byte(script), 0o644); err != nil {
-		return err
+	if err := os.Rename(newPath, exe); err != nil {
+		_ = os.Rename(old, exe)
+		return fmt.Errorf("не удалось заменить лаунчер: %w", err)
 	}
-	cmd := exec.Command("cmd.exe", "/c", bat)
-	hideWindow(cmd)
-	if err := cmd.Start(); err != nil {
+	appendLog("Лаунчер обновлён, перезапуск")
+	if err := exec.Command(exe).Start(); err != nil {
 		return err
 	}
 	go func() { time.Sleep(500 * time.Millisecond); quit() }()
 	return nil
+}
+
+func cleanupOldBinary() {
+	exe, err := os.Executable()
+	if err != nil {
+		return
+	}
+	go func() {
+		for i := 0; i < 10; i++ {
+			if err := os.Remove(exe + ".old"); err == nil || os.IsNotExist(err) {
+				break
+			}
+			time.Sleep(time.Second)
+		}
+		_ = os.Remove(exe + ".new")
+	}()
 }
