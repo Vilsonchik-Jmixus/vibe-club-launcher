@@ -58,7 +58,7 @@
 
       <div class="install-content" id="installForm">
         <label>Папка сборки</label>
-        <div class="folder-field"><span class="icon" data-icon="folder"></span><span id="installDir" class="path"></span><button class="plate small" id="btnPick"><span>Выбрать папку</span><i></i><b></b></button></div>
+        <div class="folder-field"><span class="icon" data-icon="folder"></span><input id="installDir" class="path path-input" spellcheck="false" autocomplete="off" placeholder="Вставь путь (Ctrl+V) или нажми «Выбрать папку»" title="Можно вставить скопированный путь: Ctrl+V и Enter"><button class="plate small" id="btnPick"><span>Выбрать папку</span><i></i><b></b></button></div>
         <p class="space" id="spaceLine"></p>
         <div class="install-divider"></div>
         <button class="plate primary download" id="btnDownload"><span class="icon" data-icon="update"></span><span>СКАЧАТЬ СБОРКУ</span><i></i><b></b></button>
@@ -108,7 +108,7 @@
           <input type="range" min="4" max="16" step="1" id="memRange" class="mem-range">
           <div class="range"><span>4 ГБ</span><span>16 ГБ</span></div>
           <label>Папка сборки</label>
-          <div class="folder-field"><span class="icon" data-icon="folder"></span><span id="settingsDir" class="path"></span><button class="plate small" id="btnChangeDir"><span>Изменить</span><i></i><b></b></button></div>
+          <div class="folder-field"><span class="icon" data-icon="folder"></span><input id="settingsDir" class="path path-input" spellcheck="false" autocomplete="off" placeholder="Вставь путь (Ctrl+V)" title="Можно вставить скопированный путь: Ctrl+V и Enter"><button class="plate small" id="btnChangeDir"><span>Изменить</span><i></i><b></b></button></div>
           <div class="toggle-box">
             <div class="toggle-row"><span>Проверять обновления при запуске</span><button class="toggle" id="tglUpdates"><i></i></button></div>
             <div class="toggle-row"><span>Закрывать лаунчер после запуска игры</span><button class="toggle" id="tglClose"><i></i></button></div>

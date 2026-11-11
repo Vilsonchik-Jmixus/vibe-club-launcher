@@ -11,6 +11,7 @@ import (
 	"io/fs"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -19,7 +20,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.9"
+const LauncherVersion = "1.0.10"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -297,17 +298,23 @@ func registerAPI(mux *http.ServeMux, p string) {
 			writeJSON(w, map[string]string{"path": ""})
 			return
 		}
-		// A folder that already has other content gets a VibeClub subfolder, so we never mix
-		// the pack into e.g. the Desktop or Documents.
-		p = suggestSubfolder(p)
-		mode := "new"
-		if isInstalled(p) {
-			mode = "installed"
-		} else if isGameFolder(p) {
-			mode = "profile"
+		writeJSON(w, describeFolder(p))
+	})
+	// check-folder takes a path typed or pasted by the player and answers like pick-folder.
+	h("check-folder", func(w http.ResponseWriter, r *http.Request) {
+		var in struct {
+			Path string `json:"path"`
 		}
-		pi := detectProfile(p, nil)
-		writeJSON(w, map[string]string{"path": p, "mode": mode, "launcher": pi.Name, "kind": pi.Kind})
+		if err := json.NewDecoder(io.LimitReader(r.Body, 1<<16)).Decode(&in); err != nil {
+			writeErr(w, err)
+			return
+		}
+		p, err := cleanUserPath(in.Path)
+		if err != nil {
+			writeErr(w, err)
+			return
+		}
+		writeJSON(w, describeFolder(p))
 	})
 	h("settings", func(w http.ResponseWriter, r *http.Request) {
 		var in struct {
@@ -468,6 +475,98 @@ func registerAPI(mux *http.ServeMux, p string) {
 
 // suggestSubfolder returns p itself when it is empty, already a pack folder or an existing
 // Minecraft profile (CurseForge instance, official launcher game folder); otherwise p\VibeClub.
+// describeFolder picks the real install folder for a chosen path and says what is in it.
+func describeFolder(p string) map[string]string {
+	// A folder that already has other content gets a VibeClub subfolder, so we never mix
+	// the pack into e.g. the Desktop or Documents.
+	p = suggestSubfolder(p)
+	mode := "new"
+	if isInstalled(p) {
+		mode = "installed"
+	} else if isGameFolder(p) {
+		mode = "profile"
+	}
+	pi := detectProfile(p, nil)
+	return map[string]string{"path": p, "mode": mode, "launcher": pi.Name, "kind": pi.Kind}
+}
+
+// cleanUserPath turns a pasted path into a clean absolute one: strips quotes and spaces
+// (Explorer's "Copy as path" adds quotes), expands ~ and %VARS%.
+func cleanUserPath(s string) (string, error) {
+	s = strings.TrimSpace(s)
+	s = strings.Trim(s, "\"'«»")
+	s = strings.TrimSpace(s)
+	if s == "" {
+		return "", errors.New("вставь путь к папке")
+	}
+	if strings.HasPrefix(s, "~") {
+		if home, err := os.UserHomeDir(); err == nil {
+			s = home + s[1:]
+		}
+	}
+	s = os.Expand(s, os.Getenv)
+	if isWindows() {
+		s = expandPercentVars(s)
+	}
+	if strings.HasPrefix(strings.ToLower(s), "file://") {
+		s = s[len("file://"):]
+		if u, err := url.PathUnescape(s); err == nil {
+			s = u
+		}
+		if len(s) > 2 && s[0] == '/' && s[2] == ':' { // file:///C:/Games
+			s = s[1:]
+		}
+	}
+	if !filepath.IsAbs(s) {
+		return "", errors.New("нужен полный путь, например C:\\Games\\VibeClub")
+	}
+	s = filepath.Clean(s)
+	if fi, err := os.Stat(s); err == nil && !fi.IsDir() {
+		s = filepath.Dir(s) // a file was pasted — use its folder
+	}
+	if existingParent(s) == "" {
+		return "", errors.New("такого диска нет: " + s)
+	}
+	return s, nil
+}
+
+func expandPercentVars(s string) string {
+	for {
+		i := strings.Index(s, "%")
+		if i < 0 {
+			return s
+		}
+		j := strings.Index(s[i+1:], "%")
+		if j < 0 {
+			return s
+		}
+		name := s[i+1 : i+1+j]
+		v, ok := os.LookupEnv(name)
+		if !ok {
+			return s
+		}
+		s = s[:i] + v + s[i+2+j:]
+	}
+}
+
+// existingParent returns the path itself or its nearest existing parent folder.
+func existingParent(p string) string {
+	if p == "" {
+		return ""
+	}
+	d := filepath.Clean(p)
+	for {
+		if fi, err := os.Stat(d); err == nil && fi.IsDir() {
+			return d
+		}
+		parent := filepath.Dir(d)
+		if parent == d {
+			return ""
+		}
+		d = parent
+	}
+}
+
 func suggestSubfolder(p string) string {
 	if exists(filepath.Join(p, "instance.cfg")) { // Prism/MultiMC instance root
 		for _, sub := range []string{"minecraft", ".minecraft"} {

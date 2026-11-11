@@ -60,6 +60,10 @@ func messageBox(title, text string) {
 const psPrelude = `[Console]::OutputEncoding=[Text.Encoding]::UTF8;Add-Type -AssemblyName System.Windows.Forms;$o=New-Object System.Windows.Forms.Form -Property @{TopMost=$true;ShowInTaskbar=$false;Width=0;Height=0;StartPosition='CenterScreen'};$o.Show();$o.Hide();`
 
 func pickFolder(initial string) (string, error) {
+	if p, err := pickFolderModern(initial); err == nil {
+		return p, nil
+	}
+	appendLog("Новое окно выбора папки не открылось, использую старое")
 	script := psPrelude + `$d=New-Object System.Windows.Forms.FolderBrowserDialog;$d.Description='Выбери папку для сборки Vibe Club';$d.ShowNewFolderButton=$true;$d.SelectedPath=$env:VC_INITIAL;if($d.ShowDialog($o) -eq 'OK'){[Console]::Out.Write($d.SelectedPath)}`
 	cmd := exec.Command("powershell.exe", "-NoProfile", "-STA", "-ExecutionPolicy", "Bypass", "-Command", script)
 	cmd.Env = append(os.Environ(), "VC_INITIAL="+initial)

@@ -109,17 +109,16 @@ function render() {
   renderNews(R ? R.news : null);
 
   // install form
-  $('installDir').textContent = st.installDir;
-  $('installDir').title = st.installDir;
+  setPathField('installDir', st.installDir);
   const need = R ? R.size : 0;
   $('spaceLine').textContent = R ? `Нужно ${fmtBytes(need)} • свободно ${fmtBytes(S.freeBytes)}` : (S.remoteError ? 'Нет связи с сервером обновлений' : '');
   $('btnDownload').disabled = !R || !!busy;
   $('btnDownload').querySelector('span:not(.icon)').textContent = S.installed ? 'ОБНОВИТЬ СБОРКУ' : 'СКАЧАТЬ СБОРКУ';
-  $('installHint').textContent = S.installed ? 'В этой папке уже есть сборка — докачаю только недостающее' : 'Можно выбрать уже созданный профиль Minecraft (папку с mods и config) — сборка встанет прямо в него';
+  $('installHint').textContent = S.installed ? 'В этой папке уже есть сборка — докачаю только недостающее' : 'Скопируй путь к папке и вставь в поле выше (Ctrl+V), или нажми «Выбрать папку». Можно указать уже созданный профиль Minecraft — сборка встанет прямо в него';
 
   // settings
   $('memRange').value = st.memoryGB; setMemLabel(st.memoryGB);
-  $('settingsDir').textContent = st.installDir; $('settingsDir').title = st.installDir;
+  setPathField('settingsDir', st.installDir);
   $('tglUpdates').classList.toggle('on', st.checkUpdates);
   $('tglClose').classList.toggle('on', st.closeAfterLaunch);
   $('btnRepair').disabled = !S.installed || !!busy;
@@ -229,6 +228,20 @@ $('btnSelfUpdate').onclick = async () => {
 };
 
 // ---- folder
+function setPathField(id, value) {
+  const el = $(id);
+  if (document.activeElement === el || el.dataset.dirty === '1') return; // the player is typing
+  el.value = value || '';
+  el.title = (value ? value + '\n' : '') + 'Можно вставить скопированный путь: Ctrl+V и Enter';
+}
+async function applyFolder(r) {
+  if (!r || !r.path) return;
+  S = await api('settings', { method: 'POST', json: { installDir: r.path } });
+  ['installDir', 'settingsDir'].forEach((id) => { $(id).dataset.dirty = ''; });
+  render();
+  toast(r.mode === 'profile' ? 'Найден профиль' + (r.kind && r.kind !== 'official' ? ' ' + r.launcher : ' Minecraft') + ' — сборка встанет прямо в него: ' + r.path + '. Миры и настройки останутся, старые моды уберу в папку mods_backup_vibeclub.'
+    : r.mode === 'installed' ? 'Здесь уже стоит Vibe Club: ' + r.path : 'Папка сборки: ' + r.path);
+}
 async function pickFolder() {
   try {
     let r;
@@ -237,15 +250,32 @@ async function pickFolder() {
       if (e.message !== 'NO_PICKER') throw e;
       const typed = prompt('Введи путь к папке сборки (например ~/Games/VibeClub или папка профиля Minecraft):', (S && S.settings.installDir) || '');
       if (!typed) return;
-      r = { path: typed };
+      r = await api('check-folder', { method: 'POST', json: { path: typed } });
     }
-    if (!r.path) return;
-    S = await api('settings', { method: 'POST', json: { installDir: r.path } });
-    render();
-    toast(r.mode === 'profile' ? 'Найден профиль' + (r.kind && r.kind !== 'official' ? ' ' + r.launcher : ' Minecraft') + ' — сборка встанет прямо в него: ' + r.path + '. Миры и настройки останутся, старые моды уберу в папку mods_backup_vibeclub.'
-      : r.mode === 'installed' ? 'Здесь уже стоит Vibe Club: ' + r.path : 'Папка сборки: ' + r.path);
+    await applyFolder(r);
   } catch (e) { toast(e.message, true); }
 }
+async function usePastedPath(el) {
+  const v = el.value.trim();
+  if (!v || (S && v === S.settings.installDir)) { el.dataset.dirty = ''; render(); return; }
+  try {
+    const r = await api('check-folder', { method: 'POST', json: { path: v } });
+    el.dataset.dirty = '';
+    el.blur();
+    await applyFolder(r);
+  } catch (e) { toast(e.message, true); }
+}
+['installDir', 'settingsDir'].forEach((id) => {
+  const el = $(id);
+  el.addEventListener('input', () => { el.dataset.dirty = '1'; });
+  el.addEventListener('paste', () => { el.dataset.dirty = '1'; setTimeout(() => usePastedPath(el), 0); });
+  el.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); usePastedPath(el); }
+    if (e.key === 'Escape') { el.dataset.dirty = ''; el.blur(); render(); }
+  });
+  el.addEventListener('focus', () => el.select());
+  el.addEventListener('blur', () => { if (el.dataset.dirty === '1') usePastedPath(el); });
+});
 $('btnPick').onclick = pickFolder;
 $('btnChangeDir').onclick = pickFolder;
 

@@ -76,3 +76,9 @@ nav{margin-right:62px}
 .cube canvas{position:absolute;left:0;top:0;image-rendering:pixelated;backface-visibility:hidden}
 .cube.overlay canvas{pointer-events:none}
 #rotLabel{cursor:pointer}
+
+.path-input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:#E8D8F0;font:15px 'Segoe UI',sans-serif;letter-spacing:.3px;padding:6px 4px;border-radius:4px;text-overflow:ellipsis}
+.path-input:hover{background:#ffffff08}
+.path-input:focus{background:#10071d;box-shadow:inset 0 0 0 1px #a56a40}
+.path-input::placeholder{color:#82698f}
+.path-hint{font-size:11px;color:#9d84ab;margin:6px 2px 0}
