@@ -1,0 +1,45 @@
+[hot_food]
+	#烟火气系统 / Hot-food system
+	#【厨房料理烟火气】允许森罗厨房的炒锅、炖锅为成品附加🔥烟火气和调料效果。 / Allow Kaleidoscope Cookery pots and stockpots to add the hot-food state and seasoning effects to finished dishes.
+	enableCookeryFoodHeatAndSeasoning = true
+	#【熔炉料理烟火气】开启后，从熔炉或烟熏炉取出的可食用成品自动获得🔥烟火气。 / When enabled, edible furnace and smoker outputs gain the hot-food state when taken out.
+	enableSmeltedFoodHeat = false
+	#【熔炉烟火气时长】熔炉或烟熏炉产出食物的🔥烟火气持续时间（秒）。 / Duration in seconds of the hot-food state on edible furnace and smoker outputs.
+	# Default: 30
+	# Range: 1 ~ 86400
+	smeltedFoodSeconds = 30
+	#【烟火气饱和度倍率】食物带有🔥烟火气时的饱和度倍率。默认 125%，不改变饱食度。 / Saturation multiplier while food has the hot-food state. Defaults to 125% and does not change nutrition.
+	# Default: 125
+	# Range: 100 ~ 200
+	hotSaturationPercent = 125
+
+[skewers]
+	#烤串 / Skewers
+	#【满饱食度食用】允许在饱食度已满时继续食用手持烤串和烤串盘中的烤串；关闭后遵循原版限制。 / Allow held and plated skewers to be eaten at full hunger. Disable this option to use vanilla hunger restrictions.
+	allowSkewersAtFullHunger = true
+	#【烤串食用动画】开启时使用烟火的独立食用动画、进度条和专属音效；关闭时改用原版食用方式，完整食用时间仍为 1.25 秒。 / Use Grilling's custom skewer eating animations, progress bar and sounds. When disabled, use vanilla eating while retaining the 1.25-second eating duration.
+	enableEatingAnimations = true
+	#【桌面餐盘优先】开启后，潜行手持烤串右击森罗厨房桌子时优先放置餐盘，并阻止桌子展示该烤串；关闭后保留桌子的原有展示交互。 / When enabled, sneak-using a skewer on a Kaleidoscope Cookery table places a plate first and prevents the table from displaying that skewer. Disable this option to preserve the table's original display interaction.
+	interceptCookeryTableWhenPlacingPlate = true
+
+[rendering]
+	#界面渲染 / GUI rendering
+	#【烤串 GUI 缓存】缓存已完成烤串的 GUI 图标，减少重复生成图标或渲染模型的性能开销。 / Cache completed-skewer GUI icons to reduce repeated icon generation and model rendering.
+	enableSkewerGuiCache = true
+	#【固定串 64×64 缓存】开启后，固定配方串使用生成的 64×64 GUI 图标；关闭后，使用手绘 16×16 图标（默认）。此项不影响秘制串。 / Use generated 64x64 GUI icons for fixed-recipe skewers. When disabled, use the hand-drawn 16x16 icons (default). This option does not affect custom skewers.
+	useFixedSkewer64xCache = false
+	#【秘制串 64×64 缓存】开启后，秘制串使用生成的 64×64 模型截图；关闭后，使用手绘 16×16 遮罩并按食材取色（默认）。 / Use generated 64x64 model captures for custom-skewer GUI icons. When disabled, use the hand-drawn 16x16 masks colored from their ingredients (default).
+	useCustomSkewer64xCache = false
+
+[maid_grilling]
+	#女仆烧烤 / Maid grilling
+	#【启用女仆烧烤】启用可选的女仆烧烤任务。 / Enable the optional maid grilling task.
+	enabled = true
+	#【女仆气泡冷却】同类工作状态气泡再次出现前的冷却时间（游戏刻）。 / Cooldown in ticks before the same maid status bubble can appear again.
+	# Default: 600
+	# Range: 20 ~ 72000
+	bubbleCooldownTicks = 600
+	#【女仆烧烤速度】女仆烧烤动作和动画的速度倍率。 / Speed multiplier for maid grilling actions and animations.
+	# Default: 1.0
+	# Range: 0.25 ~ 4.0
+	actionSpeedMultiplier = 1.0

@@ -1,0 +1,39 @@
+[clouds]
+	#Show drifting clouds over Sky Lands biomes.
+	skyBiomeClouds = true
+	#Show drifting clouds over other Overworld biomes. Independent of the Sky biome setting.
+	outsideClouds = true
+	#Horizontal cloud range in blocks. Spawning is limited to loaded chunks and your render distance.
+	# Default: 256
+	# Range: 64 ~ 2048
+	cloudDistance = 256
+	#Minimum possible Sky biome cloud Y. Default 100 avoids low ground/underground clouds. Noise distribution is not uniform. Reversed min/max values are treated as swapped.
+	# Default: 100
+	# Range: -2048 ~ 2048
+	skyCloudMinY = 100
+	#Maximum possible Sky biome cloud Y. Default 660 preserves the original upper bound; cosmetic particles can appear above the build ceiling.
+	# Default: 660
+	# Range: -2048 ~ 2048
+	skyCloudMaxY = 660
+	#Minimum possible cloud Y outside Sky biomes. Default 190 preserves the original 310 + noise * 120 formula.
+	# Default: 190
+	# Range: -2048 ~ 2048
+	outsideCloudMinY = 190
+	#Maximum possible cloud Y outside Sky biomes. Default 430 preserves the original formula. Equal endpoints make a single cloud layer.
+	# Default: 430
+	# Range: -2048 ~ 2048
+	outsideCloudMaxY = 430
+	#Clouds per cluster relative to the default. The particle limit still applies.
+	# Default: 1.0
+	# Range: 0.25 ~ 2.0
+	cloudDensity = 1.0
+	#Maximum ambient Sky Lands cloud particles tracked by this client. Lower this to reduce rendering cost.
+	# Default: 192
+	# Range: 32 ~ 512
+	maxCloudParticles = 96
+	#Show small puffs emitted by Cloud Blocks. Existing puffs fade naturally when disabled.
+	cloudBlockParticles = true
+
+[ambientEffects]
+	#Show the original lightweight wind streaks above Y=195 in the Overworld. Disable if you prefer another mod's wind visuals.
+	highAltitudeWind = true

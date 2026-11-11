@@ -1,0 +1,18 @@
+{
+  "borrow_sound": false,
+  "show_notification": true,
+  "borrow_duration": 3,
+  "borrow_combination": {
+    "attributeKey": {
+      "id": 340,
+      "type": "keysym"
+    },
+    "key": {
+      "id": 1,
+      "type": "mouse"
+    }
+  },
+  "mod_enabled": true,
+  "empty_hand_only": true,
+  "sync_emote": true
+}

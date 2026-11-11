@@ -1,0 +1,16 @@
+{
+  "analyzerRewardsEnabled": true,
+  "repeatRewardPercent": 30,
+  "repeatRewardEnabled": true,
+  "repeatRewardDays": 5,
+  "analysisSpeedPercentTenths": 10,
+  "requireNightSky": true,
+  "stellarView": false,
+  "eventsEnabled": true,
+  "eventChancePercent": 20,
+  "betaJadeIntegration": true,
+  "betaEnergyRequired": false,
+  "energyCapacity": 5000,
+  "energyPerTick": 20,
+  "energyMaxReceive": 1000
+}

@@ -1,0 +1,7 @@
+{
+  "name_key": "event.exposure_space.my_event",
+  "weight": 10,
+  "luck_multiplier": 2.0,
+  "analysis_speed_multiplier": 2.0,
+  "exclusive_objects": [ "exposure_space:my_comet" ]
+}

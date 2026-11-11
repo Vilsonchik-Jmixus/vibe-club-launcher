@@ -1,0 +1,5 @@
+["Compatibility Settings"]
+	#是否启用模糊烹饪配方
+	enableCustomPacks = true
+	#效果是否仅对矿物生效
+	instantSmeltingOnlyOres = false

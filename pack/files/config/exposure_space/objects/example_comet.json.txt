@@ -1,0 +1,12 @@
+{
+  "name_key": "cosmic.exposure_space.my_comet",
+  "description_key": "cosmic.exposure_space.my_comet.desc",
+  "type_key": "type.exposure_space.debris",
+  "required_tier": "normal",
+  "appearance_chance": 0.5,
+  "size": 28,
+  "base_analysis_ticks": 1800,
+  "catalog_texture": "exposure_space:textures/gui/catalog/objects/red_giant.png",
+  "rewards": [ { "id": "minecraft:diamond", "count": 1 } ],
+  "sky": { "yaw": 120.0, "pitch": -45.0, "spread": 8.0 }
+}

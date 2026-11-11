@@ -1,0 +1,8 @@
+[animation]
+	#Vanilla walk animation (swinging arms and legs) while the Rig carries you or a Ship carries you with it. Off: the body hangs still
+	walkWhileHeld = false
+
+[movement]
+	#What W and S follow while the Rig carries you. LOOK: the camera, look down and W takes you down. FLAT: level only, like walking or creative flight; jump and sneak change the height
+	#Allowed Values: LOOK, FLAT
+	forward = "LOOK"

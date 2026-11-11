@@ -1,0 +1,24 @@
+{
+  "blend": {
+    "func": "add",
+    "srcrgb": "one",
+    "dstrgb": "zero"
+  },
+  "vertex": "shine_blit",
+  "fragment": "shine_rimlight",
+  "attributes": ["Position"],
+  "samplers": [
+    { "name": "DiffuseSampler" },
+    { "name": "DepthSampler" },
+    { "name": "RimMaskSampler" }
+  ],
+  "uniforms": [
+    { "name": "OutSize", "type": "float", "count": 2, "values": [1.0, 1.0] },
+    { "name": "Thickness", "type": "float", "count": 1, "values": [3.0] },
+    { "name": "Strength", "type": "float", "count": 1, "values": [0.5] },
+    { "name": "DepthThreshold", "type": "float", "count": 1, "values": [0.1] },
+    { "name": "MaxDistance", "type": "float", "count": 1, "values": [64.0] },
+    { "name": "NearPlane", "type": "float", "count": 1, "values": [0.05] },
+    { "name": "FarPlane", "type": "float", "count": 1, "values": [512.0] }
+  ]
+}

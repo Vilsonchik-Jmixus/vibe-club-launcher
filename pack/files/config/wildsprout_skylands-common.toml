@@ -1,0 +1,10 @@
+# Minimum Y start level for floating islands generation
+# do not set this too close blocks to world limits
+# Default: 205
+# Range: -2048 ~ 2048
+floatingIslandsMinY = 205
+#Maximum Y start level for floating islands generation
+# do not set this too close blocks to world limits
+# Default: 270
+# Range: -2048 ~ 2048
+floatingIslandsMaxY = 270

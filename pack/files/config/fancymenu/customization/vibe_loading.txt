@@ -1,0 +1,253 @@
+type = fancymenu_layout
+layout-meta {
+  identifier = drippy_loading_overlay
+  is_enabled = true
+  layout_index = 0
+  render_custom_elements_behind_vanilla = false
+  randommode = false
+  [loading_requirement_container_meta:e62c4995-ab26-472b-9dc6-064da3e8ea4b] = [groups:][instances:]
+}
+menu_background {
+  background_type = image
+  instance_identifier = e712d991-98d5-44b4-957a-01494094202c
+  show_background = true
+  image_path = [source:local]/config/fancymenu/assets/vibe-bar-bg2.png
+  slide = false
+  repeat_texture = false
+  parallax = false
+}
+customization {
+  action = backgroundoptions
+  keepaspectratio = true
+}
+element {
+  element_type = image
+  instance_identifier = a119a6cc-c584-408d-8ebe-291af8a1ccfa
+  source = [source:local]/config/fancymenu/assets/vibe-load-panel2.png
+  repeat_texture = false
+  nine_slice_texture = false
+  appearance_delay = no_delay
+  fade_in = false
+  anchor_point = top-left
+  x = 0
+  y = 0
+  width = 10
+  height = 10
+  advanced_posx = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiwidth"}/2+(146-836)*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_posy = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiheight"}*730/941","decimal":"false"}}
+  advanced_width = {"placeholder":"calc","values":{"expression":"1380*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_height = {"placeholder":"calc","values":{"expression":"200*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = false
+  element_loading_requirement_container_identifier = 06cc2f4f-7632-4b64-a57c-67f39a6fef00
+  [loading_requirement_container_meta:06cc2f4f-7632-4b64-a57c-67f39a6fef00] = [groups:][instances:]
+}
+element {
+  element_type = image
+  instance_identifier = 493903d6-2069-4018-9d3b-1a4c4751b196
+  source = [source:local]/config/fancymenu/assets/vibe-tip-panel3.png
+  repeat_texture = false
+  nine_slice_texture = false
+  appearance_delay = no_delay
+  fade_in = false
+  anchor_point = top-left
+  x = 0
+  y = 0
+  width = 10
+  height = 10
+  advanced_posx = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiwidth"}/2+(176-836)*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_posy = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiheight"}*742/941","decimal":"false"}}
+  advanced_width = {"placeholder":"calc","values":{"expression":"1320*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_height = {"placeholder":"calc","values":{"expression":"90*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = false
+  element_loading_requirement_container_identifier = 8959d145-272f-409f-8895-d5a27c0c01b3
+  [loading_requirement_container_meta:8959d145-272f-409f-8895-d5a27c0c01b3] = [groups:][instances:]
+}
+element {
+  element_type = image
+  instance_identifier = fd09c992-855b-49f1-b138-6db90f1789d1
+  source = [source:local]/config/fancymenu/assets/vibe-art-bulb.png
+  repeat_texture = false
+  nine_slice_texture = false
+  appearance_delay = no_delay
+  fade_in = false
+  anchor_point = top-left
+  x = 0
+  y = 0
+  width = 10
+  height = 10
+  advanced_posx = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiwidth"}/2+(194-836)*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_posy = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiheight"}*769/941","decimal":"false"}}
+  advanced_width = {"placeholder":"calc","values":{"expression":"30*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_height = {"placeholder":"calc","values":{"expression":"36*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = false
+  element_loading_requirement_container_identifier = 59031b8f-956a-477d-92c5-0bc08545cacf
+  [loading_requirement_container_meta:59031b8f-956a-477d-92c5-0bc08545cacf] = [groups:][instances:]
+}
+element {
+  element_type = text_v2
+  instance_identifier = 87973476-8bcf-4482-8e57-bec4c404ce5a
+  source = §6Совет:§r {"placeholder":"randomtext","values":{"source":"/config/fancymenu/assets/vibe-tips-ru.txt","interval":"9"}}
+  source_mode = direct
+  shadow = true
+  scale = 0.8
+  base_color = #FFDDF0
+  interactable = false
+  auto_line_wrapping = true
+  enable_scrolling = false
+  parse_markdown = false
+  text_border = 0
+  line_spacing = 1
+  appearance_delay = no_delay
+  fade_in = false
+  anchor_point = top-left
+  x = 0
+  y = 0
+  width = 10
+  height = 10
+  advanced_posx = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiwidth"}/2+(236-836)*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_posy = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiheight"}*750/941","decimal":"false"}}
+  advanced_width = {"placeholder":"calc","values":{"expression":"1250*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_height = {"placeholder":"calc","values":{"expression":"80*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = false
+  element_loading_requirement_container_identifier = 103fedcc-4d82-4286-b592-2ed2448ca18e
+  [loading_requirement_container_meta:103fedcc-4d82-4286-b592-2ed2448ca18e] = [groups:][instances:]
+}
+element {
+  element_type = progress_bar
+  instance_identifier = f5adb02f-9890-4a73-bd39-e8d9e794c451
+  value_mode = PERCENTAGE
+  progress_source = {"placeholder":"game_loading_progress"}
+  background_texture = [source:local]/config/fancymenu/assets/vibe-art-bar-track.png
+  bar_texture = [source:local]/config/fancymenu/assets/vibe-art-bar-fill.png
+  smooth_filling_animation = true
+  appearance_delay = no_delay
+  fade_in = false
+  anchor_point = top-left
+  x = 0
+  y = 0
+  width = 10
+  height = 10
+  advanced_posx = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiwidth"}/2+(176-836)*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_posy = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiheight"}*840/941","decimal":"false"}}
+  advanced_width = {"placeholder":"calc","values":{"expression":"1248*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_height = {"placeholder":"calc","values":{"expression":"36*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = false
+  element_loading_requirement_container_identifier = d678476e-9857-45d2-a074-eba880669c65
+  [loading_requirement_container_meta:d678476e-9857-45d2-a074-eba880669c65] = [groups:][instances:]
+}
+element {
+  element_type = text_v2
+  instance_identifier = 7f4af5b8-96d3-4f41-beb0-0db177ad770f
+  source = §l{"placeholder":"game_loading_progress"}%
+  source_mode = direct
+  shadow = true
+  scale = 1.0
+  base_color = #F2C27B
+  interactable = false
+  auto_line_wrapping = false
+  enable_scrolling = false
+  parse_markdown = false
+  text_border = 0
+  line_spacing = 1
+  appearance_delay = no_delay
+  fade_in = false
+  anchor_point = top-left
+  x = 0
+  y = 0
+  width = 10
+  height = 10
+  advanced_posx = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiwidth"}/2+(1432-836)*{"placeholder":"guiheight"}/941","decimal":"false"}}
+  advanced_posy = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiheight"}*858/941-4","decimal":"false"}}
+  advanced_width = 40
+  advanced_height = 12
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = false
+  element_loading_requirement_container_identifier = 0a43917b-a22d-4962-aa94-01d3c132601c
+  [loading_requirement_container_meta:0a43917b-a22d-4962-aa94-01d3c132601c] = [groups:][instances:]
+}
+element {
+  element_type = text_v2
+  instance_identifier = 9a8ab3ba-4c50-4649-84c0-d8c1d1c8c102
+  source = ◇   Всего 40 советов   ✦   Запускается игра…   ◇
+  source_mode = direct
+  shadow = true
+  scale = 0.8
+  base_color = #F5B8E0
+  interactable = false
+  auto_line_wrapping = false
+  enable_scrolling = false
+  parse_markdown = false
+  text_border = 0
+  line_spacing = 1
+  appearance_delay = no_delay
+  fade_in = false
+  anchor_point = top-left
+  x = 0
+  y = 0
+  width = 10
+  height = 10
+  advanced_posx = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiwidth"}/2-105","decimal":"false"}}
+  advanced_posy = {"placeholder":"calc","values":{"expression":"{"placeholder":"guiheight"}*890/941","decimal":"false"}}
+  advanced_width = 240
+  advanced_height = 12
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = false
+  element_loading_requirement_container_identifier = 745cda59-3c74-44b5-bdba-7f6b4133f43b
+  [loading_requirement_container_meta:745cda59-3c74-44b5-bdba-7f6b4133f43b] = [groups:][instances:]
+}
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = mojang_logo
+  button_element_executable_block_identifier = 56dc891b-f891-44a2-87c0-46ee217d1a3c
+  [executable_block:56dc891b-f891-44a2-87c0-46ee217d1a3c][type:generic] = [executables:]
+  label = 
+  label_shadow = true
+  navigatable = false
+  is_hidden = true
+  appearance_delay = no_delay
+  fade_in = false
+  anchor_point = vanilla
+  x = 0
+  y = 0
+  width = 1
+  height = 1
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = true
+  element_loading_requirement_container_identifier = 317d1bf6-c41a-4f79-af69-5e1a64762f0c
+  [loading_requirement_container_meta:317d1bf6-c41a-4f79-af69-5e1a64762f0c] = [groups:][instances:]
+}
+vanilla_button {
+  element_type = vanilla_button
+  instance_identifier = progress_bar
+  button_element_executable_block_identifier = d491b5bf-2196-4571-ba20-768d6dbe9ac9
+  [executable_block:d491b5bf-2196-4571-ba20-768d6dbe9ac9][type:generic] = [executables:]
+  label = 
+  label_shadow = true
+  navigatable = false
+  is_hidden = true
+  appearance_delay = no_delay
+  fade_in = false
+  anchor_point = vanilla
+  x = 0
+  y = 0
+  width = 1
+  height = 1
+  stretch_x = false
+  stretch_y = false
+  stay_on_screen = true
+  element_loading_requirement_container_identifier = b59a1bd4-d44a-4a14-8f60-77aa8b53724d
+  [loading_requirement_container_meta:b59a1bd4-d44a-4a14-8f60-77aa8b53724d] = [groups:][instances:]
+}

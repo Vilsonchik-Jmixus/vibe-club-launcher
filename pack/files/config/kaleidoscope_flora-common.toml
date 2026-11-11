@@ -1,0 +1,36 @@
+#Kaleidoscope Flora - Gameplay Settings
+#森罗物语：花香四溢 - 玩法设置
+[effects]
+	#Multiplier for all drink effect durations.
+	#1.0 = normal, 0.5 = half duration, 2.0 = double duration.
+	#全部花饮效果时长的倍率。1.0 = 正常，0.5 = 一半时长，2.0 = 两倍时长。
+	# Default: 1.0
+	# Range: 0.25 ~ 4.0
+	effectDurationMultiplier = 1.0
+	#Multiplier for aura effect ranges.
+	#Affects Drowsy, Wither Aura, Gaze, and Fadeaway.
+	#1.0 = normal, 0.5 = half range, 2.0 = double range.
+	#光环类效果范围的倍率（安眠曲、凋零光环、凝视、消隐）。1.0 = 正常，0.5 = 一半范围，2.0 = 两倍范围。
+	# Default: 1.0
+	# Range: 0.25 ~ 3.0
+	auraRangeMultiplier = 1.0
+
+#Kaleidoscope Flora - Combat Settings
+#森罗物语：花香四溢 - 战斗设置
+[combat]
+	#Percent of melee damage healed by the Crimson Heartbeat vampiric effect.
+	#20 = 20% of damage as healing (default).
+	#绯色心跳吸血效果：近战伤害转化为生命回复的百分比。20 = 吸血 20%（默认）。
+	# Default: 20.0
+	# Range: 0.0 ~ 100.0
+	vampiricHealPercent = 20.0
+
+#Kaleidoscope Flora - Flower Cake Settings
+#森罗物语：花香四溢 - 鲜花饼设置
+[flower_cakes]
+	#Extra mid-air jumps granted by the Dew Flower Cake.
+	#1 = a literal double jump (default); 0 = no extra jump, shockwave only; up to 8.
+	#清露鲜花饼提供的空中额外跳跃次数。1 = 字面意义的二段跳（默认）；0 = 不提供额外跳跃，只保留落地冲击；最高 8。
+	# Default: 1
+	# Range: 0 ~ 8
+	doubleJumpCount = 1

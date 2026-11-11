@@ -66,6 +66,16 @@ type PackFile struct {
 	URL    string   `json:"url,omitempty"`
 	Mirror []string `json:"mirrors,omitempty"`
 	Policy string   `json:"policy,omitempty"`
+	// Manual: the author does not allow third-party downloads. The player downloads the
+	// file in the browser from this page; we pick it up from the Downloads folder.
+	Manual string `json:"manual,omitempty"`
+	Name   string `json:"name,omitempty"`
+}
+
+type ManualItem struct {
+	Name string `json:"name"`
+	File string `json:"file"`
+	URL  string `json:"url"`
 }
 
 func (f PackFile) urls(m *Manifest) []string {
@@ -225,6 +235,7 @@ type JobStatus struct {
 	Error      string   `json:"error"`
 	Finished   bool     `json:"finished"`
 	Log        []string `json:"log"`
+	Manual     []ManualItem `json:"manual,omitempty"`
 }
 
 type Job struct {
@@ -431,9 +442,22 @@ func runJob(j *Job, kind JobKind) error {
 		s.BytesTotal = total
 		s.BytesDone = 0
 	})
-	if err := downloadAll(j, m, dir, todo, st); err != nil {
+	var auto, manual []PackFile
+	for _, f := range todo {
+		if f.Manual != "" && f.URL == "" {
+			manual = append(manual, f)
+		} else {
+			auto = append(auto, f)
+		}
+	}
+	if err := downloadAll(j, m, dir, auto, st); err != nil {
 		_ = saveState(dir, st)
 		return err
+	}
+	if missing := pickManual(j, dir, manual, st); len(missing) > 0 {
+		_ = saveState(dir, st)
+		j.set(func(s *JobStatus) { s.Manual = missing })
+		return fmt.Errorf("осталось скачать вручную: %d шт. Авторы этих модов разрешают скачивать их только с их страницы", len(missing))
 	}
 
 	// Remove files that we installed earlier but that are no longer in the pack.
@@ -503,4 +527,74 @@ func appendLog(line string) {
 	}
 	defer f.Close()
 	_, _ = f.WriteString(time.Now().Format("2006-01-02 ") + line + "\r\n")
+}
+
+// pickManual looks for manually downloaded files in the player's Downloads folder.
+func pickManual(j *Job, dir string, files []PackFile, st *LocalState) []ManualItem {
+	var missing []ManualItem
+	home, _ := os.UserHomeDir()
+	dl := filepath.Join(home, "Downloads")
+	entries, _ := os.ReadDir(dl)
+	for _, f := range files {
+		found := ""
+		base := filepath.Base(f.Path)
+		cands := []string{filepath.Join(dl, base)}
+		for _, e := range entries {
+			if e.IsDir() || e.Name() == base {
+				continue
+			}
+			if info, err := e.Info(); err == nil && info.Size() == f.Size {
+				cands = append(cands, filepath.Join(dl, e.Name()))
+			}
+		}
+		for _, c := range cands {
+			if fi, err := os.Stat(c); err != nil || fi.Size() != f.Size {
+				continue
+			}
+			if h, err := sha1File(c); err == nil && strings.EqualFold(h, f.SHA1) {
+				found = c
+				break
+			}
+		}
+		if found == "" {
+			name := f.Name
+			if name == "" {
+				name = base
+			}
+			missing = append(missing, ManualItem{Name: name, File: base, URL: f.Manual})
+			continue
+		}
+		dst := filepath.Join(dir, filepath.FromSlash(f.Path))
+		_ = os.MkdirAll(filepath.Dir(dst), 0o755)
+		if err := copyFileTo(found, dst); err != nil {
+			j.logf("Не удалось скопировать %s: %v", found, err)
+			missing = append(missing, ManualItem{Name: f.Name, File: base, URL: f.Manual})
+			continue
+		}
+		st.Files[f.Path] = strings.ToLower(f.SHA1)
+		j.logf("Взят из «Загрузок»: %s", base)
+	}
+	return missing
+}
+
+func copyFileTo(src, dst string) error {
+	in, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer in.Close()
+	tmp := dst + ".part"
+	out, err := os.Create(tmp)
+	if err != nil {
+		return err
+	}
+	if _, err := io.Copy(out, in); err != nil {
+		out.Close()
+		os.Remove(tmp)
+		return err
+	}
+	if err := out.Close(); err != nil {
+		return err
+	}
+	return replaceFile(tmp, dst)
 }

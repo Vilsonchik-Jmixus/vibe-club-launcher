@@ -23,7 +23,7 @@ const LauncherVersion = "1.0.0"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
-const DefaultManifestURL = "https://raw.githubusercontent.com/VIBECLUB_OWNER/vibe-club-launcher/main/pack/manifest.json"
+const DefaultManifestURL = "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/manifest.json"
 
 //go:embed web
 var webFS embed.FS
@@ -345,6 +345,17 @@ func registerAPI(mux *http.ServeMux, p string) {
 		u := r.URL.Query().Get("u")
 		if strings.HasPrefix(u, "https://") {
 			_ = openURL(u)
+		}
+		writeJSON(w, map[string]bool{"ok": true})
+	})
+	h("open-manual", func(w http.ResponseWriter, r *http.Request) {
+		if j := currentJob(); j != nil {
+			for _, it := range j.status().Manual {
+				if strings.HasPrefix(it.URL, "https://") {
+					_ = openURL(it.URL)
+					time.Sleep(700 * time.Millisecond)
+				}
+			}
 		}
 		writeJSON(w, map[string]bool{"ok": true})
 	})

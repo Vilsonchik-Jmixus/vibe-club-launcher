@@ -1,0 +1,12 @@
+#Delight'o Flight Setting
+[Settings]
+	#The damage of current from arc effect.
+	# Default: 3
+	# Range: > 0
+	thunderDamage = 3
+	#Whether the current damages passive mobs
+	hurtPassiveMobs = true
+	#Ticks of night-sky exposure required to recover the stardrop protection. Default 6000 (5 minutes).
+	# Default: 6000
+	# Range: > 0
+	stardropRecoveryTicks = 6000

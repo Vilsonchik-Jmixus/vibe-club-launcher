@@ -1,0 +1,74 @@
+[glider]
+	#Enable glider stamina. Disable for unlimited gliding and no stamina HUD. Freefall is unchanged. In multiplayer the server's setting applies; your local setting is for your singleplayer worlds.
+	staminaEnabled = true
+	#Seconds to drain a full unenchanted glider stamina bar at 20 ticks/second. Default 12.5 preserves the old drain rate; the exhaustion cutoff ends usable flight slightly earlier. Lightweight still reduces drain at each level.
+	# Default: 12.5
+	# Range: 1.0 ~ 3600.0
+	gliderDurationSeconds = 12.5
+	#Seconds to refill an empty stamina bar when not actively gliding. Default 6 preserves the old refill rate and exhaustion recovery threshold.
+	# Default: 6.0
+	# Range: 0.1 ~ 600.0
+	staminaRefillSeconds = 6.0
+
+	[islandDensity.skyBiomes]
+		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
+		# Default: 100
+		# Range: 0 ~ 300
+		small = 120
+		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
+		# Default: 100
+		# Range: 0 ~ 300
+		medium = 120
+		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
+		# Default: 100
+		# Range: 0 ~ 300
+		large = 120
+
+	[islandDensity.otherBiomes]
+		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
+		# Default: 100
+		# Range: 0 ~ 300
+		small = 100
+		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
+		# Default: 100
+		# Range: 0 ~ 300
+		medium = 100
+		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
+		# Default: 100
+		# Range: 0 ~ 300
+		large = 100
+
+[groundWorldgen]
+	#Allow rare fallen SkyLands islands to generate on ordinary Overworld surfaces. Disabled by default to keep surface terrain natural. Requires a world/server restart; affects newly generated chunks only.
+	generateFallenIslands = false
+
+[skylightExperiment]
+	#Enable split skylight beneath high SkyLands islands (default: true).
+	#When enabled, upper islands remain opaque and caves remain shaded,
+	#while an additional sky-light source restores daylight beneath Y=240.
+	#Disable for entirely vanilla skylight. A world restart is required;
+	#previously saved lighting may need relighting after switching modes.
+	experimentalSkylight = false
+
+[skyWaterfalls]
+	#Limit long, free-falling vanilla-water waterfalls that begin high above the Overworld.
+	#No replacement water is registered. Natural water, waterlogging and shader textures remain vanilla.
+	#WARNING: player-made waterfalls on extremely tall mountains may also be limited.
+	limitSkyWater = true
+	#Limit long, free-falling SkyLands molten-metal waterfalls by the same mechanism.
+	limitSkyMoltenMetal = true
+	#Only restrict columns whose top falling-liquid block is at or above this Y level.
+	#This is NOT a horizontal cutoff plane. Low-altitude vanilla waterfalls remain unrestricted.
+	# Default: 240
+	# Range: -64 ~ 1024
+	skyStartY = 240
+	#Minimum number of consecutive falling-liquid blocks per high-sky waterfall.
+	#A deterministic X/Z hash chooses a length between this and maxFallingLength.
+	# Default: 30
+	# Range: 4 ~ 128
+	minFallingLength = 30
+	#Maximum number of consecutive falling-liquid blocks per high-sky waterfall.
+	#When lower than minFallingLength, the two bounds are sorted automatically.
+	# Default: 40
+	# Range: 4 ~ 128
+	maxFallingLength = 40

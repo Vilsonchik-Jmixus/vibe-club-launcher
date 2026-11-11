@@ -163,6 +163,7 @@ $('btnPlay').onclick = async () => {
 };
 $('btnUpdate').onclick = () => startJob('update');
 $('btnDownload').onclick = () => startJob(S && S.installed ? 'update' : 'install');
+$('btnManual').onclick = () => api('open-manual', { method: 'POST' }).then(() => toast('Открываю страницы загрузки в браузере…'));
 $('btnRetry').onclick = () => startJob(lastKind || 'install');
 $('btnRepair').onclick = () => startJob('repair');
 $('btnReinstall').onclick = async () => {
@@ -232,7 +233,14 @@ async function pollJob() {
       $('doneTitle').textContent = k === 'install' || k === 'reinstall' ? 'Сборка установлена!' : (k === 'repair' ? 'Файлы проверены и исправлены' : 'Сборка обновлена!');
       $('doneText').innerHTML = 'Запусти её из официального лаунчера —<br>профиль «Vibe Club» уже создан';
     } else {
+      const man = job.manual || [];
       $('errText').textContent = job.error;
+      $('manualBox').classList.toggle('hidden', !man.length);
+      $('btnLog').classList.toggle('hidden', !!man.length);
+      if (man.length) {
+        $('errText').textContent = 'Почти готово! Авторы этих модов разрешают скачивать их только со своей страницы. Нажми «Скачать», сохрани файлы в папку «Загрузки» и нажми «Повторить» — лаунчер сам их найдёт.';
+        $('manualList').innerHTML = man.map((m) => `<div class="manual-row"><span>${esc(m.name)}</span><small>${esc(m.file)}</small></div>`).join('');
+      }
     }
   }
 }

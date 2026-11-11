@@ -1,0 +1,53 @@
+#How far (in blocks) you can be before a screen starts rendering
+# Default: 60.0
+# Range: 0.0 ~ 1.7976931348623157E308
+load_distance = 60.0
+#How far you can be before a screen stops rendering. Must be larger than load_distance.
+# Default: 64.0
+# Range: 0.0 ~ 1.7976931348623157E308
+unload_distance = 64.0
+#The resolution that minePads should use
+#Smaller values produce lower qualities, higher values produce higher qualities
+#Due to how web browsers work however, the larger this value is, the smaller text is
+#Also, higher values will invariably lag more
+#A good goto value for this would be the height of your monitor, in pixels
+#A standard monitor is (at least currently) 1080
+# Default: 720
+# Range: > 0
+pad_resolution = 720
+#Controls the brightness of WebDisplays screens (0.0 to 1.0)
+#0.0 = completely dark, 0.5 = 50% brightness, 1.0 = full brightness
+#Lower values help when using shaders that make screens too bright
+# Default: 1.0
+# Range: 0.0 ~ 1.0
+screen_brightness = 1.0
+#When this is true, the minePad is placed off to the side of the screen when held, so it's visible but doesn't take up too much of the screen
+#When this is false, the minePad is placed closer to the center of the screen, allow it to be seen better, but taking up more of your view
+side_pad = true
+#If true, video/audio playing on screens attenuates with distance (gets quieter as you walk away).
+#If false, screen audio plays at full volume regardless of distance (the old broken behavior — fixes user reports of audio being audible from miles away).
+enable_spatial_audio = true
+#Distance (in blocks) at which screen audio plays at full volume.
+#Below this distance, no attenuation is applied.
+# Default: 5.0
+# Range: 0.0 ~ 1000.0
+audio_full_volume_distance = 5.0
+#Distance (in blocks) at which screen audio is fully muted.
+#Between full-volume distance and this, volume scales linearly.
+#Default matches unload_distance so audio fades to silent right as the screen visually unloads.
+# Default: 64.0
+# Range: 1.0 ~ 1000.0
+audio_silent_distance = 64.0
+#Maximum volume (0-100) screen audio will play at when at or below the full-volume distance.
+#Lower values cap the loudness of screens overall.
+# Default: 100.0
+# Range: 0.0 ~ 100.0
+audio_max_volume_percent = 100.0
+
+#Options relating to input handling
+[input]
+	#If this is on, then the camera will try to focus on the selected element while a keyboard is in use
+	#Elsewise, it'll try to focus on the center of the screen
+	keyboard_camera = true
+	#If the left and right buttons should be swapped when using a laser
+	switch_buttons = false

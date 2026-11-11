@@ -44,3 +44,7 @@ nav{margin-right:62px}
 .toast{position:absolute;left:50%;bottom:92px;transform:translateX(-50%);max-width:760px;padding:13px 22px;border:1px solid #a56a40;border-radius:8px;background:#1d1029f2;box-shadow:0 10px 30px #0008,0 0 20px #e040c833;font-size:14px;z-index:60;text-align:center;line-height:1.5}
 .toast.bad{border-color:#b56561;color:#ffd0cb}
 .play-area .quiet{min-height:16px}
+.manual-box{margin:-8px 30px 16px;max-height:96px;overflow:auto;text-align:left}
+.manual-row{display:flex;justify-content:space-between;gap:12px;padding:6px 12px;border-bottom:1px solid #3d2a45;font-size:14px}
+.manual-row small{color:#9d86a8;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#installError:has(#manualBox.hidden) #btnManual{display:none}
