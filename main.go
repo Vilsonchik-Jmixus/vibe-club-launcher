@@ -20,7 +20,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.10"
+const LauncherVersion = "1.0.11"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -299,6 +299,20 @@ func registerAPI(mux *http.ServeMux, p string) {
 			return
 		}
 		writeJSON(w, describeFolder(p))
+	})
+	h("apply-options", func(w http.ResponseWriter, r *http.Request) {
+		dir := getSettings().InstallDir
+		if !isInstalled(dir) {
+			writeErr(w, errors.New("сначала установи сборку"))
+			return
+		}
+		n, err := applyPackOptions(dir, true)
+		if err != nil {
+			writeErr(w, err)
+			return
+		}
+		appendLog(fmt.Sprintf("Настройки сборки применены вручную: %d параметров", n))
+		writeJSON(w, map[string]int{"changed": n})
 	})
 	// check-folder takes a path typed or pasted by the player and answers like pick-folder.
 	h("check-folder", func(w http.ResponseWriter, r *http.Request) {

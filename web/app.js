@@ -122,6 +122,7 @@ function render() {
   $('tglUpdates').classList.toggle('on', st.checkUpdates);
   $('tglClose').classList.toggle('on', st.closeAfterLaunch);
   $('btnRepair').disabled = !S.installed || !!busy;
+  $('btnApplyOptions').disabled = !S.installed || !!busy;
   $('btnReinstall').disabled = !S.installed || !!busy;
   $('launcherVer').textContent = 'Версия лаунчера ' + S.launcherVersion;
   $('btnSelfUpdate').classList.toggle('hidden', !S.launcherUpdate);
@@ -207,6 +208,13 @@ $('btnDownload').onclick = () => startJob(S && S.installed ? 'update' : 'install
 $('btnManual').onclick = () => api('open-manual', { method: 'POST' }).then(() => toast('Открываю страницы загрузки в браузере…'));
 $('btnRetry').onclick = () => startJob(lastKind || 'install');
 $('btnRepair').onclick = () => startJob('repair');
+$('btnApplyOptions').onclick = async () => {
+  if (!confirm('Перенести настройки графики, звука и управление из сборки Vibe Club? Твой текущий options.txt сохранится рядом как резервная копия.')) return;
+  try {
+    const r = await api('apply-options', { method: 'POST' });
+    toast(r.changed ? `Готово: обновлено параметров — ${r.changed}. Если игра запущена, перезапусти её.` : 'Настройки уже совпадают со сборкой');
+  } catch (e) { toast(e.message, true); }
+};
 $('btnReinstall').onclick = async () => {
   const ok = await confirmBox('Переустановить сборку?', 'Все файлы сборки будут удалены и скачаны заново. Миры, скриншоты, настройки управления и графики сохранятся.', 'Переустановить');
   if (ok) startJob('reinstall');

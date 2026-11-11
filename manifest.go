@@ -499,6 +499,11 @@ func runJob(j *Job, kind JobKind) error {
 	if err := saveState(dir, st); err != nil {
 		return err
 	}
+	if n, err := applyPackOptions(dir, false); err != nil {
+		j.logf("Не удалось перенести настройки игры: %v", err)
+	} else if n > 0 {
+		j.logf("Настройки игры и управление сборки перенесены в options.txt (%d параметров)", n)
+	}
 
 	if pi := detectProfile(dir, m); pi.Kind != KindOfficial {
 		j.logf("Профиль %s «%s»: NeoForge и запуск — через %s", pi.Name, pi.Profile, pi.Name)
