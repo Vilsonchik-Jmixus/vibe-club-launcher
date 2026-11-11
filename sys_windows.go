@@ -81,6 +81,9 @@ func openURL(u string) error {
 }
 
 // launchOfficialLauncher starts the Minecraft Launcher (classic install, Xbox app or Store).
+// errNoOfficialLauncher is shown when the official Minecraft Launcher is not installed.
+var errNoOfficialLauncher = errors.New("NO_OFFICIAL_LAUNCHER")
+
 func launchOfficialLauncher() error {
 	var cands []string
 	for _, env := range []string{"ProgramFiles(x86)", "ProgramFiles"} {
@@ -93,15 +96,20 @@ func launchOfficialLauncher() error {
 	}
 	for _, c := range cands {
 		if _, err := os.Stat(c); err == nil {
+			appendLog("Запускаю " + c)
 			return exec.Command(c).Start()
 		}
 	}
-	// Microsoft Store / Xbox app version
-	cmd := exec.Command("explorer.exe", `shell:AppsFolder\Microsoft.4297127D64EC6_8wekyb3d8bbwe!Minecraft`)
-	if err := cmd.Start(); err != nil {
-		return errors.New("не найден официальный лаунчер Minecraft")
+	// Microsoft Store / Xbox app version: only if the package is really installed, otherwise
+	// Explorer shows a confusing "Windows cannot find" dialog.
+	if la := os.Getenv("LOCALAPPDATA"); la != "" {
+		if _, err := os.Stat(filepath.Join(la, "Packages", "Microsoft.4297127D64EC6_8wekyb3d8bbwe")); err == nil {
+			appendLog("Запускаю лаунчер Minecraft из Microsoft Store")
+			return exec.Command("explorer.exe", `shell:AppsFolder\Microsoft.4297127D64EC6_8wekyb3d8bbwe!Minecraft`).Start()
+		}
 	}
-	return nil
+	appendLog("Официальный лаунчер Minecraft не найден")
+	return errNoOfficialLauncher
 }
 
 func findEdge() string {

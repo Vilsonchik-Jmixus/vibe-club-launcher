@@ -159,7 +159,12 @@ $('btnPlay').onclick = async () => {
     if (ok) { startJob('update'); return; }
   }
   try { await api('play', { method: 'POST' }); toast('Открываю лаунчер Minecraft: выбери профиль «Vibe Club» и нажми «Играть»'); }
-  catch (e) { toast(e.message, true); }
+  catch (e) {
+    if (e.message === 'NO_OFFICIAL_LAUNCHER') {
+      const ok = await confirmBox('Не найден лаунчер Minecraft', 'Сборка установлена, профиль «Vibe Club» готов. Кнопка «Играть» открывает официальный Minecraft Launcher, но на этом компьютере его нет. Скачать его с minecraft.net? После установки войди в аккаунт и снова нажми «Играть».', 'Скачать');
+      if (ok) api('open-url?u=' + encodeURIComponent('https://www.minecraft.net/download'), { method: 'POST' });
+    } else toast(e.message, true);
+  }
 };
 $('btnUpdate').onclick = () => startJob('update');
 $('btnDownload').onclick = () => startJob(S && S.installed ? 'update' : 'install');

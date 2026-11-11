@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.1"
+const LauncherVersion = "1.0.2"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -371,6 +371,7 @@ func registerAPI(mux *http.ServeMux, p string) {
 		}
 		if m, err := fetchManifest(false); err == nil {
 			if !loaderInstalled(m) || !profileExists() {
+				appendLog("Играть: нет NeoForge или профиля")
 				writeErr(w, errors.New("не хватает NeoForge или профиля — нажми «Проверить и починить файлы»"))
 				return
 			}
@@ -378,6 +379,7 @@ func registerAPI(mux *http.ServeMux, p string) {
 		}
 		applyPendingSkin()
 		if err := launchOfficialLauncher(); err != nil {
+			appendLog("Играть: " + err.Error())
 			writeErr(w, err)
 			return
 		}

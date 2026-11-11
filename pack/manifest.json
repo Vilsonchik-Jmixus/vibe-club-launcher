@@ -13,10 +13,10 @@
   "port": 25737
  },
  "launcher": {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
-  "sha1": "512ffb5e2c18c7dab943bb7f7690f8eea16dc283",
-  "size": 12348928
+  "sha1": "8bb6f82c8449cbde08649254f942a650f5ca537b",
+  "size": 12350976
  },
  "news": [
   {

@@ -50,7 +50,9 @@ func pickFolder(initial string) (string, error) {
 
 func openFolder(path string) error  { return nil }
 func openURL(u string) error        { fmt.Println("open", u); return nil }
-func launchOfficialLauncher() error { return errors.New("только Windows") }
+var errNoOfficialLauncher = errors.New("NO_OFFICIAL_LAUNCHER")
+
+func launchOfficialLauncher() error { return errNoOfficialLauncher }
 func openAppWindow(url string) (*exec.Cmd, error) {
 	fmt.Println("UI:", url)
 	return nil, nil
