@@ -1,6 +1,6 @@
 {
  "pack": "Vibe Club",
- "version": "1.1",
+ "version": "1.2",
  "minecraft": "1.21.1",
  "loader": {
   "type": "neoforge",
@@ -13,12 +13,17 @@
   "port": 25737
  },
  "launcher": {
-  "version": "1.0.4",
+  "version": "1.0.5",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
-  "sha1": "e1e0fe992f18520d33db2f8821900d14ff82e5b5",
+  "sha1": "f686c1563d265ccbafcc4d311b307436d6d211da",
   "size": 12357632
  },
  "news": [
+  {
+   "date": "11.11.2026",
+   "title": "Сборка 1.2: Universal Bone Meal",
+   "text": "Костная мука теперь растит больше растений: кактусы, тростник, лианы, бородавки и другие. Нажми «Обновить»."
+  },
   {
    "date": "11.11.2026",
    "title": "Сборка 1.1: Pick Up Notifier",
@@ -41,7 +46,7 @@
   }
  ],
  "baseUrl": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/files",
- "modCount": 322,
+ "modCount": 323,
  "files": [
   {
    "path": "bivrik/common.json",
@@ -3054,6 +3059,12 @@
    "url": "https://cdn.modrinth.com/data/8pcjMDgj/versions/iAzPpBdI/TradingPost-v21.1.1-1.21.1-NeoForge.jar"
   },
   {
+   "path": "mods/UniversalBoneMeal-v21.1.0-1.21.1-NeoForge.jar",
+   "sha1": "bdf3f78f90b94e7557421421721d1ae5d355f689",
+   "size": 88949,
+   "url": "https://cdn.modrinth.com/data/66VIiT1y/versions/5g9aZDW0/UniversalBoneMeal-v21.1.0-1.21.1-NeoForge.jar"
+  },
+  {
    "path": "mods/VisualWorkbench-v21.1.2-1.21.1-NeoForge.jar",
    "sha1": "dd5b71bff42ce3f845afc9c3640d4f4f63ccdb1b",
    "size": 76670,
@@ -4886,9 +4897,9 @@
   }
  ],
  "launcherLinux": {
-  "version": "1.0.4",
+  "version": "1.0.5",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher-linux-x64",
-  "sha1": "02a0cf8ce831adcca2cf084eb61104e17582812c",
+  "sha1": "3eb0373839f40a8f501da2d39d7d398c64eb429f",
   "size": 12038328
  }
 }
