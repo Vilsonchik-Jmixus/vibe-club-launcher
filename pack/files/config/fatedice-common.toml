@@ -1,0 +1,7 @@
+[general]
+	#Перезарядка Кости Судьбы в секундах (Vibe Club: 5 минут, чтобы награды не обесценивались)
+	cooldownSeconds = 300
+	#Разрушительные события выключены, чтобы кость не портила постройки на сервере
+	allowDestructiveEvents = false
+	broadcastRollToChat = true
+	suspenseDelayTicks = 25
