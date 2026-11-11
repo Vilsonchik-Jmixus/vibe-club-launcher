@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Vibe Club</title>
+<link rel="icon" href="assets/profile-icon.png">
+<link rel="stylesheet" href="design.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="stage">
+<main class="screen" id="screen">
+  <header>
+    <img class="logo" src="assets/logo.png" alt="Vibe Club" data-go="main" title="На главную">
+    <nav>
+      <button class="plate nav" data-go="skin"><span class="icon" data-icon="skin"></span><span>Скин</span><i></i><b></b></button>
+      <button class="plate nav" data-go="settings"><span class="icon" data-icon="settings"></span><span>Настройки</span><i></i><b></b></button>
+      <button class="plate nav" id="btnOpenFolderTop"><span class="icon" data-icon="folder"></span><span>Папка сборки</span><i></i><b></b></button>
+    </nav>
+    <div class="window">
+      <button class="plate window-button close" id="btnClose" title="Закрыть"><span class="icon" data-icon="close"></span><span></span><i></i><b></b></button>
+    </div>
+  </header>
+
+  <!-- 01 MAIN -->
+  <div class="view" id="view-main">
+    <section class="news panel">
+      <div class="section-head"><span class="chapter">01</span><h1>Новости</h1><span class="rule"></span><span class="diamond">◆</span></div>
+      <div id="newsList"></div>
+    </section>
+    <section class="play-area">
+      <div class="eyebrow"><span></span> ТВОЙ ВЕЧЕР В ОБЛАКАХ <span></span></div>
+      <button class="plate primary giant" id="btnPlay"><span class="icon" data-icon="play"></span><span id="btnPlayText">ИГРАТЬ</span><i></i><b></b></button>
+      <div class="update-row">
+        <button class="plate update" id="btnUpdate"><span class="icon" data-icon="update"></span><span>ОБНОВИТЬ</span><i></i><b></b></button>
+        <span class="badge hidden" id="updateBadge"></span>
+      </div>
+      <div class="quiet" id="mainHint">Уютный мир. Большие приключения.</div>
+    </section>
+  </div>
+
+  <!-- 02 INSTALL -->
+  <div class="view" id="view-install">
+    <section class="panel install">
+      <div class="section-head"><span class="chapter">02</span><h1 id="installTitle">Установка сборки</h1><span class="rule"></span><span class="diamond">◆</span></div>
+
+      <div class="install-content" id="installForm">
+        <label>Папка сборки</label>
+        <div class="folder-field"><span class="icon" data-icon="folder"></span><span id="installDir" class="path"></span><button class="plate small" id="btnPick"><span>Выбрать папку</span><i></i><b></b></button></div>
+        <p class="space" id="spaceLine"></p>
+        <div class="install-divider"></div>
+        <button class="plate primary download" id="btnDownload"><span class="icon" data-icon="update"></span><span>СКАЧАТЬ СБОРКУ</span><i></i><b></b></button>
+        <p class="quiet" id="installHint">Твоё приключение начинается здесь</p>
+      </div>
+
+      <div class="install-content hidden" id="installProgress">
+        <div class="progress-heading"><h2 id="progTitle">Подготовка…</h2><strong id="progPct">0%</strong></div>
+        <div class="progress"><div id="progBar" style="width:0%"></div></div>
+        <p class="stats" id="progStats">&nbsp;</p>
+        <p class="filename" id="progFile">&nbsp;</p>
+        <div class="actions">
+          <button class="plate pause" id="btnPause"><span>Пауза</span><i></i><b></b></button>
+          <button class="plate cancel" id="btnCancel"><span>Отмена</span><i></i><b></b></button>
+        </div>
+      </div>
+
+      <div class="success hidden" id="installDone">
+        <div class="check"><span class="icon" data-icon="check"></span></div>
+        <h2 id="doneTitle">Сборка установлена!</h2>
+        <p id="doneText">Запусти её из официального лаунчера —<br>профиль «Vibe Club» уже создан</p>
+        <button class="plate primary" data-go="main"><span>На главную</span><i></i><b></b></button>
+      </div>
+
+      <div class="success hidden" id="installError">
+        <div class="check err">!</div>
+        <h2>Что-то пошло не так</h2>
+        <p id="errText" class="err-text"></p>
+        <div class="actions center">
+          <button class="plate primary" id="btnRetry"><span>Повторить</span><i></i><b></b></button>
+          <button class="plate" id="btnLog"><span>Открыть журнал</span><i></i><b></b></button>
+          <button class="plate" data-go="main"><span>На главную</span><i></i><b></b></button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 03 SETTINGS -->
+  <div class="view" id="view-settings">
+    <section class="panel settings">
+      <div class="section-head"><span class="chapter">03</span><h1>Настройки</h1><span class="rule"></span><span class="diamond">◆</span></div>
+      <div class="settings-body">
+        <div class="settings-left">
+          <h2 id="memTitle">Память для игры: 8 ГБ</h2>
+          <input type="range" min="4" max="16" step="1" id="memRange" class="mem-range">
+          <div class="range"><span>4 ГБ</span><span>16 ГБ</span></div>
+          <label>Папка сборки</label>
+          <div class="folder-field"><span class="icon" data-icon="folder"></span><span id="settingsDir" class="path"></span><button class="plate small" id="btnChangeDir"><span>Изменить</span><i></i><b></b></button></div>
+          <div class="toggle-box">
+            <div class="toggle-row"><span>Проверять обновления при запуске</span><button class="toggle" id="tglUpdates"><i></i></button></div>
+            <div class="toggle-row"><span>Закрывать лаунчер после запуска игры</span><button class="toggle" id="tglClose"><i></i></button></div>
+          </div>
+        </div>
+        <div class="settings-right">
+          <button class="plate" id="btnRepair"><span class="icon" data-icon="update"></span><span>Проверить и починить файлы</span><i></i><b></b></button>
+          <button class="plate danger" id="btnReinstall"><span>Переустановить сборку</span><i></i><b></b></button>
+          <p class="warning-note">миры и настройки сохранятся</p>
+          <button class="plate" id="btnOpenFolder"><span class="icon" data-icon="folder"></span><span>Открыть папку</span><i></i><b></b></button>
+        </div>
+      </div>
+      <div class="settings-footer"><span id="launcherVer">Версия лаунчера</span> <a href="#" id="lnkLog" class="soft-link">журнал</a> <button class="plate small hidden" id="btnSelfUpdate"><span>Обновить лаунчер</span><i></i><b></b></button></div>
+    </section>
+  </div>
+
+  <!-- 04 SKIN -->
+  <div class="view" id="view-skin">
+    <section class="panel skin">
+      <div class="section-head"><span class="chapter">04</span><h1>Скин</h1><span class="rule"></span><span class="diamond">◆</span></div>
+      <div class="skin-body">
+        <div class="preview">
+          <div class="halo"></div>
+          <img src="assets/character.png" class="character" id="skinPlaceholder" alt="">
+          <canvas id="skinCanvas" class="skin-canvas hidden" width="16" height="32"></canvas>
+          <div class="rotate">
+            <button class="plate rotate-btn" id="rotL"><span class="icon" data-icon="left"></span><span></span><i></i><b></b></button>
+            <span id="rotLabel">Повернуть</span>
+            <button class="plate rotate-btn" id="rotR"><span class="icon" data-icon="right"></span><span></span><i></i><b></b></button>
+          </div>
+        </div>
+        <div class="skin-form">
+          <label>Твой скин в Vibe Club</label>
+          <div class="skin-status" id="skinStatus">Скин не выбран — в игре будет стандартный.</div>
+          <div class="skin-actions">
+            <button class="plate primary" id="btnSkinUpload"><span class="icon" data-icon="skin"></span><span>Загрузить скин (PNG)</span><i></i><b></b></button>
+            <button class="plate reset" id="btnSkinReset"><span>Сбросить</span><i></i><b></b></button>
+          </div>
+          <input type="file" id="skinFile" accept="image/png" class="hidden">
+          <div class="toggle-row"><span>Тонкие руки (Alex)</span><button class="toggle" id="tglSlim"><i></i></button></div>
+          <p class="skin-hint">Скин 64×64 PNG.<br>Его увидят все игроки на сервере (мод Quick Skin).<br>Сменить можно и в игре: клавиша F7.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <span id="footVersion">Загрузка…</span>
+    <div class="server off" id="serverChip"><i></i><span>Сервер…</span></div>
+    <span class="address" id="footAddress">vibeclub.mcmod.ru</span>
+  </footer>
+
+  <div class="modal hidden" id="modal">
+    <div class="panel modal-box">
+      <h2 id="modalTitle"></h2>
+      <p id="modalText"></p>
+      <div class="actions center">
+        <button class="plate danger" id="modalOk"><span>Да</span><i></i><b></b></button>
+        <button class="plate" id="modalCancel"><span>Отмена</span><i></i><b></b></button>
+      </div>
+    </div>
+  </div>
+  <div class="toast hidden" id="toast"></div>
+</main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
