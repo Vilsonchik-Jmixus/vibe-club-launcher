@@ -1,6 +1,5 @@
 {
  "pack": "Vibe Club",
- "version": "1.4",
  "minecraft": "1.21.1",
  "loader": {
   "type": "neoforge",
@@ -12,36 +11,36 @@
   "host": "65.108.18.28",
   "port": 25737
  },
- "launcher": {
-  "version": "1.0.9",
-  "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
-  "sha1": "7c2553fb8a853fe19ebd63ea03f610851db97900",
-  "size": 11486720
- },
  "news": [
+  {
+   "date": "11.11.2026",
+   "title": "Сборка 1.5: DLC 2 — Классы и Расы",
+   "text": "Мир превращается в настольную D&D: 15 рас, 13 классов, Сфера Судьбы и кости d4–d100. Обнови сборку и введи /gift dlc2!",
+   "more": "## Как начать\n- Нажми «Обновить» в лаунчере и зайди на сервер.\n- Введи в чате /gift dlc2 — получишь Сферу Судьбы, Книгу игрока и набор костей. Подарок выдаётся один раз.\n- ПКМ по Сфере Судьбы — выбери расу, затем класс.\n- Способность расы — клавиша G, способность класса — клавиша H (можно поменять в Управлении → «Расы и классы»).\n## 15 рас\n- Человек, Эльф, Дроу, Дварф, Полурослик, Гном, Полуорк, Тифлинг.\n- Драконорождённый (огненное дыхание), Аасимар (исцеляющие руки), Голиаф, Табакси, Тритон, Гоблин, Людоящер.\n- У каждой расы свои сильные и слабые стороны: тёмное зрение, рост, здоровье, сопротивления.\n## 13 классов\n- Воин, Варвар (ярость), Паладин (наложение рук), Плут (скрытая атака), Следопыт, Монах.\n- Волшебник, Чародей, Колдун, Жрец, Друид, Бард (вдохновение), Изобретатель.\n- Магические классы усиливают заклинания Iron's Spells: ману, силу школ магии, перезарядку.\n## Кости D&D\n- Набор d4, d6, d8, d10, d12, d20 и d100. ПКМ — бросок, игроки рядом увидят результат.\n- Натуральная 20 на d20 — критический успех, единица — критический провал.\n- Новые кости крафтятся: кость + чернильный мешок + кремень / бумага / лазурит / редстоун / изумруд / аметист / кварц.\n- Кость Судьбы D20 из мода Fate Dice: бросок вызывает случайное событие — от бонусов до неприятностей. Перезарядка 5 минут, разрушительные события выключены.\n## Добавленные моды\n- Overgrown's Origins 1.52.0 — расы и классы, Сфера Судьбы.\n- Overgrown's Apoli 1.129.0 — библиотека способностей для Origins.\n- Fate Dice: Roll of Destiny 1.0.1 — Кость Судьбы D20.\n- KubeJS 2101.7.2 и Rhino 2101.2.7 — команда /gift и серверные скрипты.\n- KubeJS Create 2101.3.1 — нужен для совместимости KubeJS с Petrochem."
+  },
   {
    "date": "11.11.2026",
    "title": "Сборка 1.4: Quest & Skins update",
    "text": "В книге квестов новая группа «Магия»: 7 глав и 47 квестов — обучение Ars Nouveau, Iron's Spells, Occultism, Theurgy, Goety и Hex Casting. Нажми «Обновить»!",
-   "more": "## Что нового\n- В книге квестов (FTB Quests) появилась группа «Магия»: 7 глав и 47 квестов.\n- Вводная глава объясняет, с чего начать и какую школу магии выбрать.\n- По отдельной обучающей главе для Ars Nouveau, Iron's Spells 'n Spellbooks, Occultism, Theurgy, Goety и Hex Casting.\n- За выполнение квестов дают предметы, которые помогают сделать следующий шаг.\n## Как получить\n- Нажми «Обновить» в лаунчере — скачаются только новые файлы квестов.\n- В игре открой книгу квестов и найди группу «Магия»."
+   "more": "## Что нового\n- В книге квестов (FTB Quests) появилась группа «Магия»: 7 глав и 47 квестов.\n- Вводная глава объясняет, с чего начать и какую школу магии выбрать.\n- По отдельной обучающей главе для Ars Nouveau, Iron's Spells 'n Spellbooks, Occultism, Theurgy, Goety и Hex Casting.\n- За выполнение квестов дают предметы, которые помогают сделать следующий шаг.\n## Как получить\n- Нажми «Обновить» в лаунчере — скачаются только новые файлы квестов.\n- В игре открой книгу квестов и найди группу «Магия».\n## Добавленные моды\n- Новых модов нет — только квесты."
   },
   {
    "date": "11.11.2026",
    "title": "Псилоцибин апдейт — Добавляет Приколы)",
    "text": "Новый мод Psychedelic Drug Chemistry: грибы, кактусы, лаборатория. Редкие растения и минералы теперь можно скрафтить — смотри JEI. При входе ждёт подарок!",
-   "more": "## Что нового\n- Мод Psychedelic Drug Chemistry: новые растения, грибы, кактусы и лабораторное оборудование.\n- 26 дополнительных рецептов для растений и минералов, которые в нашем мире не генерируются. Ищи их в JEI.\n- При первом входе на сервер выдаётся подарок: споры грибов и саженец каучукового дерева.\n## Важно\n- Мод добавлен и в сборку, и на сервер, поэтому без обновления на сервер не пустит.\n- Нажми «Обновить» — мод весит около 70 МБ."
+   "more": "## Что нового\n- Мод Psychedelic Drug Chemistry: новые растения, грибы, кактусы и лабораторное оборудование.\n- 26 дополнительных рецептов для растений и минералов, которые в нашем мире не генерируются. Ищи их в JEI.\n- При первом входе на сервер выдаётся подарок: споры грибов и саженец каучукового дерева.\n## Важно\n- Мод добавлен и в сборку, и на сервер, поэтому без обновления на сервер не пустит.\n- Нажми «Обновить» — мод весит около 70 МБ.\n## Добавленные моды\n- Psychedelic Drug Chemistry 2.2.5"
   },
   {
    "date": "11.11.2026",
    "title": "Сборка 1.2: Universal Bone Meal",
    "text": "Костная мука теперь растит больше растений: кактусы, тростник, лианы, бородавки и другие. Нажми «Обновить».",
-   "more": "- Костная мука теперь работает на кактусах, сахарном тростнике, лианах, адских наростах и других растениях, которые раньше росли только сами.\n- Мод небольшой, стоит и на сервере, и в сборке.\n- Нажми «Обновить», чтобы скачать его."
+   "more": "- Костная мука теперь работает на кактусах, сахарном тростнике, лианах, адских наростах и других растениях, которые раньше росли только сами.\n- Мод небольшой, стоит и на сервере, и в сборке.\n- Нажми «Обновить», чтобы скачать его.\n## Добавленные моды\n- Universal Bone Meal 21.1.0"
   },
   {
    "date": "11.11.2026",
    "title": "Сборка 1.1: Pick Up Notifier",
    "text": "Теперь видно, что ты подобрал: слева появляются подобранные предметы и опыт. Нажми «Обновить» — скачается один маленький мод.",
-   "more": "- Слева на экране показывается всё, что ты подобрал: предметы, их количество и опыт.\n- Это было первое обновление через лаунчер: скачался только один маленький мод, остальные файлы не трогались."
+   "more": "- Слева на экране показывается всё, что ты подобрал: предметы, их количество и опыт.\n- Это было первое обновление через лаунчер: скачался только один маленький мод, остальные файлы не трогались.\n## Добавленные моды\n- Pick Up Notifier 21.1.1"
   },
   {
    "date": "11.11.2026",
@@ -62,8 +61,21 @@
    "more": "- Distant Horizons дорисовывает дальние горы и леса без нагрузки на сервер.\n- Сервер оптимизирован и держит стабильные 20 TPS.\n- Если игра тормозит, выдели ей больше памяти в настройках лаунчера."
   }
  ],
+ "launcher": {
+  "version": "1.0.9",
+  "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
+  "sha1": "7c2553fb8a853fe19ebd63ea03f610851db97900",
+  "size": 11486720
+ },
+ "launcherLinux": {
+  "version": "1.0.9",
+  "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher-linux-x64",
+  "sha1": "708849cbb9aba9cf002e0f6689c1f1a37b80ca24",
+  "size": 11161784
+ },
+ "version": "1.5",
  "baseUrl": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/files",
- "modCount": 324,
+ "modCount": 330,
  "files": [
   {
    "path": "bivrik/common.json",
@@ -1298,6 +1310,11 @@
    "size": 918
   },
   {
+   "path": "config/fatedice-common.toml",
+   "sha1": "94da91ec56154ae209b97bdb02a30326d9b12e49",
+   "size": 421
+  },
+  {
    "path": "config/ferritecore-mixin.toml",
    "sha1": "117f758af35aac859c535d5d2da96c5747a87aea",
    "size": 1603
@@ -2254,6 +2271,11 @@
    "size": 13315
   },
   {
+   "path": "config/paxi/datapacks/Vibe Club - DLC2 DnD.zip",
+   "sha1": "28d020e624c2511ec7714f2ca09f6416b65bdaf2",
+   "size": 65784
+  },
+  {
    "path": "config/paxi/datapacks/Vibe Club - Psilocybin Update.zip",
    "sha1": "7110631204c45ffbea265757849a983529cfa510",
    "size": 12514
@@ -2282,6 +2304,11 @@
    "path": "config/paxi/resourcepacks/Vibe Club - Core.zip",
    "sha1": "3c3fc45cbab4ffd034e8bafadb1dd3cb3afcc609",
    "size": 809207
+  },
+  {
+   "path": "config/paxi/resourcepacks/Vibe Club - DLC2 DnD RP.zip",
+   "sha1": "48e5da76f5526ee29cddad1ad138039391bf0710",
+   "size": 6198
   },
   {
    "path": "config/personality-client.toml",
@@ -2979,6 +3006,11 @@
    "size": 172
   },
   {
+   "path": "kubejs/server_scripts/vibeclub_gift.js",
+   "sha1": "faf702c7c483303c97ed7e05d6fc0c9a4119e37d",
+   "size": 1335
+  },
+  {
    "path": "mods/AkashicTome-1.8-30.jar",
    "sha1": "6493e575f295e18fac1f7c5399c05c53caa1f7ce",
    "size": 50256,
@@ -3428,6 +3460,12 @@
    "sha1": "6c29bbeab4b2c174d9f66d6a3e9ef4e136705c5b",
    "size": 229880,
    "url": "https://cdn.modrinth.com/data/bRFWnJ87/versions/9u4bmtUp/animal_feeding_trough-1.1.2%2B1.21-neoforge.jar"
+  },
+  {
+   "path": "mods/apoli-1.129.0.jar",
+   "sha1": "3de41fb842c3391341c78db7db6e3ba44fa7b46c",
+   "size": 4327763,
+   "url": "https://cdn.modrinth.com/data/i2NQbLvK/versions/ivct5ecf/apoli-1.129.0.jar"
   },
   {
    "path": "mods/appleskin-neoforge-mc1.21-3.0.9.jar",
@@ -4077,6 +4115,12 @@
    "url": "https://cdn.modrinth.com/data/z3TzcquW/versions/rmMrheaC/fastpaintings-1.21-1.3.1-neoforge.jar"
   },
   {
+   "path": "mods/fatedice-1.0.0.jar",
+   "sha1": "81194136a13cc87adfb62c2c337fbd1ecd7869ae",
+   "size": 36765,
+   "url": "https://cdn.modrinth.com/data/oybTNEKh/versions/bYLTxJVK/fatedice-1.0.0.jar"
+  },
+  {
    "path": "mods/ferritecore-7.0.3-neoforge.jar",
    "sha1": "9563692efb708b6b568df27a01ec52f6311928ef",
    "size": 121559,
@@ -4342,6 +4386,18 @@
    "url": "https://edge.forgecdn.net/files/8335/665/kotlinforforge-5.12.0-all.jar"
   },
   {
+   "path": "mods/kubejs-create-neoforge-2101.3.1-build.18.jar",
+   "sha1": "f54d9ff53909771d27e4d9d135c3707cd5d5f855",
+   "size": 38629,
+   "url": "https://cdn.modrinth.com/data/T38eAZQC/versions/1qmcLagN/kubejs-create-neoforge-2101.3.1-build.18.jar"
+  },
+  {
+   "path": "mods/kubejs-neoforge-2101.7.2-build.381.jar",
+   "sha1": "b282ba250cdd247f319c016df02ff9e600caadb1",
+   "size": 2295092,
+   "url": "https://cdn.modrinth.com/data/umyGl7zF/versions/GDXCpKlp/kubejs-neoforge-2101.7.2-build.381.jar"
+  },
+  {
    "path": "mods/lambdynamiclights-4.8.11+1.21.1.jar",
    "sha1": "7b5afc75a094b4e8a7118f9856eec959b10f2422",
    "size": 2023375,
@@ -4558,6 +4614,12 @@
    "url": "https://edge.forgecdn.net/files/5624/396/offlineskins-1.21.1-v1a-neoforge.jar"
   },
   {
+   "path": "mods/origins-1.52.0.jar",
+   "sha1": "c48b6dc4e6e19f313319317743e6e682f1981597",
+   "size": 695539,
+   "url": "https://cdn.modrinth.com/data/tYolxBPN/versions/dFrPRXFk/origins-1.52.0.jar"
+  },
+  {
    "path": "mods/packetfixer-3.3.1-1.20.5-1.21.X-merged.jar",
    "sha1": "a8bb6e25807682e72c23bf4065f3cd5f6373ece3",
    "size": 46623,
@@ -4646,6 +4708,12 @@
    "sha1": "24389c8e48ff0e8594e4686b750c494c66a5f8df",
    "size": 484332,
    "url": "https://cdn.modrinth.com/data/G1hIVOrD/versions/x99nCLTm/resourcefullib-neoforge-1.21-3.0.12.jar"
+  },
+  {
+   "path": "mods/rhino-2101.2.7-build.85.jar",
+   "sha1": "3c8d34c7efe9e42fc90506acbf9fc842d36f9a42",
+   "size": 882075,
+   "url": "https://cdn.modrinth.com/data/sk9knFPE/versions/cQ4POTah/rhino-2101.2.7-build.85.jar"
   },
   {
    "path": "mods/rightclickharvest-neoforge-4.6.1+1.21.1.jar",
@@ -5188,11 +5256,5 @@
    "size": 160,
    "policy": "once"
   }
- ],
- "launcherLinux": {
-  "version": "1.0.9",
-  "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher-linux-x64",
-  "sha1": "708849cbb9aba9cf002e0f6689c1f1a37b80ca24",
-  "size": 11161784
- }
+ ]
 }
