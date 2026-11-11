@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -184,11 +185,15 @@ func gameSkin(dir string) ([]byte, bool, string) {
 		if b, err := os.ReadFile(cache); err == nil && validateSkin(b) == nil {
 			return b, slimOf(b), "account"
 		}
-		if b, err := fetchSmall(cfg.OwnURL); err == nil && validateSkin(b) == nil {
-			_ = os.MkdirAll(filepath.Dir(cache), 0o755)
-			_ = os.WriteFile(cache, b, 0o644)
-			return b, slimOf(b), "account"
-		}
+		// Never block the UI on the network: fetch once in the background, show it next time.
+		accountFetchOnce.Do(func() {
+			go func(u, cache string) {
+				if b, err := fetchSmall(u); err == nil && validateSkin(b) == nil {
+					_ = os.MkdirAll(filepath.Dir(cache), 0o755)
+					_ = os.WriteFile(cache, b, 0o644)
+				}
+			}(cfg.OwnURL, cache)
+		})
 	}
 	if newest != nil {
 		return newest, slimOf(newest), "game"
@@ -205,6 +210,8 @@ func looksSlim(b []byte) bool {
 	_, _, _, a := img.At(54, 20).RGBA()
 	return a == 0
 }
+
+var accountFetchOnce sync.Once
 
 func fetchSmall(u string) ([]byte, error) {
 	c := &http.Client{Timeout: 10 * time.Second}

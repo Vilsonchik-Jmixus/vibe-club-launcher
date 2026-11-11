@@ -189,7 +189,13 @@ $('btnClose').onclick = async () => {
   window.close();
 };
 $('footAddress').onclick = () => { navigator.clipboard && navigator.clipboard.writeText($('footAddress').textContent); toast('Адрес сервера скопирован'); };
-$('btnSelfUpdate').onclick = async () => { try { await api('update-launcher', { method: 'POST' }); toast('Скачиваю новую версию лаунчера, он перезапустится сам…'); } catch (e) { toast(e.message, true); } };
+$('btnSelfUpdate').onclick = async () => {
+  try {
+    toast('Скачиваю новую версию лаунчера, он перезапустится сам…');
+    await api('update-launcher', { method: 'POST' });
+    setTimeout(() => window.close(), 1200); // the new launcher opens its own window
+  } catch (e) { toast(e.message, true); }
+};
 
 // ---- folder
 async function pickFolder() {
@@ -440,12 +446,15 @@ function applyRot() { const r = $('skinModel'); if (r) r.style.transform = `tran
 })();
 
 // ---- boot
+// Ping right away (the launcher closes itself when the window stops pinging). If the launcher
+// process is gone (closed or restarted after an update), close this stale window.
+let pingFails = 0;
+setInterval(() => api('ping').then(() => { pingFails = 0; }).catch(() => { if (++pingFails >= 3) window.close(); }), 3000);
 (async function boot() {
   await refresh(true);
   go(S && !S.installed ? 'install' : 'main');
   if (S && S.job && S.job.running) { jobShown = true; go('install'); showInstallPart('progress'); pollJob(); }
   loadSkin(); pollServer();
   setInterval(pollServer, 30000);
-  setInterval(() => api('ping').catch(() => {}), 3000);
   setInterval(() => { if (!(job && job.running)) refresh(false); }, 60000);
 })();

@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.7"
+const LauncherVersion = "1.0.8"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -120,7 +120,7 @@ func watchdog() {
 func waitIdleThenQuit() {
 	for {
 		time.Sleep(2 * time.Second)
-		if sincePing() > 8*time.Second {
+		if sincePing() > 25*time.Second {
 			quit()
 			return
 		}
