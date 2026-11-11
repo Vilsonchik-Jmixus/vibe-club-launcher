@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.6"
+const LauncherVersion = "1.0.7"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -411,10 +411,14 @@ func registerAPI(mux *http.ServeMux, p string) {
 	h("skin", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case "GET":
-			b, _ := currentSkin()
+			b, slim, src := currentSkinWithSource()
 			if b == nil {
 				w.WriteHeader(404)
 				return
+			}
+			w.Header().Set("X-Skin-Source", src)
+			if slim {
+				w.Header().Set("X-Skin-Slim", "1")
 			}
 			w.Header().Set("Content-Type", "image/png")
 			w.Write(b)

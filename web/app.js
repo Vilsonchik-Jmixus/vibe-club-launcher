@@ -68,6 +68,7 @@ function go(v) {
   document.querySelectorAll('.view').forEach((el) => el.classList.toggle('active', el.id === 'view-' + v));
   document.querySelectorAll('nav [data-go]').forEach((el) => el.classList.toggle('active-nav', el.dataset.go === v));
   if (v === 'install') showInstallPart(job && (job.running || job.finished) && jobShown ? null : 'form');
+  if (v === 'skin' && typeof loadSkin === 'function') loadSkin();
   render();
 }
 document.querySelectorAll('[data-go]').forEach((el) => el.addEventListener('click', () => go(el.dataset.go)));
@@ -129,7 +130,6 @@ function render() {
 
   // skin
   $('tglSlim').classList.toggle('on', !!S.skinSlim);
-  $('skinStatus').textContent = S.hasSkin ? 'Выбран свой скин — он появится в игре при следующем входе.' : 'Скин не выбран — на модели пример. Загрузи свой PNG, и он появится здесь и в игре.';
 }
 
 function jobName(k) { return { install: 'установка', update: 'обновление', repair: 'проверка файлов', reinstall: 'переустановка' }[k] || 'операция'; }
@@ -318,12 +318,19 @@ $('tglSlim').onclick = async () => {
 async function loadSkin() {
   try {
     const r = await fetch(API + 'skin?t=' + Date.now());
-    if (!r.ok) { skinImg = null; buildModel(); return; }
+    if (!r.ok) { skinImg = null; buildModel(); skinSource(''); return; }
+    skinSource(r.headers.get('X-Skin-Source') || '');
+    if (r.headers.get('X-Skin-Slim') === '1') $('tglSlim').classList.add('on');
     const blob = await r.blob();
     const img = new Image();
     img.onload = () => { skinImg = img; buildModel(); };
     img.src = URL.createObjectURL(blob);
   } catch (e) { skinImg = null; buildModel(); }
+}
+
+function skinSource(src) {
+  const t = { game: 'Сейчас в игре этот скин (из файлов Quick Skin в папке сборки).', account: 'Сейчас в игре скин твоего аккаунта Minecraft.', pending: 'Новый скин выбран — он включится при следующем входе в игру.', launcher: 'Скин выбран в лаунчере.' }[src];
+  $('skinStatus').textContent = t || 'Скин не выбран — на модели пример. Загрузи свой PNG, и он появится здесь и в игре.';
 }
 
 // ---- 3D skin viewer (CSS 3D, no libraries)
