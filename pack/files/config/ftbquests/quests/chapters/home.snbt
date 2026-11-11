@@ -1,0 +1,259 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "home"
+	group: ""
+	icon: {
+		id: "handcrafted:oak_fancy_bed"
+	}
+	id: "197D0608B71C327F"
+	images: [ ]
+	order_index: 4
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1F1F1904FDE64F2B"]
+			icon: {
+				id: "minecraft:oak_planks"
+			}
+			id: "156EC40F451E09C0"
+			rewards: [{
+				id: "19B8FFD569442234"
+				type: "xp"
+				xp: 15
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "118CC75386C11EDB"
+				type: "checkmark"
+			}]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["156EC40F451E09C0"]
+			icon: {
+				id: "handcrafted:oak_fancy_bed"
+			}
+			id: "15FC4A285A521EC6"
+			rewards: [{
+				id: "1E081E2C3BAD0FD5"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				id: "168300488936FDBF"
+				item: { count: 1, id: "handcrafted:oak_fancy_bed" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["156EC40F451E09C0"]
+			icon: {
+				id: "handcrafted:oak_table"
+			}
+			id: "1DEDC52B2AD0CD97"
+			rewards: [{
+				id: "15BED90E586EB845"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [
+				{
+					id: "17A64B929312250C"
+					item: { count: 1, id: "handcrafted:oak_table" }
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "1FBC6202BBA819AE"
+					item: { count: 1, id: "handcrafted:oak_chair" }
+					type: "item"
+				}
+			]
+			x: 2.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"15FC4A285A521EC6"
+				"1DEDC52B2AD0CD97"
+			]
+			icon: {
+				id: "immersive_furniture:artisans_workstation"
+			}
+			id: "1480CEDC9A483EEF"
+			rewards: [{
+				id: "1D2555B39F58EB6B"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "144545520095A15F"
+				item: { count: 1, id: "immersive_furniture:artisans_workstation" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1480CEDC9A483EEF"]
+			icon: {
+				id: "comforts:hammock_white"
+			}
+			id: "15203A805BB107E5"
+			rewards: [{
+				id: "1DEBC9348DFE2789"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				id: "1C507E3FE460ADC5"
+				item: { count: 1, id: "comforts:hammock_white" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1480CEDC9A483EEF"]
+			icon: {
+				id: "fairylights:hanging_lights"
+			}
+			id: "1F91D861BE6E85D8"
+			rewards: [{
+				id: "1E7FE2B8260963AE"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					id: "1011A20AD8E11E4D"
+					item: { count: 1, id: "fairylights:hanging_lights" }
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "19CF18D2C60A2138"
+					item: { count: 1, id: "fairylights:fairy_light" }
+					type: "item"
+				}
+			]
+			x: 6.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["15203A805BB107E5"]
+			icon: {
+				id: "supplementaries:globe"
+			}
+			id: "183424AFE97DE747"
+			rewards: [{
+				id: "17B1A0B5FDEBDEFF"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				id: "193485C2E345DC8C"
+				item: { count: 1, id: "supplementaries:globe" }
+				type: "item"
+			}]
+			x: 8.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1F91D861BE6E85D8"]
+			icon: {
+				id: "sophisticatedbackpacks:backpack"
+			}
+			id: "1392046CFFC8479D"
+			rewards: [{
+				id: "1408C069BB659BC0"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				id: "18A8402D5148C86C"
+				item: { count: 1, id: "sophisticatedbackpacks:backpack" }
+				type: "item"
+			}]
+			x: 8.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"183424AFE97DE747"
+				"1392046CFFC8479D"
+			]
+			icon: {
+				id: "farmersdelight:canvas_rug"
+			}
+			id: "137CED8232E3936B"
+			rewards: [{
+				id: "17C3CA9810A2F120"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					id: "1F3FEC3BF97529A9"
+					item: { count: 1, id: "farmersdelight:canvas_rug" }
+					type: "item"
+				}
+				{
+					id: "1EFAD5283E755469"
+					item: { count: 1, id: "minecraft:flower_pot" }
+					type: "item"
+				}
+				{
+					id: "197A7F70F5E05146"
+					item: { count: 1, id: "minecraft:lantern" }
+					type: "item"
+				}
+			]
+			x: 10.0d
+			y: 0.0d
+		}
+		{
+			dependencies: [
+				"137CED8232E3936B"
+				"1BBAE21879F153A3"
+			]
+			icon: {
+				id: "exposure:photograph"
+			}
+			id: "1C590C1156CF5F80"
+			rewards: [
+				{
+					id: "12E76F13448E844E"
+					item: {
+						count: 1
+						id: "exposure:color_film"
+					}
+					type: "item"
+				}
+				{
+					id: "1653890C7AE113AA"
+					type: "xp"
+					xp: 30
+				}
+				{
+					id: "1BAF7920063C0A1C"
+					table_id: 1829227394650544700L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1E4D970563C2A996"
+				type: "checkmark"
+			}]
+			x: 12.0d
+			y: 0.0d
+		}
+	]
+}

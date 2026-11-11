@@ -1,0 +1,284 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "warmth"
+	group: ""
+	icon: {
+		id: "farmersdelight:cooking_pot"
+	}
+	id: "178C575C5AFB8F9D"
+	images: [ ]
+	order_index: 2
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1F1F1904FDE64F2B"]
+			icon: {
+				id: "minecraft:campfire"
+			}
+			id: "1CB9DA3A769BABF2"
+			rewards: [{
+				id: "19D69A66FFE0CFFC"
+				type: "xp"
+				xp: 10
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1F80404AD058615E"
+				item: { count: 1, id: "minecraft:campfire" }
+				type: "item"
+			}]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1CB9DA3A769BABF2"]
+			icon: {
+				id: "minecraft:wheat"
+			}
+			id: "18016F82462AD7D1"
+			rewards: [
+				{
+					count: 4
+					id: "18DF14B6709F618C"
+					item: {
+						count: 1
+						id: "farmersdelight:cabbage_seeds"
+					}
+					type: "item"
+				}
+				{
+					count: 4
+					id: "168D56DE17F46D2F"
+					item: {
+						count: 1
+						id: "farmersdelight:tomato_seeds"
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				count: 16L
+				id: "1814EEEDFA4AAF4F"
+				item: { count: 1, id: "minecraft:wheat" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1CB9DA3A769BABF2"]
+			icon: {
+				id: "farmersdelight:flint_knife"
+			}
+			id: "19413B7BF9599AE2"
+			rewards: [{
+				id: "11BDA7DF9C0CE580"
+				type: "xp"
+				xp: 10
+			}]
+			tasks: [{
+				id: "12CB20D60CCC6BBD"
+				item: { count: 1, id: "farmersdelight:flint_knife" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["19413B7BF9599AE2"]
+			icon: {
+				id: "farmersdelight:cutting_board"
+			}
+			id: "125BC804ABFE93B7"
+			rewards: [{
+				id: "1781CC4FFDEBE629"
+				type: "xp"
+				xp: 10
+			}]
+			tasks: [{
+				id: "1FFC52384F3A04B2"
+				item: { count: 1, id: "farmersdelight:cutting_board" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["18016F82462AD7D1"]
+			icon: {
+				id: "farmersdelight:cooking_pot"
+			}
+			id: "156360FE269D4039"
+			rewards: [{
+				id: "199DAA8D0E2858C8"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				id: "1BC3571D53E7B14F"
+				item: { count: 1, id: "farmersdelight:cooking_pot" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"156360FE269D4039"
+				"125BC804ABFE93B7"
+			]
+			icon: {
+				id: "farmersdelight:beef_stew"
+			}
+			id: "12643A21F734B144"
+			rewards: [{
+				id: "1D3E52BE9D9936E5"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "175EFAA3CE7F7A24"
+				item: { count: 1, id: "farmersdelight:beef_stew" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["12643A21F734B144"]
+			icon: {
+				id: "kaleidoscope_cookery:pot"
+			}
+			id: "187D35C5A0D018C6"
+			rewards: [{
+				id: "18C62A208F124144"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				id: "1FDF507D8F42785F"
+				item: { count: 1, id: "kaleidoscope_cookery:pot" }
+				type: "item"
+			}]
+			x: 8.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["187D35C5A0D018C6"]
+			icon: {
+				id: "kaleidoscope_cookery:fried_egg"
+			}
+			id: "10E6BC785E50EAD7"
+			rewards: [{
+				id: "100EE708822284F9"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				id: "16767F98343D33E3"
+				item: { count: 1, id: "kaleidoscope_cookery:fried_egg" }
+				type: "item"
+			}]
+			x: 10.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["12643A21F734B144"]
+			icon: {
+				id: "kaleidoscope_cookery:chopping_board"
+			}
+			id: "1991B002562DFE0B"
+			rewards: [{
+				id: "1725B68ED17A3F14"
+				type: "xp"
+				xp: 10
+			}]
+			tasks: [{
+				id: "1B60AD4480466591"
+				item: { count: 1, id: "kaleidoscope_cookery:chopping_board" }
+				type: "item"
+			}]
+			x: 8.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1991B002562DFE0B"]
+			icon: {
+				id: "kaleidoscope_cookery:flower_tea"
+			}
+			id: "17F618D2581EB52A"
+			rewards: [{
+				id: "1613A279CB21929E"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "181ADA5900F60726"
+				item: { count: 1, id: "kaleidoscope_cookery:flower_tea" }
+				type: "item"
+			}]
+			x: 10.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"10E6BC785E50EAD7"
+				"17F618D2581EB52A"
+			]
+			icon: {
+				id: "brewinandchewin:keg"
+			}
+			id: "1ABB4601DFCF85F7"
+			rewards: [{
+				id: "12B2346034B49186"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [
+				{
+					id: "1A45CE6A6C6CFFAA"
+					item: { count: 1, id: "brewinandchewin:keg" }
+					type: "item"
+				}
+				{
+					id: "115DEC021D2DC1C6"
+					item: { count: 1, id: "brewinandchewin:flaxen_cheese_wheel" }
+					type: "item"
+				}
+			]
+			x: 12.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1ABB4601DFCF85F7"]
+			icon: {
+				id: "farmersdelight:egg_sandwich"
+			}
+			id: "139284C0E7A49EF6"
+			rewards: [
+				{
+					id: "129AEED6D43BA14C"
+					type: "xp"
+					xp: 25
+				}
+				{
+					id: "11ABC59FE928246C"
+					table_id: 1829227394650544700L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				count: 4L
+				id: "1F7FA54FBB449B6A"
+				item: { count: 1, id: "farmersdelight:egg_sandwich" }
+				type: "item"
+			}]
+			x: 14.0d
+			y: 0.0d
+		}
+	]
+}

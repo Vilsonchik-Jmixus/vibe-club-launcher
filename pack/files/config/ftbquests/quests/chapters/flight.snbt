@@ -1,0 +1,348 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "flight"
+	group: ""
+	icon: {
+		id: "aeronautics:wooden_propeller"
+	}
+	id: "19F11C79E8BB7A0D"
+	images: [ ]
+	order_index: 6
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["19BB87186004097B"]
+			icon: {
+				id: "aeronautics:aviators_goggles"
+			}
+			id: "10164A3D4248D3AA"
+			rewards: [{
+				id: "1D368596B2A88474"
+				type: "xp"
+				xp: 20
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1AF9C927CB636B38"
+				item: { count: 1, id: "aeronautics:aviators_goggles" }
+				type: "item"
+			}]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["10164A3D4248D3AA"]
+			icon: {
+				id: "create:super_glue"
+			}
+			id: "14EF3C47C6789E14"
+			rewards: [{
+				id: "11B27F3DC8FBBE3E"
+				type: "xp"
+				xp: 10
+			}]
+			tasks: [{
+				id: "12511E268316067E"
+				item: { count: 1, id: "create:super_glue" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["10164A3D4248D3AA"]
+			icon: {
+				id: "simulated:physics_assembler"
+			}
+			id: "11D8A75BBD9F7F8B"
+			rewards: [{
+				id: "190BFE40F67EE614"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "11B4FC0A353E8DE2"
+				item: { count: 1, id: "simulated:physics_assembler" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"14EF3C47C6789E14"
+				"11D8A75BBD9F7F8B"
+			]
+			icon: {
+				id: "aeronautics:white_envelope"
+			}
+			id: "1D0D8CA4CF3B557D"
+			rewards: [{
+				id: "15B945413A269D11"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [
+				{
+					count: 8L
+					id: "107AA44D031CE531"
+					item: { count: 1, id: "aeronautics:white_envelope" }
+					type: "item"
+				}
+				{
+					id: "12786672685E7449"
+					item: { count: 1, id: "aeronautics:adjustable_burner" }
+					type: "item"
+				}
+			]
+			x: 4.0d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"14EF3C47C6789E14"
+				"11D8A75BBD9F7F8B"
+			]
+			icon: {
+				id: "aeronautics:levitite"
+			}
+			id: "19970DF33FACB240"
+			rewards: [{
+				id: "174653B4202A9E42"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [{
+				count: 4L
+				id: "154CAA4539283C9F"
+				item: { count: 1, id: "aeronautics:levitite" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"1D0D8CA4CF3B557D"
+				"19970DF33FACB240"
+			]
+			icon: {
+				id: "aeronautics:wooden_propeller"
+			}
+			id: "13EAA65C16566941"
+			rewards: [{
+				id: "1D01F9D177A8246B"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [
+				{
+					id: "18F44DD6B332ADF6"
+					item: { count: 1, id: "aeronautics:propeller_bearing" }
+					type: "item"
+				}
+				{
+					id: "190E3EF4F9C4C80F"
+					item: { count: 1, id: "aeronautics:wooden_propeller" }
+					type: "item"
+				}
+			]
+			x: 6.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["13EAA65C16566941"]
+			icon: {
+				id: "simulated:white_portable_engine"
+			}
+			id: "167FC70584F839E3"
+			rewards: [{
+				id: "1D79B1570FFE2D55"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [{
+				id: "1E3A3101C2B995CA"
+				item: { count: 1, id: "simulated:white_portable_engine" }
+				type: "item"
+			}]
+			x: 8.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["13EAA65C16566941"]
+			icon: {
+				id: "simulated:steering_wheel"
+			}
+			id: "19405D62EA25FBB3"
+			rewards: [{
+				id: "13F5E360C2E91E0F"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [
+				{
+					id: "194BBC1CD56A28DF"
+					item: { count: 1, id: "simulated:steering_wheel" }
+					type: "item"
+				}
+				{
+					id: "1C83C48BEA9FD2DD"
+					item: { count: 1, id: "simulated:throttle_lever" }
+					type: "item"
+				}
+			]
+			x: 8.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"167FC70584F839E3"
+				"19405D62EA25FBB3"
+			]
+			icon: {
+				id: "aeronautics:wooden_propeller"
+			}
+			id: "1C999A42D10C0619"
+			rewards: [
+				{
+					count: 8
+					id: "17E0AD658D2593DA"
+					item: {
+						count: 1
+						id: "create:brass_ingot"
+					}
+					type: "item"
+				}
+				{
+					id: "13E918DE9BFDB9F6"
+					type: "xp"
+					xp: 80
+				}
+				{
+					id: "1238F52A254F3AF2"
+					table_id: 2252655872348630305L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1300C4739F84A14D"
+				type: "checkmark"
+			}]
+			x: 10.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1C999A42D10C0619"]
+			icon: {
+				id: "simulated:navigation_table"
+			}
+			id: "1D3AF86DFE90BF51"
+			rewards: [{
+				id: "17B9D52580401A24"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [{
+				id: "191ED17EDB025087"
+				item: { count: 1, id: "simulated:navigation_table" }
+				type: "item"
+			}]
+			x: 12.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1C999A42D10C0619"]
+			icon: {
+				id: "simulated:docking_connector"
+			}
+			id: "16411DAE8F978C6D"
+			rewards: [{
+				id: "1CEB11CA8B814641"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [{
+				count: 2L
+				id: "13385F004E434E8E"
+				item: { count: 1, id: "simulated:docking_connector" }
+				type: "item"
+			}]
+			x: 12.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1D3AF86DFE90BF51"]
+			icon: {
+				id: "simulated:rope_winch"
+			}
+			id: "15310881B576EC7C"
+			rewards: [{
+				id: "1517CDCEECC69BC8"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [{
+				id: "14C8F72A7BEDCE5A"
+				item: { count: 1, id: "simulated:rope_winch" }
+				type: "item"
+			}]
+			x: 14.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["16411DAE8F978C6D"]
+			icon: {
+				id: "createpropulsion:thruster"
+			}
+			id: "1158773AB19D70B0"
+			rewards: [{
+				id: "1EB479DCC86828CE"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [
+				{
+					id: "17D66180D33ADAB7"
+					item: { count: 1, id: "createpropulsion:thruster" }
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "12474F18A77A07CD"
+					item: { count: 1, id: "createpropulsion:wing" }
+					type: "item"
+				}
+			]
+			x: 14.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"15310881B576EC7C"
+				"1158773AB19D70B0"
+			]
+			icon: {
+				id: "aeronautics:smart_propeller"
+			}
+			id: "165982AEE60267CC"
+			rewards: [{
+				id: "1B4C200B7F14FB5C"
+				type: "xp"
+				xp: 80
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "151222B80C6D737F"
+				type: "checkmark"
+			}]
+			x: 16.0d
+			y: 0.0d
+		}
+	]
+}

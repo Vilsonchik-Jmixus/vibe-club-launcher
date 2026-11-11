@@ -1,0 +1,554 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "events"
+	group: ""
+	icon: {
+		id: "supplementaries:confetti_popper"
+	}
+	id: "14C93E1C8C2F3BD8"
+	images: [ ]
+	order_index: 12
+	quest_links: [ ]
+	quests: [
+		{
+			icon: {
+				id: "supplementaries:confetti_popper"
+			}
+			id: "19F728E483FC61F1"
+			rewards: [{
+				id: "176703A6E7A70FC0"
+				type: "xp"
+				xp: 20
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1C7486052029FAD0"
+				type: "checkmark"
+			}]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["19F728E483FC61F1"]
+			icon: {
+				id: "supplementaries:flag_white"
+			}
+			id: "1B9E4CF461D494B0"
+			rewards: [{
+				id: "11EB5F8D81CCB13D"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					count: 2L
+					id: "1A0E978186141367"
+					item: { count: 1, id: "supplementaries:flag_white" }
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "19E22D0FD11F74EA"
+					item: { count: 1, id: "create:redstone_link" }
+					type: "item"
+				}
+			]
+			x: 2.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["1B9E4CF461D494B0"]
+			icon: {
+				id: "vc_gliders:paraglider_wood"
+			}
+			id: "1C7D6649A6469801"
+			rewards: [
+				{
+					id: "1FBCB3ED2017BEDC"
+					type: "xp"
+					xp: 30
+				}
+				{
+					count: 8
+					id: "170DB1BAEE5449EE"
+					item: {
+						count: 1
+						id: "minecraft:firework_rocket"
+					}
+					type: "item"
+				}
+			]
+			tasks: [
+				{
+					id: "1305D43EE04C6027"
+					item: { count: 1, id: "vc_gliders:paraglider_wood" }
+					type: "item"
+				}
+				{
+					id: "1EF8A8CF630AB65E"
+					type: "checkmark"
+				}
+			]
+			x: 4.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1B9E4CF461D494B0"]
+			icon: {
+				id: "create_kart:kart_motor"
+			}
+			id: "15636B6DCD0F9A72"
+			rewards: [{
+				id: "19615935EED8E0C0"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [
+				{
+					id: "11DF6F6F44A75365"
+					item: { count: 1, id: "create_kart:kart_motor" }
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "1D4AAC357815C317"
+					item: { count: 1, id: "create_kart:roue" }
+					type: "item"
+				}
+				{
+					id: "14B550F6C34EE52C"
+					type: "checkmark"
+				}
+			]
+			x: 4.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["15636B6DCD0F9A72"]
+			icon: {
+				id: "create:display_board"
+			}
+			id: "19B08520C36EFA9A"
+			rewards: [{
+				id: "14E50089EA2DABC7"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [
+				{
+					count: 4L
+					id: "1E1C6103979892E8"
+					item: { count: 1, id: "create:display_board" }
+					type: "item"
+				}
+				{
+					id: "1BFF27B6AB5B19E0"
+					item: { count: 1, id: "create:display_link" }
+					type: "item"
+				}
+			]
+			x: 6.0d
+			y: -4.0d
+		}
+		{
+			dependencies: ["1C7D6649A6469801"]
+			icon: {
+				id: "immersive_aircraft:biplane"
+			}
+			id: "1011F6E5AC2D4338"
+			rewards: [{
+				id: "1CC468C435A216AC"
+				type: "xp"
+				xp: 50
+			}]
+			tasks: [{
+				id: "1AC4274DE19AA259"
+				type: "checkmark"
+			}]
+			x: 6.0d
+			y: -2.0d
+		}
+		{
+			dependencies: [
+				"19B08520C36EFA9A"
+				"1011F6E5AC2D4338"
+			]
+			icon: {
+				id: "minecraft:firework_rocket"
+			}
+			id: "123B755880FC91BE"
+			rewards: [
+				{
+					id: "177D6546B0E0ABE3"
+					type: "xp"
+					xp: 100
+				}
+				{
+					id: "17F0321C40D91A15"
+					table_id: 1933530795918275046L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1C2F14B18DCE9056"
+				type: "checkmark"
+			}]
+			x: 8.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["19F728E483FC61F1"]
+			icon: {
+				id: "create:white_seat"
+			}
+			id: "173AA52C624382D1"
+			rewards: [{
+				id: "13F45067997109AE"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				count: 8L
+				id: "1465C5C344B3FDBA"
+				item: { count: 1, id: "create:white_seat" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["173AA52C624382D1"]
+			icon: {
+				id: "createfood:caramel_popcorn"
+			}
+			id: "176AF0E63E299F88"
+			rewards: [
+				{
+					id: "187ACC1A8BC202CE"
+					type: "xp"
+					xp: 25
+				}
+				{
+					count: 4
+					id: "1C0F11C1FA52B5F0"
+					item: {
+						count: 1
+						id: "createfood:caramel_popcorn"
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				count: 8L
+				id: "12E68743737CD7DB"
+				item: { count: 1, id: "createfood:caramel_popcorn" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["173AA52C624382D1"]
+			icon: {
+				id: "exposure:interplanar_projector"
+			}
+			id: "13949ED0D5DEEB9E"
+			rewards: [{
+				id: "113054CF283EC880"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [
+				{
+					id: "169894AB6634A614"
+					item: { count: 1, id: "exposure:interplanar_projector" }
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "13159DFC79FC3056"
+					item: { count: 1, id: "exposure:photograph_frame" }
+					type: "item"
+				}
+			]
+			x: 4.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["13949ED0D5DEEB9E"]
+			icon: {
+				id: "create_optical:hologram_source"
+			}
+			id: "1420DA83C97521AC"
+			rewards: [{
+				id: "10E69F8824020B5F"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [{
+				id: "194912B3AC41C36F"
+				item: { count: 1, id: "create_optical:hologram_source" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["13949ED0D5DEEB9E"]
+			icon: {
+				id: "supplementaries:speaker_block"
+			}
+			id: "16DD51FDE449F8F8"
+			rewards: [{
+				id: "19F9C5A828525FB1"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "17D86C86B2BFF9B9"
+				item: { count: 1, id: "supplementaries:speaker_block" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: 1.5d
+		}
+		{
+			dependencies: [
+				"176AF0E63E299F88"
+				"1420DA83C97521AC"
+				"16DD51FDE449F8F8"
+			]
+			icon: {
+				id: "exposure:photograph"
+			}
+			id: "19560EE0A07D23CE"
+			rewards: [
+				{
+					id: "11D3887F38B1F28F"
+					type: "xp"
+					xp: 100
+				}
+				{
+					id: "1A785BDBF114BBC9"
+					table_id: 1933530795918275046L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [
+				{
+					id: "1DEDE8586CB36D3A"
+					item: { count: 1, id: "exposure:photograph" }
+					type: "item"
+				}
+				{
+					id: "1BD6556CE6BCD6CC"
+					type: "checkmark"
+				}
+			]
+			x: 8.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["19F728E483FC61F1"]
+			icon: {
+				id: "minecraft:spruce_sapling"
+			}
+			id: "107FC73E975D27A3"
+			rewards: [{
+				id: "184C52F539C2FD74"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					count: 4L
+					id: "1AF16C98B7FE0EA2"
+					item: { count: 1, id: "minecraft:spruce_sapling" }
+					type: "item"
+				}
+				{
+					id: "12C21A6A4B1331A2"
+					type: "checkmark"
+				}
+			]
+			x: 2.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["107FC73E975D27A3"]
+			icon: {
+				id: "fairylights:hanging_lights"
+			}
+			id: "1F8FF6C6183CEAB2"
+			rewards: [{
+				id: "1ED10789598F90B0"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [
+				{
+					count: 2L
+					id: "15F9280B3680EB43"
+					item: { count: 1, id: "fairylights:hanging_lights" }
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "162AE22BDA4028D1"
+					item: { count: 1, id: "fairylights:fairy_light" }
+					type: "item"
+				}
+			]
+			x: 4.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["107FC73E975D27A3"]
+			icon: {
+				id: "supplementaries:present"
+			}
+			id: "144EBFA2D6D4DB38"
+			rewards: [{
+				id: "1D1E0BF8289A7579"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [{
+				count: 5L
+				id: "1D8672BB742B7205"
+				item: { count: 1, id: "supplementaries:present" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: 3.5d
+		}
+		{
+			dependencies: [
+				"1F8FF6C6183CEAB2"
+				"144EBFA2D6D4DB38"
+			]
+			icon: {
+				id: "create_confectionery:candy_cane"
+			}
+			id: "1A10D69E966F0DD1"
+			rewards: [{
+				id: "1E0E2DFB6B53F991"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [
+				{
+					count: 4L
+					id: "1B5DC96CC87710A7"
+					item: { count: 1, id: "create_confectionery:gingerbread_man" }
+					type: "item"
+				}
+				{
+					count: 8L
+					id: "113B601443E39EEA"
+					item: { count: 1, id: "create_confectionery:candy_cane" }
+					type: "item"
+				}
+				{
+					count: 2L
+					id: "156E318EBCD99A7A"
+					item: { count: 1, id: "create_confectionery:soothing_hot_chocolate" }
+					type: "item"
+				}
+			]
+			x: 6.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["144EBFA2D6D4DB38"]
+			icon: {
+				id: "minecraft:firework_rocket"
+			}
+			id: "141DA472C63BA800"
+			rewards: [{
+				id: "1BD6CEFE7510C7FB"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [{
+				count: 32L
+				id: "12A4C73C590E833D"
+				item: { count: 1, id: "minecraft:firework_rocket" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: 3.5d
+		}
+		{
+			dependencies: ["141DA472C63BA800"]
+			icon: {
+				id: "minecraft:carved_pumpkin"
+			}
+			id: "18A255E14FBB9A0F"
+			rewards: [{
+				id: "1F5EB443799DCF82"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					id: "1731E60B45BB192B"
+					item: { count: 1, id: "minecraft:carved_pumpkin" }
+					type: "item"
+				}
+				{
+					id: "1EC2F98791E63EB1"
+					type: "checkmark"
+				}
+			]
+			x: 8.0d
+			y: 4.0d
+		}
+		{
+			dependencies: [
+				"1A10D69E966F0DD1"
+				"141DA472C63BA800"
+				"18A255E14FBB9A0F"
+			]
+			icon: {
+				id: "supplementaries:confetti_popper"
+			}
+			id: "1953F70A7211574C"
+			rewards: [
+				{
+					id: "122B60128C386992"
+					type: "xp"
+					xp: 100
+				}
+				{
+					count: 3
+					id: "10BDAA248141C9B1"
+					item: {
+						count: 1
+						id: "supplementaries:confetti_popper"
+					}
+					type: "item"
+				}
+				{
+					id: "147B5A75ADA175D7"
+					table_id: 1933530795918275046L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1D8B30451F3C4EE7"
+				type: "checkmark"
+			}]
+			x: 8.0d
+			y: 3.0d
+		}
+	]
+}

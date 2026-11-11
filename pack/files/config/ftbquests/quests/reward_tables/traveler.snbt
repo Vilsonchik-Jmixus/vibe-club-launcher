@@ -1,0 +1,73 @@
+{
+	icon: {
+		id: "minecraft:chest"
+	}
+	id: "1962B89FAF8F1A3C"
+	loot_size: 1
+	order_index: 0
+	rewards: [
+		{
+			count: 3
+			id: "42EE1E226C6EE6C0"
+			item: {
+				count: 1
+				id: "farmersdelight:egg_sandwich"
+			}
+			weight: 10.0f
+		}
+		{
+			count: 16
+			id: "6697B1379C9567CF"
+			item: {
+				count: 1
+				id: "minecraft:torch"
+			}
+			weight: 10.0f
+		}
+		{
+			id: "377DDC5235E08340"
+			item: {
+				count: 1
+				id: "exposure:color_film"
+			}
+			weight: 6.0f
+		}
+		{
+			count: 6
+			id: "5547CC1E47C542AE"
+			item: {
+				count: 1
+				id: "minecraft:iron_ingot"
+			}
+			weight: 8.0f
+		}
+		{
+			count: 8
+			id: "015D27B48A142F47"
+			item: {
+				count: 1
+				id: "minecraft:string"
+			}
+			weight: 6.0f
+		}
+		{
+			id: "244185E8B9099768"
+			item: {
+				count: 1
+				id: "minecraft:golden_apple"
+			}
+			weight: 2.0f
+		}
+		{
+			count: 2
+			id: "615B3CCF51BE39FC"
+			item: {
+				count: 1
+				id: "vc_gliders:reinforced_paper"
+			}
+			weight: 4.0f
+		}
+		{ id: "717448022B8AD5C8", item: { count: 1, id: "minecraft:diamond" } }
+	]
+	use_title: true
+}

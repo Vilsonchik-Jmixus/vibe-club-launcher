@@ -1,0 +1,154 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "magic_goety"
+	group: "19CCC74618E165DE"
+	icon: { id: "goety:dark_wand" }
+	id: "12F3B2D9CF0D5F48"
+	images: [ ]
+	order_index: 5
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1FB65BAEFEE46BF6"]
+			icon: { id: "goety:totem_of_souls" }
+			id: "1E510D5EAE478EC3"
+			rewards: [
+			{
+				id: "131572EF10902434"
+				type: "xp"
+				xp: 30
+			}
+			]
+			shape: "gear"
+			tasks: [
+			{
+				id: "19176621CDE65F87"
+				item: { count: 1, id: "goety:totem_of_souls" }
+				type: "item"
+			}
+			]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1E510D5EAE478EC3"]
+			icon: { id: "goety:dark_wand" }
+			id: "14672D7F06BE70CF"
+			rewards: [
+			{
+				id: "1324F85A3BC56767"
+				type: "xp"
+				xp: 50
+			}
+			]
+			tasks: [
+			{
+				id: "1BC35C8656658D93"
+				item: { count: 1, id: "goety:dark_wand" }
+				type: "item"
+			}
+			]
+			x: 1.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["14672D7F06BE70CF"]
+			icon: { id: "goety:empty_focus" }
+			id: "1D2932075359F451"
+			rewards: [
+			{
+				id: "10C25931A541F6C8"
+				type: "xp"
+				xp: 50
+			}
+			]
+			tasks: [
+			{
+				id: "1019EB4ED0F7F2FF"
+				item: { count: 1, id: "goety:empty_focus" }
+				type: "item"
+			}
+			]
+			x: 3.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["14672D7F06BE70CF"]
+			icon: { id: "goety:dark_altar" }
+			id: "15951628735643DD"
+			rewards: [
+			{
+				id: "1A2F94403BE130D2"
+				type: "xp"
+				xp: 100
+			}
+			]
+			tasks: [
+			{
+				id: "1524D4A73BF50CEE"
+				item: { count: 1, id: "goety:dark_altar" }
+				type: "item"
+			}
+			{
+				count: 2L
+				id: "117476D1AE97D7DE"
+				item: { count: 1, id: "goety:soul_candlestick" }
+				type: "item"
+			}
+			]
+			x: 3.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1D2932075359F451", "15951628735643DD"]
+			icon: { id: "goety:vexing_focus" }
+			id: "141F73E82F7550DD"
+			rewards: [
+			{
+				id: "1D01D16AAF213F47"
+				type: "xp"
+				xp: 150
+			}
+			]
+			tasks: [
+			{
+				id: "15662318D9C08FBF"
+				item: { count: 1, id: "goety:vexing_focus" }
+				type: "item"
+			}
+			]
+			x: 4.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["141F73E82F7550DD"]
+			icon: { id: "goety:cursed_infuser" }
+			id: "1820FFDE1FE861CB"
+			rewards: [
+			{
+				id: "1AC00007756F1310"
+				type: "xp"
+				xp: 250
+			}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [
+			{
+				id: "10E61DF4C9CADC06"
+				item: { count: 1, id: "goety:cursed_infuser" }
+				type: "item"
+			}
+			{
+				count: 4L
+				id: "12DCF53E7F871386"
+				item: { count: 1, id: "goety:cursed_ingot" }
+				type: "item"
+			}
+			]
+			x: 6.0d
+			y: 0.0d
+		}
+	]
+}

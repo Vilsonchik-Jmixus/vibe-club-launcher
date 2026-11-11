@@ -1,0 +1,80 @@
+{
+	icon: {
+		id: "create:brass_casing"
+	}
+	id: "1D82E8DF55FFA3C4"
+	loot_size: 1
+	order_index: 1
+	rewards: [
+		{
+			count: 16
+			id: "7A412830224C2422"
+			item: {
+				count: 1
+				id: "create:andesite_alloy"
+			}
+			weight: 10.0f
+		}
+		{
+			count: 6
+			id: "798986BB7226D483"
+			item: {
+				count: 1
+				id: "create:brass_ingot"
+			}
+			weight: 8.0f
+		}
+		{
+			count: 8
+			id: "6455A2450D252DBB"
+			item: {
+				count: 1
+				id: "create:cogwheel"
+			}
+			weight: 8.0f
+		}
+		{
+			id: "1889ED902B199E7F"
+			item: {
+				count: 1
+				id: "create:super_glue"
+			}
+			weight: 5.0f
+		}
+		{
+			id: "5AF9F80BC395AAF5"
+			item: {
+				count: 1
+				id: "create:precision_mechanism"
+			}
+			weight: 2.0f
+		}
+		{
+			count: 2
+			id: "3604AAA00EC0FF48"
+			item: {
+				count: 1
+				id: "aeronautics:levitite"
+			}
+			weight: 3.0f
+		}
+		{
+			count: 8
+			id: "26BABA8E001735B0"
+			item: {
+				count: 1
+				id: "create:copper_sheet"
+			}
+			weight: 6.0f
+		}
+		{
+			id: "2316AF0717914C4F"
+			item: {
+				count: 1
+				id: "create:blaze_burner"
+			}
+			weight: 2.0f
+		}
+	]
+	use_title: true
+}

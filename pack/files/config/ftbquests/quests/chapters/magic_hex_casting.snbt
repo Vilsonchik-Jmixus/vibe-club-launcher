@@ -1,0 +1,171 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "magic_hex_casting"
+	group: "19CCC74618E165DE"
+	icon: { id: "hexcasting:staff/oak" }
+	id: "16EAE2EC9CB47C10"
+	images: [ ]
+	order_index: 6
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1FB65BAEFEE46BF6"]
+			icon: { id: "hexcasting:amethyst_dust" }
+			id: "1592D259940C37EF"
+			rewards: [
+			{
+				id: "1F9BAA1BA2DA3866"
+				type: "xp"
+				xp: 30
+			}
+			]
+			shape: "gear"
+			tasks: [
+			{
+				count: 8L
+				id: "135EAE4C13AE0130"
+				item: { count: 1, id: "hexcasting:amethyst_dust" }
+				type: "item"
+			}
+			]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1592D259940C37EF"]
+			icon: { id: "hexcasting:staff/oak" }
+			id: "162AC7788FF4AC31"
+			rewards: [
+			{
+				id: "1A33A72B809151F1"
+				type: "xp"
+				xp: 50
+			}
+			]
+			tasks: [
+			{
+				id: "1BDC70796070E0FF"
+				item: { count: 1, id: "hexcasting:staff/oak" }
+				type: "item"
+			}
+			]
+			x: 1.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["162AC7788FF4AC31"]
+			icon: { id: "hexcasting:lens" }
+			id: "107D8AAFC2FA5E0B"
+			rewards: [
+			{
+				id: "1AA35B5200CCFD0B"
+				type: "xp"
+				xp: 50
+			}
+			]
+			tasks: [
+			{
+				id: "15D2A98742177CE9"
+				item: { count: 1, id: "hexcasting:lens" }
+				type: "item"
+			}
+			]
+			x: 3.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["162AC7788FF4AC31"]
+			icon: { id: "hexcasting:charged_amethyst" }
+			id: "15A00C174DB59E7A"
+			rewards: [
+			{
+				id: "197B80DB5AF99B8A"
+				type: "xp"
+				xp: 75
+			}
+			]
+			tasks: [
+			{
+				count: 2L
+				id: "10E2DA176AB1C02E"
+				item: { count: 1, id: "hexcasting:charged_amethyst" }
+				type: "item"
+			}
+			]
+			x: 3.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["107D8AAFC2FA5E0B"]
+			icon: { id: "hexcasting:focus" }
+			id: "1C58E0456AB3E215"
+			rewards: [
+			{
+				id: "1361ABB46A9E5895"
+				type: "xp"
+				xp: 100
+			}
+			]
+			tasks: [
+			{
+				id: "1A9F7D0690B1B05E"
+				item: { count: 1, id: "hexcasting:focus" }
+				type: "item"
+			}
+			{
+				id: "1D8D715DF57631DA"
+				item: { count: 1, id: "hexcasting:spellbook" }
+				type: "item"
+			}
+			]
+			x: 4.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1C58E0456AB3E215", "15A00C174DB59E7A"]
+			icon: { id: "hexcasting:cypher" }
+			id: "178C56650632EF35"
+			rewards: [
+			{
+				id: "1F8E30618F8959C2"
+				type: "xp"
+				xp: 200
+			}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [
+			{
+				id: "199E122A7B02F7E5"
+				item: { count: 1, id: "hexcasting:cypher" }
+				type: "item"
+			}
+			]
+			x: 6.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["15A00C174DB59E7A"]
+			icon: { id: "hexcasting:slate" }
+			id: "1E729DD2948CBF80"
+			rewards: [
+			{
+				id: "184B755A0DED7B1D"
+				type: "xp"
+				xp: 75
+			}
+			]
+			tasks: [
+			{
+				count: 4L
+				id: "1841FA0C876EB4AB"
+				item: { count: 1, id: "hexcasting:slate" }
+				type: "item"
+			}
+			]
+			x: 4.5d
+			y: 1.0d
+		}
+	]
+}

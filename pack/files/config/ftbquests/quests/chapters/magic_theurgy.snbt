@@ -1,0 +1,158 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "magic_theurgy"
+	group: "19CCC74618E165DE"
+	icon: { id: "theurgy:mercury_shard" }
+	id: "170AFBD2C4E92613"
+	images: [ ]
+	order_index: 4
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1FB65BAEFEE46BF6"]
+			icon: { id: "theurgy:pyromantic_brazier" }
+			id: "1A34785D89702E97"
+			rewards: [
+			{
+				id: "1895802B8BC875F0"
+				type: "xp"
+				xp: 30
+			}
+			]
+			shape: "gear"
+			tasks: [
+			{
+				id: "10D8E3A0C08BE854"
+				item: { count: 1, id: "theurgy:pyromantic_brazier" }
+				type: "item"
+			}
+			]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1A34785D89702E97"]
+			icon: { id: "theurgy:calcination_oven" }
+			id: "19A79D1456201576"
+			rewards: [
+			{
+				id: "1E68A5EE2F823319"
+				type: "xp"
+				xp: 75
+			}
+			]
+			tasks: [
+			{
+				id: "1F0D2471263B2A10"
+				item: { count: 1, id: "theurgy:calcination_oven" }
+				type: "item"
+			}
+			{
+				id: "171FD83395DA5FFB"
+				item: { count: 1, id: "theurgy:alchemical_salt_mineral" }
+				type: "item"
+			}
+			]
+			x: 1.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1A34785D89702E97"]
+			icon: { id: "theurgy:distiller" }
+			id: "14447546F25274F3"
+			rewards: [
+			{
+				id: "1867855CC4440182"
+				type: "xp"
+				xp: 75
+			}
+			]
+			tasks: [
+			{
+				id: "17F6DEC3D5CC9D1C"
+				item: { count: 1, id: "theurgy:distiller" }
+				type: "item"
+			}
+			{
+				count: 4L
+				id: "12A4E85CBC99333D"
+				item: { count: 1, id: "theurgy:mercury_shard" }
+				type: "item"
+			}
+			]
+			x: 1.5d
+			y: 1.0d
+		}
+		{
+			dependencies: ["19A79D1456201576", "14447546F25274F3"]
+			icon: { id: "theurgy:liquefaction_cauldron" }
+			id: "12FC5643A1162455"
+			rewards: [
+			{
+				id: "15DB4248243AB174"
+				type: "xp"
+				xp: 100
+			}
+			]
+			tasks: [
+			{
+				id: "18717D6415C7FDBC"
+				item: { count: 1, id: "theurgy:liquefaction_cauldron" }
+				type: "item"
+			}
+			{
+				id: "1EE919D807FDADD0"
+				item: { count: 1, id: "theurgy:alchemical_sulfur_iron" }
+				type: "item"
+			}
+			]
+			x: 3.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["12FC5643A1162455"]
+			icon: { id: "theurgy:incubator" }
+			id: "1330F34099430EBA"
+			rewards: [
+			{
+				id: "133CEF23B75522A4"
+				type: "xp"
+				xp: 150
+			}
+			]
+			tasks: [
+			{
+				id: "18638776A290CE3C"
+				item: { count: 1, id: "theurgy:incubator" }
+				type: "item"
+			}
+			]
+			x: 4.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1330F34099430EBA"]
+			icon: { id: "theurgy:mercury_catalyst" }
+			id: "1F5285A4C741F81B"
+			rewards: [
+			{
+				id: "178CF329C200FB0F"
+				type: "xp"
+				xp: 250
+			}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [
+			{
+				id: "1467D13DBDAB9C54"
+				item: { count: 1, id: "theurgy:mercury_catalyst" }
+				type: "item"
+			}
+			]
+			x: 6.0d
+			y: 0.0d
+		}
+	]
+}

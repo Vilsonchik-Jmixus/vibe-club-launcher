@@ -1,0 +1,243 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "festival"
+	group: ""
+	icon: {
+		id: "kaleidoscope_tavern:signature_cocktail"
+	}
+	id: "1057C1BEA96CE62A"
+	images: [ ]
+	order_index: 9
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: [
+				"139284C0E7A49EF6"
+				"137CED8232E3936B"
+			]
+			icon: {
+				id: "kaleidoscope_tavern:bar_counter"
+			}
+			id: "1AAA0B490139CBB9"
+			rewards: [{
+				id: "14F285B4D592CFBE"
+				type: "xp"
+				xp: 30
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [
+				{
+					count: 4L
+					id: "1D5706327D528916"
+					item: { count: 1, id: "kaleidoscope_tavern:bar_counter" }
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "14968C71777CBB4F"
+					item: { count: 1, id: "kaleidoscope_tavern:red_bar_stool" }
+					type: "item"
+				}
+			]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1AAA0B490139CBB9"]
+			icon: {
+				id: "kaleidoscope_tavern:pressing_tub"
+			}
+			id: "12FD8AF64725FD75"
+			rewards: [{
+				id: "14F1DAF866166EC5"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [
+				{
+					id: "1CDC4036645DAB41"
+					item: { count: 1, id: "kaleidoscope_tavern:pressing_tub" }
+					type: "item"
+				}
+				{
+					id: "1C59F0D99637BB5F"
+					item: { count: 1, id: "kaleidoscope_tavern:grape_bucket" }
+					type: "item"
+				}
+			]
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1AAA0B490139CBB9"]
+			icon: {
+				id: "kaleidoscope_tavern:shaker"
+			}
+			id: "1F4081CF61E1EEEE"
+			rewards: [{
+				id: "1C99E8910554EC1A"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [{
+				id: "14789763426CBA56"
+				item: { count: 1, id: "kaleidoscope_tavern:shaker" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"12FD8AF64725FD75"
+				"1F4081CF61E1EEEE"
+			]
+			icon: {
+				id: "kaleidoscope_tavern:signature_cocktail"
+			}
+			id: "1983E769DB59E9FD"
+			rewards: [{
+				id: "1DC665DDDFEF93CB"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [{
+				id: "1EB332AC7C900216"
+				item: { count: 1, id: "kaleidoscope_tavern:signature_cocktail" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1983E769DB59E9FD"]
+			icon: {
+				id: "kaleidoscope_tavern:chalkboard"
+			}
+			id: "1EB0C4318C1E3916"
+			rewards: [{
+				id: "1FB709198EC0B4D0"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "1C92CA519A877CBC"
+				item: { count: 1, id: "kaleidoscope_tavern:chalkboard" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1983E769DB59E9FD"]
+			icon: {
+				id: "kaleidoscope_tavern:string_lights_pink"
+			}
+			id: "12A12AE0225CE32D"
+			rewards: [{
+				id: "116A5B7B533B627A"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				count: 8L
+				id: "1A48B854332D19D0"
+				item: { count: 1, id: "kaleidoscope_tavern:string_lights_pink" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"1EB0C4318C1E3916"
+				"12A12AE0225CE32D"
+			]
+			icon: {
+				id: "immersive_melodies:piano"
+			}
+			id: "1137817036CA65E1"
+			rewards: [{
+				id: "1AC903EBF38BBDB7"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [
+				{
+					id: "1894F5790EEB1414"
+					item: { count: 1, id: "immersive_melodies:piano" }
+					type: "item"
+				}
+				{
+					id: "1ACC029BB3CAC323"
+					item: { count: 1, id: "immersive_melodies:lute" }
+					type: "item"
+				}
+			]
+			x: 8.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1137817036CA65E1"]
+			icon: {
+				id: "minecraft:firework_rocket"
+			}
+			id: "1242E948B0533586"
+			rewards: [{
+				id: "1CB7A8C070FF5ED6"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [{
+				count: 16L
+				id: "1EDB641C0EE529D0"
+				item: { count: 1, id: "minecraft:firework_rocket" }
+				type: "item"
+			}]
+			x: 10.0d
+			y: 0.0d
+		}
+		{
+			dependencies: [
+				"1242E948B0533586"
+				"1C999A42D10C0619"
+				"1341F5B600CE72F9"
+			]
+			icon: {
+				id: "kaleidoscope_tavern:signature_cocktail"
+			}
+			id: "1F73DECA00650340"
+			rewards: [
+				{
+					count: 3
+					id: "14AFD39864E14200"
+					item: {
+						count: 1
+						id: "exposure:color_film"
+					}
+					type: "item"
+				}
+				{
+					id: "1A1A08BC0D7E714F"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "1B009F7394DF2F22"
+					table_id: 2252655872348630305L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "13D4A772E4A9925F"
+				type: "checkmark"
+			}]
+			x: 12.0d
+			y: 0.0d
+		}
+	]
+}

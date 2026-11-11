@@ -1,0 +1,33 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "magic_intro"
+	group: "19CCC74618E165DE"
+	icon: { id: "ars_nouveau:worn_notebook" }
+	id: "1DEA47C7ADB696E8"
+	images: [ ]
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			icon: { id: "ars_nouveau:worn_notebook" }
+			id: "1FB65BAEFEE46BF6"
+			rewards: [
+			{
+				id: "10E3F8E93436F7E9"
+				type: "xp"
+				xp: 50
+			}
+			]
+			shape: "gear"
+			tasks: [
+			{
+				id: "119B92CEE4212BBA"
+				type: "checkmark"
+			}
+			]
+			x: 0.0d
+			y: 0.0d
+		}
+	]
+}

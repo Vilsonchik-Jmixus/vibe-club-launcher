@@ -1,0 +1,330 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "arrival"
+	group: ""
+	icon: {
+		id: "vc_gliders:paraglider_wood"
+	}
+	id: "159A6A0476D6777B"
+	images: [ ]
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			icon: {
+				id: "minecraft:lantern"
+			}
+			id: "1922700BD71F5314"
+			rewards: [{
+				id: "12A75467F565D33C"
+				type: "xp"
+				xp: 10
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "12CBC0EC8E9A870A"
+				type: "checkmark"
+			}]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1922700BD71F5314"]
+			icon: {
+				id: "minecraft:chest"
+			}
+			id: "1185E0E6F89E3B3B"
+			tasks: [{
+				id: "1A09EF9454ABF2B2"
+				type: "checkmark"
+			}]
+			x: 2.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1185E0E6F89E3B3B"]
+			icon: {
+				id: "vc_gliders:paraglider_wood"
+			}
+			id: "1F071481892EEA58"
+			rewards: [{
+				id: "18290BABF8CEF9C2"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [
+				{
+					id: "1300A519FB846687"
+					item: { count: 1, id: "vc_gliders:paraglider_wood" }
+					type: "item"
+				}
+				{
+					id: "11AFD3EBF6F2560F"
+					type: "checkmark"
+				}
+			]
+			x: 4.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1185E0E6F89E3B3B"]
+			icon: {
+				id: "grapplemod:grapplinghook"
+			}
+			id: "15A74C569C1B5E68"
+			rewards: [{
+				id: "1E210C68C74C6D4A"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [
+				{
+					id: "119860DCCCCB3AA0"
+					item: { count: 1, id: "grapplemod:grapplinghook" }
+					type: "item"
+				}
+				{
+					id: "1AB3062BFDDB6451"
+					type: "checkmark"
+				}
+			]
+			x: 4.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"1F071481892EEA58"
+				"15A74C569C1B5E68"
+			]
+			icon: {
+				id: "minecraft:oak_sapling"
+			}
+			id: "1C2F8F56748571F3"
+			rewards: [
+				{
+					count: 4
+					id: "17A5E9A42EC9688A"
+					item: {
+						count: 1
+						id: "minecraft:oak_sapling"
+					}
+					type: "item"
+				}
+				{
+					id: "150B8F7E60E3534A"
+					type: "xp"
+					xp: 20
+				}
+			]
+			tasks: [{
+				id: "194354DC2AA63BFD"
+				type: "checkmark"
+			}]
+			x: 6.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1C2F8F56748571F3"]
+			icon: {
+				id: "minecraft:crafting_table"
+			}
+			id: "1FF79A8718240913"
+			rewards: [{
+				id: "1D79F5F2DFBBFCA1"
+				type: "xp"
+				xp: 10
+			}]
+			tasks: [{
+				id: "14BBC5946F244A10"
+				item: { count: 1, id: "minecraft:crafting_table" }
+				type: "item"
+			}]
+			x: 8.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1C2F8F56748571F3"]
+			icon: {
+				id: "minecraft:cobblestone"
+			}
+			id: "1DBC631BC84EEBC0"
+			rewards: [{
+				count: 4
+				id: "1FD14CB95220BC62"
+				item: {
+					count: 1
+					id: "minecraft:coal"
+				}
+				type: "item"
+			}]
+			tasks: [{
+				advancement: "minecraft:story/mine_stone"
+				criterion: ""
+				id: "17BDB20CBF8D00A3"
+				type: "advancement"
+			}]
+			x: 8.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"1FF79A8718240913"
+				"1DBC631BC84EEBC0"
+			]
+			icon: {
+				id: "minecraft:torch"
+			}
+			id: "1707AF7AE9A2C5E8"
+			rewards: [{
+				id: "1C86D9540BA672CA"
+				type: "xp"
+				xp: 10
+			}]
+			tasks: [{
+				count: 8L
+				id: "1A4A35607B972669"
+				item: { count: 1, id: "minecraft:torch" }
+				type: "item"
+			}]
+			x: 10.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1707AF7AE9A2C5E8"]
+			icon: {
+				id: "minecraft:white_bed"
+			}
+			id: "16BB8D9CCEF8D18D"
+			rewards: [{
+				id: "173F36C34D911F4A"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				advancement: "minecraft:adventure/sleep_in_bed"
+				criterion: ""
+				id: "1DB674212574346D"
+				type: "advancement"
+			}]
+			x: 12.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1707AF7AE9A2C5E8"]
+			icon: {
+				id: "exposure:camera"
+			}
+			id: "1FD54B07329B3599"
+			rewards: [{
+				id: "19EA07458C4A6353"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "1117189C25D69E81"
+				type: "checkmark"
+			}]
+			x: 12.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1FD54B07329B3599"]
+			icon: {
+				id: "minecraft:iron_nugget"
+			}
+			id: "1E8342CDFA02604A"
+			tasks: [{
+				id: "1FA4E1945150571C"
+				type: "checkmark"
+			}]
+			x: 14.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["16BB8D9CCEF8D18D"]
+			icon: {
+				id: "minecraft:oak_door"
+			}
+			id: "1F1F1904FDE64F2B"
+			rewards: [
+				{
+					count: 2
+					id: "128BACEDB9C9D9D1"
+					item: {
+						count: 1
+						id: "farmersdelight:egg_sandwich"
+					}
+					type: "item"
+				}
+				{
+					id: "16317431617D2E74"
+					type: "xp"
+					xp: 25
+				}
+				{
+					id: "1FCC183A3C1055C8"
+					table_id: 1829227394650544700L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1EE15FA057563BC6"
+				item: { count: 1, id: "minecraft:oak_door" }
+				type: "item"
+			}]
+			x: 14.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1F1F1904FDE64F2B"]
+			icon: {
+				id: "akashictome:tome"
+			}
+			id: "1B189226B4BC28D7"
+			rewards: [
+				{
+					id: "1DE19F9ACE24DD58"
+					item: {
+						count: 1
+						id: "skylands:skylands_starter_guide"
+					}
+					type: "item"
+				}
+				{
+					id: "1A4778DFFED58105"
+					type: "xp"
+					xp: 20
+				}
+			]
+			tasks: [{
+				id: "142E73260BFF29C4"
+				item: { count: 1, id: "akashictome:tome" }
+				type: "item"
+			}]
+			x: 16.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1F1F1904FDE64F2B"]
+			icon: {
+				id: "minecraft:compass"
+			}
+			id: "1FABCDEA64A98740"
+			rewards: [{
+				id: "14EC069D296286F2"
+				type: "xp"
+				xp: 10
+			}]
+			tasks: [{
+				id: "1899DD9AEA2E71B5"
+				type: "checkmark"
+			}]
+			x: 16.0d
+			y: 1.0d
+		}
+	]
+}

@@ -1,0 +1,284 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "far"
+	group: ""
+	icon: {
+		id: "minecraft:ender_eye"
+	}
+	id: "1320E70729E9A689"
+	images: [ ]
+	order_index: 7
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1F1F1904FDE64F2B"]
+			icon: {
+				id: "minecraft:iron_chestplate"
+			}
+			id: "140860924A7F3A7C"
+			rewards: [{
+				id: "188690BEA2A151C8"
+				type: "xp"
+				xp: 20
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [
+				{
+					id: "136BBA9D2B03646B"
+					item: { count: 1, id: "minecraft:iron_chestplate" }
+					type: "item"
+				}
+				{
+					id: "19595920D1CCD891"
+					item: { count: 1, id: "minecraft:iron_sword" }
+					type: "item"
+				}
+			]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["140860924A7F3A7C"]
+			icon: {
+				id: "vc_gliders:paraglider_iron"
+			}
+			id: "11E4CE91EDD5E4A9"
+			rewards: [{
+				id: "17B0D8C4B140EFF7"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "1E3C9D4FFAA7A2D8"
+				item: { count: 1, id: "vc_gliders:paraglider_iron" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["140860924A7F3A7C"]
+			icon: {
+				id: "grapplemod:motorupgradeitem"
+			}
+			id: "19BAEF49B07B2B4F"
+			rewards: [{
+				id: "16ABFE1A42448911"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [{
+				id: "1E4CD26C795E3487"
+				item: { count: 1, id: "grapplemod:motorupgradeitem" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"11E4CE91EDD5E4A9"
+				"19BAEF49B07B2B4F"
+			]
+			icon: {
+				id: "minecraft:netherrack"
+			}
+			id: "1AA0150232693CE4"
+			rewards: [{
+				id: "101527780F3FB102"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [{
+				dimension: "minecraft:the_nether"
+				id: "10F1B999F3877B19"
+				type: "dimension"
+			}]
+			x: 4.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1AA0150232693CE4"]
+			icon: {
+				id: "minecraft:iron_axe"
+			}
+			id: "16B3BFDA95BC783D"
+			rewards: [{
+				id: "1140E745288B2C13"
+				type: "xp"
+				xp: 80
+			}]
+			tasks: [{
+				entity: "mowziesmobs:ferrous_wroughtnaut"
+				id: "1CFF83EEEBD0FD8E"
+				type: "kill"
+				value: 1L
+			}]
+			x: 6.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1AA0150232693CE4"]
+			icon: {
+				id: "minecraft:blue_ice"
+			}
+			id: "18F998E20A286545"
+			rewards: [{
+				id: "14098EE0E65A8FAA"
+				type: "xp"
+				xp: 80
+			}]
+			tasks: [{
+				entity: "mowziesmobs:frostmaw"
+				id: "1A926F9DB59B3D54"
+				type: "kill"
+				value: 1L
+			}]
+			x: 6.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"16B3BFDA95BC783D"
+				"18F998E20A286545"
+				"1105650EFD2D9848"
+			]
+			icon: {
+				id: "skylands:automaton_sword"
+			}
+			id: "1B4A79383DE8F7B1"
+			rewards: [{
+				id: "1EBF0AAE32E321DB"
+				type: "xp"
+				xp: 100
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [
+				{
+					entity: "skylands:sky_automaton_boss"
+					id: "15E6826875E5B589"
+					type: "kill"
+					value: 1L
+				}
+				{
+					id: "14B41FFA599B987C"
+					item: { count: 1, id: "skylands:ingot_of_the_sky" }
+					type: "item"
+				}
+			]
+			x: 8.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1B4A79383DE8F7B1"]
+			icon: {
+				id: "minecraft:ender_eye"
+			}
+			id: "1BC21330592EF9C0"
+			rewards: [{
+				id: "1BC83E71FE75D327"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [{
+				count: 12L
+				id: "16E239EBC851FDF9"
+				item: { count: 1, id: "minecraft:ender_eye" }
+				type: "item"
+			}]
+			x: 10.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1B4A79383DE8F7B1"]
+			icon: {
+				id: "minecraft:blaze_powder"
+			}
+			id: "1577645E19D3476A"
+			rewards: [{
+				id: "1A5F0DCE0AD7683E"
+				type: "xp"
+				xp: 150
+			}]
+			tasks: [{
+				entity: "cataclysm:ignis"
+				id: "12F7E5006A933108"
+				type: "kill"
+				value: 1L
+			}]
+			x: 10.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1BC21330592EF9C0"]
+			icon: {
+				id: "minecraft:end_stone"
+			}
+			id: "1A03C3ACD641B88F"
+			rewards: [{
+				id: "1BB6CCF6B6267030"
+				type: "xp"
+				xp: 60
+			}]
+			tasks: [{
+				dimension: "minecraft:the_end"
+				id: "1E2DA977F0778229"
+				type: "dimension"
+			}]
+			x: 12.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1A03C3ACD641B88F"]
+			icon: {
+				id: "minecraft:dragon_head"
+			}
+			id: "1B4BD989EF30FC4C"
+			rewards: [
+				{
+					id: "1625C41AF69E5310"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "1AFA0CC0D82AC2B2"
+					table_id: 2252655872348630305L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				entity: "minecraft:ender_dragon"
+				id: "1DE3FE7159D8C372"
+				type: "kill"
+				value: 1L
+			}]
+			x: 14.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1577645E19D3476A"]
+			icon: {
+				id: "minecraft:soul_lantern"
+			}
+			id: "1F7CD4D2D207BBFC"
+			rewards: [{
+				id: "1183AC83330189E1"
+				type: "xp"
+				xp: 150
+			}]
+			tasks: [{
+				entity: "bosses_of_mass_destruction:lich"
+				id: "120BA1ED686B0660"
+				type: "kill"
+				value: 1L
+			}]
+			x: 14.0d
+			y: 2.0d
+		}
+	]
+}

@@ -1,0 +1,442 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "routes"
+	group: ""
+	icon: {
+		id: "exposure:album"
+	}
+	id: "16691BDD9A8B29B4"
+	images: [ ]
+	order_index: 5
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1F1F1904FDE64F2B"]
+			icon: {
+				id: "minecraft:map"
+			}
+			id: "102D8AF70CAAD870"
+			rewards: [{
+				id: "10437C22886C6ACD"
+				type: "xp"
+				xp: 10
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1E75EC57843DC90D"
+				item: { count: 1, id: "minecraft:map" }
+				type: "item"
+			}]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["102D8AF70CAAD870"]
+			icon: {
+				id: "exposure:lightroom"
+			}
+			id: "12A8CC201A3E1122"
+			rewards: [{
+				id: "12FADDCDABCB1163"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				id: "172910C347CD9973"
+				item: { count: 1, id: "exposure:lightroom" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["12A8CC201A3E1122"]
+			icon: {
+				id: "exposure:photograph"
+			}
+			id: "1BBAE21879F153A3"
+			rewards: [
+				{
+					count: 2
+					id: "1C0E703D292A5964"
+					item: {
+						count: 1
+						id: "exposure:color_film"
+					}
+					type: "item"
+				}
+				{
+					id: "1850FDBC380F2D9B"
+					type: "xp"
+					xp: 25
+				}
+			]
+			tasks: [{
+				id: "198707D51018FAA7"
+				item: { count: 1, id: "exposure:photograph" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1BBAE21879F153A3"]
+			icon: {
+				id: "exposure:album"
+			}
+			id: "1CFB6253A4E22ACE"
+			rewards: [{
+				id: "18C7DCF09D0A14D9"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "1AB33E84A249DAE5"
+				item: { count: 1, id: "exposure:album" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1CFB6253A4E22ACE"]
+			icon: {
+				id: "exposure:camera"
+			}
+			id: "1AAB4A0C971394F0"
+			rewards: [
+				{
+					id: "17DCBC1378AB1983"
+					item: {
+						count: 1
+						id: "exposure:color_film"
+					}
+					type: "item"
+				}
+				{
+					id: "1FC983290EDC6B24"
+					type: "xp"
+					xp: 20
+				}
+			]
+			tasks: [{
+				id: "14A978105FFC3DA0"
+				type: "checkmark"
+			}]
+			x: 8.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["102D8AF70CAAD870"]
+			icon: {
+				id: "explorerscompass:explorerscompass"
+			}
+			id: "1E5A73D9FD998106"
+			rewards: [{
+				id: "133B25E80E8BD15E"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "1F6CC54E2E2FA32A"
+				item: { count: 1, id: "explorerscompass:explorerscompass" }
+				type: "item"
+			}]
+			x: 2.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1E5A73D9FD998106"]
+			icon: {
+				id: "naturescompass:naturescompass"
+			}
+			id: "13FAEEB419C822E5"
+			rewards: [{
+				id: "1047B45B394EC71D"
+				type: "xp"
+				xp: 15
+			}]
+			tasks: [{
+				id: "1B2F6C64CDBC0521"
+				item: { count: 1, id: "naturescompass:naturescompass" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["13FAEEB419C822E5"]
+			icon: {
+				id: "waystones:waystone"
+			}
+			id: "1842E8A978B7C31B"
+			rewards: [{
+				id: "1EEBBB9503DF629B"
+				type: "xp"
+				xp: 25
+			}]
+			tasks: [{
+				id: "1C8F3D2324B3DFC4"
+				item: { count: 1, id: "waystones:waystone" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"1CFB6253A4E22ACE"
+				"1842E8A978B7C31B"
+			]
+			icon: {
+				id: "minecraft:emerald"
+			}
+			id: "1D3454C8B3B9B11B"
+			rewards: [
+				{
+					count: 4
+					id: "1336330794B6D15A"
+					item: {
+						count: 1
+						id: "minecraft:emerald"
+					}
+					type: "item"
+				}
+				{
+					id: "11F05916CBC523BD"
+					type: "xp"
+					xp: 25
+				}
+			]
+			tasks: [{
+				id: "1EC7A3F69BBA9BC4"
+				structure: "#minecraft:village"
+				type: "structure"
+			}]
+			x: 8.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1D3454C8B3B9B11B"]
+			icon: {
+				id: "minecraft:stone_bricks"
+			}
+			id: "1840A0FDD93E1FDC"
+			rewards: [{
+				id: "15D550144253CA19"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [{
+				id: "1544F614BD4898C1"
+				structure: "castle_in_the_sky:castle_in_the_sky"
+				type: "structure"
+			}]
+			x: 10.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1D3454C8B3B9B11B"]
+			icon: {
+				id: "minecraft:bell"
+			}
+			id: "1E314373CF4A40ED"
+			rewards: [{
+				id: "1B6146C3B26CF7AD"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [{
+				id: "124736C537B37BC2"
+				structure: "skyvillages:skyvillage"
+				type: "structure"
+			}]
+			x: 10.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"1840A0FDD93E1FDC"
+				"1E314373CF4A40ED"
+			]
+			icon: {
+				id: "minecraft:feather"
+			}
+			id: "1E4CB87D9A6B478C"
+			rewards: [{
+				id: "1246271B9AB159F6"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [{
+				id: "109FE31163F87659"
+				structure: "sky_whale_ship:whale"
+				type: "structure"
+			}]
+			x: 12.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1E4CB87D9A6B478C"]
+			icon: {
+				id: "skylands:eye_of_the_sky"
+			}
+			id: "1105650EFD2D9848"
+			rewards: [
+				{
+					id: "1AAC13EFE358B855"
+					type: "xp"
+					xp: 60
+				}
+				{
+					id: "1EB099473F1A1A33"
+					table_id: 2252655872348630305L
+					type: "random"
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "14FFB30649739070"
+				structure: "skylands:great_sky_island"
+				type: "structure"
+			}]
+			x: 14.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1105650EFD2D9848"]
+			icon: {
+				id: "skylands:float_grape"
+			}
+			id: "1978452DBFF55589"
+			rewards: [{
+				id: "1F6A0648FD66E85C"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [{
+				biome: "skylands:floating_golden_islands"
+				id: "180B1474F00F5732"
+				type: "biome"
+			}]
+			x: 16.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["1105650EFD2D9848"]
+			icon: {
+				id: "minecraft:cherry_sapling"
+			}
+			id: "103BD1440B3C33B9"
+			rewards: [{
+				id: "1AF017CD1D07D211"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [{
+				biome: "skylands:floating_cherry_grove_islands"
+				id: "15D96467187D2676"
+				type: "biome"
+			}]
+			x: 16.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1105650EFD2D9848"]
+			icon: {
+				id: "minecraft:packed_ice"
+			}
+			id: "166D0187DF6D7DFB"
+			rewards: [{
+				id: "17168657FBDCFDE9"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [{
+				biome: "skylands:floating_glaciated_islands"
+				id: "13BD52917320EB68"
+				type: "biome"
+			}]
+			x: 16.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1105650EFD2D9848"]
+			icon: {
+				id: "minecraft:sandstone"
+			}
+			id: "1694D783187EE57E"
+			rewards: [{
+				id: "164EEA5087BB7745"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [{
+				biome: "skylands:floating_arid_islands"
+				id: "1F91BFD69E2A017A"
+				type: "biome"
+			}]
+			x: 16.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1105650EFD2D9848"]
+			icon: {
+				id: "minecraft:magma_block"
+			}
+			id: "101023EFEA918E50"
+			rewards: [{
+				id: "11029510C52E0AA6"
+				type: "xp"
+				xp: 30
+			}]
+			tasks: [{
+				biome: "skylands:floating_lavic_islands"
+				id: "1EEB45BBF21145AF"
+				type: "biome"
+			}]
+			x: 16.0d
+			y: 2.0d
+		}
+		{
+			dependencies: [
+				"1978452DBFF55589"
+				"103BD1440B3C33B9"
+				"166D0187DF6D7DFB"
+				"1694D783187EE57E"
+				"101023EFEA918E50"
+			]
+			icon: {
+				id: "exposure:album"
+			}
+			id: "145867910D9F0CDF"
+			rewards: [
+				{
+					count: 2
+					id: "127576A8548B5D77"
+					item: {
+						count: 1
+						id: "exposure:color_film"
+					}
+					type: "item"
+				}
+				{
+					id: "1AE7D8CAC482B8E9"
+					type: "xp"
+					xp: 40
+				}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "11BB0AA321021A0E"
+				type: "checkmark"
+			}]
+			x: 18.0d
+			y: 0.0d
+		}
+	]
+}

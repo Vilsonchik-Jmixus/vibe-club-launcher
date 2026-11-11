@@ -1,0 +1,75 @@
+{
+	icon: {
+		id: "aeronautics:aviators_goggles"
+	}
+	id: "1F430A94B089AD21"
+	loot_size: 1
+	order_index: 3
+	rewards: [
+		{
+			count: 3
+			id: "795EDF0232CF1020"
+			item: {
+				count: 1
+				id: "minecraft:diamond"
+			}
+			weight: 6.0f
+		}
+		{
+			count: 8
+			id: "78CF043181CCF397"
+			item: {
+				count: 1
+				id: "minecraft:emerald"
+			}
+			weight: 8.0f
+		}
+		{
+			count: 16
+			id: "6D43C0AE971E5508"
+			item: {
+				count: 1
+				id: "create:brass_ingot"
+			}
+			weight: 8.0f
+		}
+		{
+			count: 2
+			id: "414FD2CB19569BE9"
+			item: {
+				count: 1
+				id: "exposure:color_film"
+			}
+			weight: 6.0f
+		}
+		{
+			count: 2
+			id: "1C9D8C1CB14B8ABC"
+			item: {
+				count: 1
+				id: "minecraft:golden_apple"
+			}
+			weight: 4.0f
+		}
+		{ id: "102EA1022003D1E3", item: { count: 1, id: "minecraft:netherite_scrap" } }
+		{
+			count: 8
+			id: "37F858E42CDD7B2E"
+			item: {
+				count: 1
+				id: "aeronautics:levitite"
+			}
+			weight: 4.0f
+		}
+		{
+			count: 2
+			id: "517CFE0ABC1C9651"
+			item: {
+				count: 1
+				id: "kaleidoscope_tavern:signature_cocktail"
+			}
+			weight: 5.0f
+		}
+	]
+	use_title: true
+}

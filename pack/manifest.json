@@ -1,6 +1,6 @@
 {
  "pack": "Vibe Club",
- "version": "1.3",
+ "version": "1.4",
  "minecraft": "1.21.1",
  "loader": {
   "type": "neoforge",
@@ -19,6 +19,11 @@
   "size": 11482624
  },
  "news": [
+  {
+   "date": "11.11.2026",
+   "title": "Сборка 1.4: Quest & Skins update",
+   "text": "В книге квестов новая группа «Магия»: 7 глав и 47 квестов — обучение Ars Nouveau, Iron's Spells, Occultism, Theurgy, Goety и Hex Casting. Нажми «Обновить»!"
+  },
   {
    "date": "11.11.2026",
    "title": "Псилоцибин апдейт — Добавляет Приколы)",
@@ -1329,6 +1334,271 @@
    "path": "config/ftbquests-client.snbt",
    "sha1": "3152836d322ec70298e3f59206bc01a243f90f74",
    "size": 1551
+  },
+  {
+   "path": "config/ftbquests/quests/chapter_groups.snbt",
+   "sha1": "3a9544ccb68c7918eab692c88daeec264a49ed52",
+   "size": 171
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/6minecarts.snbt",
+   "sha1": "f696dacc33966ed08123c2dfbea39e2c778e3190",
+   "size": 4227
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/aquatic_ambitions.snbt",
+   "sha1": "7ded52ec350b5c4a371dd087c9fae19a4433e379",
+   "size": 12403
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/arrival.snbt",
+   "sha1": "ebf8190f2c803ea7a96c32d40ab37935a8e43537",
+   "size": 5675
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/blaze_burner_fuels.snbt",
+   "sha1": "b4d0487cb863ab5cb682e06ee6468706c4410bad",
+   "size": 8070
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/crafts.snbt",
+   "sha1": "d6fb3ab3bcd314918b2c967f11ec8ee1a2bfba46",
+   "size": 4545
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/create_connected.snbt",
+   "sha1": "c4dbe5f4a575ac86bf65211f166611e3f6ce664b",
+   "size": 13001
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/create_optical.snbt",
+   "sha1": "2bae9f78b2d51148b95b98fe0caee6f3e4128730",
+   "size": 8259
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/deep_dark.snbt",
+   "sha1": "fc9f22669f0aad7228bd8782150b67deb987ed1c",
+   "size": 5791
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/e_central_kitchen.snbt",
+   "sha1": "6aa93d738e1d96711b6d714b8b77bef877155244",
+   "size": 8270
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/eandesite_age.snbt",
+   "sha1": "a79d52220f058f4ccecf79a689233bf2a3dba342",
+   "size": 24695
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/ebrass_age.snbt",
+   "sha1": "02a9eef1f9b3dfb41ef780d4932872e6fcbae730",
+   "size": 11890
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/ecopper_age.snbt",
+   "sha1": "49534b970ee44e61e50f59b2e07e2073fab2c774",
+   "size": 6345
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/egetting_started.snbt",
+   "sha1": "e72b0ec15bc361e8f96b8fda31507dcadb39bf37",
+   "size": 1575
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/electro_engergetics.snbt",
+   "sha1": "73388a668b2cb015ba32629a15984120f32e35fd",
+   "size": 14990
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/elocomotive_age.snbt",
+   "sha1": "2909bcc032411b883a3166dcb5ffe7f0f5eedc1d",
+   "size": 5402
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/enchantment_industry_7ff2874a6aad533c.snbt",
+   "sha1": "d245f87cb7ed536981b8c2c7d481b8018ff0855c",
+   "size": 6532
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/epump_dat_oil.snbt",
+   "sha1": "2ea282ce665a8a1b104528ca19ab22ed9666e649",
+   "size": 6953
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/etrains.snbt",
+   "sha1": "01781cbc10df9851f0ecc7f9a92b987af8d32f88",
+   "size": 7170
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/events.snbt",
+   "sha1": "f3a82e7ae192c6799ce7a09a5f108dfce6508f3a",
+   "size": 9930
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/far.snbt",
+   "sha1": "bece02fea70a5c7d6b91b72e0422b9ed457ae899",
+   "size": 5062
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/festival.snbt",
+   "sha1": "9345bdd1cb9ac9f077ba4a8f73e057d38d51c877",
+   "size": 4516
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/flight.snbt",
+   "sha1": "6832e53d7440f9bf0b8d28c4134105a626877951",
+   "size": 6320
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/food_factory.snbt",
+   "sha1": "3ab2e132d40dd257a57785455241ff50f1f7c497",
+   "size": 9421
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/fun_additions.snbt",
+   "sha1": "15fc52f13a0735a3f613c582b80aaaf226c44b39",
+   "size": 8155
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/gears.snbt",
+   "sha1": "433c1f452e9d1790ce4f928b58370b2d7d71898c",
+   "size": 9230
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/home.snbt",
+   "sha1": "9153a005b77e4819060c1d41083a4d164f46f112",
+   "size": 4698
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/magic_ars_nouveau.snbt",
+   "sha1": "1d9ff3d1d7282fa86fde7a4b8efc82b58211492f",
+   "size": 4471
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/magic_goety.snbt",
+   "sha1": "57db298ce8d45b293d39c58330aefb778c018c15",
+   "size": 2550
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/magic_hex_casting.snbt",
+   "sha1": "e25fdfa35a0457e4ca2d85dd0ac53a4d0db16d5c",
+   "size": 2826
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/magic_intro.snbt",
+   "sha1": "dda4817ea2ac551d5bd4c529264bd2b79ec2d355",
+   "size": 523
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/magic_irons_spells.snbt",
+   "sha1": "6b17c6e3b3d6e911f4e38849964e57c22205bdd7",
+   "size": 3738
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/magic_occultism.snbt",
+   "sha1": "a5972c963b307e7f1e02284002b14a977e7f53b3",
+   "size": 3256
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/magic_theurgy.snbt",
+   "sha1": "a6a8c860bad86fe0b69bdb3dfadd3df7ac8fe629",
+   "size": 2733
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/new_age.snbt",
+   "sha1": "c5e01779fb3e193a42cff923e6a408839c6718ef",
+   "size": 14237
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/petrochem.snbt",
+   "sha1": "506d63618a5c480429db3e2cadaac2a1c10774e4",
+   "size": 8231
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/routes.snbt",
+   "sha1": "3332273b7e60413a636a244b0e01c5e736aa8c13",
+   "size": 7764
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/to_know.snbt",
+   "sha1": "e44837c804d37d79954eb21b9cabc44cca13afc5",
+   "size": 786
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/town.snbt",
+   "sha1": "3a89a954a2334e6c55481cd46a98798b6a19829a",
+   "size": 3175
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/transportation.snbt",
+   "sha1": "3068729aa64f3be70115978eeed85da0bb4e6231",
+   "size": 7063
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/warmth.snbt",
+   "sha1": "3d84ebde06321d298e99d45d074c18507b2b7cc6",
+   "size": 5244
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/welcome.snbt",
+   "sha1": "c5916f6f5e79d3f3a6da79bdf2b564c87c90172b",
+   "size": 3085
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/workshops.snbt",
+   "sha1": "a8ead982aab35041a11f43ebb7e29f5cb5748969",
+   "size": 10833
+  },
+  {
+   "path": "config/ftbquests/quests/data.snbt",
+   "sha1": "e344b932fb4d7943ffbb3622ad21f0a984b64aac",
+   "size": 807
+  },
+  {
+   "path": "config/ftbquests/quests/lang/en_us.snbt",
+   "sha1": "25f9d47bdd9d9b79eeacf1285d6197e9415dee4d",
+   "size": 157455
+  },
+  {
+   "path": "config/ftbquests/quests/lang/ru_ru.snbt",
+   "sha1": "0d355c4b4210c13b5694f175bd08a0ea466368aa",
+   "size": 181092
+  },
+  {
+   "path": "config/ftbquests/quests/reward_tables/captain.snbt",
+   "sha1": "0dc97a9bca39aca6e3debd6c0486e5ff9e1dc6f3",
+   "size": 1162
+  },
+  {
+   "path": "config/ftbquests/quests/reward_tables/create.snbt",
+   "sha1": "123e757ac435e4259f27fd4478d88afc67e60f0f",
+   "size": 1310
+  },
+  {
+   "path": "config/ftbquests/quests/reward_tables/engineer.snbt",
+   "sha1": "e8c50274e5d3cd6e7042778e69e1c16b74926a09",
+   "size": 1147
+  },
+  {
+   "path": "config/ftbquests/quests/reward_tables/festive.snbt",
+   "sha1": "4775c96fc11e654f553fd85597a7b11ad7d39faa",
+   "size": 1342
+  },
+  {
+   "path": "config/ftbquests/quests/reward_tables/ingots.snbt",
+   "sha1": "d01a061aede05ac315c3d8434a9e8aa6714197a8",
+   "size": 534
+  },
+  {
+   "path": "config/ftbquests/quests/reward_tables/traveler.snbt",
+   "sha1": "3314eaba0ada699e11c9174afff6102e3b336cf4",
+   "size": 1112
+  },
+  {
+   "path": "config/ftbquests/quests/reward_tables/xp.snbt",
+   "sha1": "ef61622e668cf079d504dfcac6507673477d8e0b",
+   "size": 403
   },
   {
    "path": "config/ftbteams-server.snbt",

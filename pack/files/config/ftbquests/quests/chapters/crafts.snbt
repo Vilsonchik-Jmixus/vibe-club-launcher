@@ -1,0 +1,249 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "crafts"
+	group: ""
+	icon: {
+		id: "herbalbrews:tea_kettle"
+	}
+	id: "1328DF00D54DE164"
+	images: [ ]
+	order_index: 11
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["156360FE269D4039"]
+			icon: {
+				id: "cookingforblockheads:cooking_table"
+			}
+			id: "188055C6619A812C"
+			rewards: [{
+				id: "1C8638E9EC163649"
+				type: "xp"
+				xp: 25
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [
+				{
+					id: "101DC1FB2705F359"
+					item: { count: 1, id: "cookingforblockheads:cooking_table" }
+					type: "item"
+				}
+				{
+					id: "10B3CA6F1C5437DF"
+					item: { count: 1, id: "cookingforblockheads:white_fridge" }
+					type: "item"
+				}
+			]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["188055C6619A812C"]
+			icon: {
+				id: "bakery:baguette"
+			}
+			id: "1155C1DA4E0BA5F0"
+			rewards: [{
+				id: "1AF041B5B70DDBC6"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					id: "13A0368CC5A3D172"
+					item: { count: 1, id: "bakery:baguette" }
+					type: "item"
+				}
+				{
+					id: "103132F3799FDB0D"
+					item: { count: 1, id: "bakery:croissant" }
+					type: "item"
+				}
+			]
+			x: 2.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["188055C6619A812C"]
+			icon: {
+				id: "herbalbrews:tea_kettle"
+			}
+			id: "1A8F6BFB48495F47"
+			rewards: [{
+				id: "118241E48593197F"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					id: "1492FC313C14F88D"
+					item: { count: 1, id: "herbalbrews:tea_kettle" }
+					type: "item"
+				}
+				{
+					id: "10C7CA32521C1CEC"
+					item: { count: 1, id: "herbalbrews:coffee" }
+					type: "item"
+				}
+			]
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["188055C6619A812C"]
+			icon: {
+				id: "candlelight:plate"
+			}
+			id: "1ABE105E5E4ECFFF"
+			rewards: [{
+				id: "18F7478B6D053B31"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					id: "1D12FFA2D6352BB7"
+					item: { count: 1, id: "candlelight:cooking_pan" }
+					type: "item"
+				}
+				{
+					count: 4L
+					id: "1A226283950BDF60"
+					item: { count: 1, id: "candlelight:plate" }
+					type: "item"
+				}
+			]
+			x: 2.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["188055C6619A812C"]
+			icon: {
+				id: "someassemblyrequired:sandwiching_station"
+			}
+			id: "18D55D4E69283CF0"
+			rewards: [{
+				id: "19376D423DFC74DB"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					id: "1408B4BCB6315173"
+					item: { count: 1, id: "someassemblyrequired:sandwiching_station" }
+					type: "item"
+				}
+				{
+					id: "1763D42931F63A23"
+					item: { count: 1, id: "someassemblyrequired:sandwich" }
+					type: "item"
+				}
+			]
+			x: 2.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["188055C6619A812C"]
+			icon: {
+				id: "starcatcher:starcatcher_guide"
+			}
+			id: "1BD391F5CC96A688"
+			rewards: [{
+				id: "15A89684CB64164A"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [
+				{
+					id: "1A2C5C4E431BDE24"
+					item: { count: 1, id: "starcatcher:starcatcher_guide" }
+					type: "item"
+				}
+				{
+					id: "1A21E4009B0B217D"
+					item: { count: 1, id: "starcatcher:humble_rod" }
+					type: "item"
+				}
+			]
+			x: 2.0d
+			y: 2.0d
+		}
+		{
+			dependencies: [
+				"1155C1DA4E0BA5F0"
+				"1A8F6BFB48495F47"
+			]
+			icon: {
+				id: "vinery:apple_juice"
+			}
+			id: "137ABB84F80E8B95"
+			rewards: [{
+				id: "147F7B4A2BC06CDB"
+				type: "xp"
+				xp: 20
+			}]
+			tasks: [{
+				id: "1BCAD4C0C3D34EFC"
+				item: { count: 1, id: "vinery:apple_juice" }
+				type: "item"
+			}]
+			x: 4.0d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"1ABE105E5E4ECFFF"
+				"18D55D4E69283CF0"
+				"1BD391F5CC96A688"
+			]
+			icon: {
+				id: "bakery:strawberry_cake"
+			}
+			id: "156FFE6F030FF5D0"
+			rewards: [{
+				id: "1CC1FC7765E9AF8F"
+				type: "xp"
+				xp: 40
+			}]
+			tasks: [
+				{
+					id: "1A00CF4329F8342D"
+					item: { count: 1, id: "bakery:strawberry_cake" }
+					type: "item"
+				}
+				{
+					id: "13F1F5AB9FD714C0"
+					type: "checkmark"
+				}
+			]
+			x: 4.0d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"137ABB84F80E8B95"
+				"156FFE6F030FF5D0"
+			]
+			icon: {
+				id: "upgrader:upgrader"
+			}
+			id: "1EE663FE8B3C15D1"
+			rewards: [{
+				id: "1C9C2F013C763156"
+				type: "xp"
+				xp: 20
+			}]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "1A39253F7B87FB7E"
+				item: { count: 1, id: "upgrader:upgrader" }
+				type: "item"
+			}]
+			x: 6.0d
+			y: 0.0d
+		}
+	]
+}

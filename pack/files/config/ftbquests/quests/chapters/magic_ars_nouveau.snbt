@@ -1,0 +1,255 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "magic_ars_nouveau"
+	group: "19CCC74618E165DE"
+	icon: { id: "ars_nouveau:novice_spell_book" }
+	id: "1B3019EF34DB44D6"
+	images: [ ]
+	order_index: 1
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1FB65BAEFEE46BF6"]
+			icon: { id: "ars_nouveau:worn_notebook" }
+			id: "1A280AD4A5697202"
+			rewards: [
+			{
+				id: "13D724516EE41042"
+				type: "xp"
+				xp: 30
+			}
+			]
+			shape: "gear"
+			tasks: [
+			{
+				id: "17F99DB441F2E9EB"
+				item: { count: 1, id: "ars_nouveau:worn_notebook" }
+				type: "item"
+			}
+			]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1A280AD4A5697202"]
+			icon: { id: "ars_nouveau:sourceberry_bush" }
+			id: "14A1323DB208D7EA"
+			rewards: [
+			{
+				id: "1986391C5F2F6118"
+				type: "xp"
+				xp: 30
+			}
+			]
+			tasks: [
+			{
+				id: "1D6E4EC184A5B1A7"
+				item: { count: 1, id: "ars_nouveau:sourceberry_bush" }
+				type: "item"
+			}
+			]
+			x: 1.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1A280AD4A5697202"]
+			icon: { id: "ars_nouveau:novice_spell_book" }
+			id: "1F6C4FDAD298EC46"
+			rewards: [
+			{
+				id: "1D2BDFE9A8D489A3"
+				type: "xp"
+				xp: 50
+			}
+			{
+				count: 8
+				id: "19317D641817A4F4"
+				item: { count: 1, id: "minecraft:lapis_lazuli" }
+				type: "item"
+			}
+			]
+			tasks: [
+			{
+				id: "1DA8058116F65095"
+				item: { count: 1, id: "ars_nouveau:novice_spell_book" }
+				type: "item"
+			}
+			]
+			x: 1.5d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1F6C4FDAD298EC46"]
+			icon: { id: "ars_nouveau:scribes_table" }
+			id: "1E8585D4ACD9E3A1"
+			rewards: [
+			{
+				id: "1EDA84B81C041CD1"
+				type: "xp"
+				xp: 50
+			}
+			]
+			tasks: [
+			{
+				id: "1DC702DBB25E0D91"
+				item: { count: 1, id: "ars_nouveau:scribes_table" }
+				type: "item"
+			}
+			]
+			x: 3.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1E8585D4ACD9E3A1"]
+			icon: { id: "ars_nouveau:glyph_projectile" }
+			id: "1B6B41CD0F51D00C"
+			rewards: [
+			{
+				id: "1AD00D5C228FF4CA"
+				type: "xp"
+				xp: 75
+			}
+			]
+			tasks: [
+			{
+				id: "15DF854EF602DB02"
+				item: { count: 1, id: "ars_nouveau:glyph_projectile" }
+				type: "item"
+			}
+			]
+			x: 4.5d
+			y: 1.0d
+		}
+		{
+			dependencies: ["14A1323DB208D7EA"]
+			icon: { id: "ars_nouveau:source_jar" }
+			id: "1140743E43E25F0D"
+			rewards: [
+			{
+				id: "1607D39DE22F61FB"
+				type: "xp"
+				xp: 75
+			}
+			]
+			tasks: [
+			{
+				id: "1179AD431F9849DA"
+				item: { count: 1, id: "ars_nouveau:source_jar" }
+				type: "item"
+			}
+			{
+				id: "1BEFB2470DCCC8DA"
+				item: { count: 1, id: "ars_nouveau:agronomic_sourcelink" }
+				type: "item"
+			}
+			]
+			x: 3.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1140743E43E25F0D"]
+			icon: { id: "ars_nouveau:source_gem" }
+			id: "1B60C7E2CF83A2A8"
+			rewards: [
+			{
+				id: "135BF09E37917D16"
+				type: "xp"
+				xp: 100
+			}
+			]
+			tasks: [
+			{
+				id: "1B4D56EFFDD0463B"
+				item: { count: 1, id: "ars_nouveau:imbuement_chamber" }
+				type: "item"
+			}
+			{
+				count: 4L
+				id: "1824AB2E67154110"
+				item: { count: 1, id: "ars_nouveau:source_gem" }
+				type: "item"
+			}
+			]
+			x: 4.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1B60C7E2CF83A2A8", "1B6B41CD0F51D00C"]
+			icon: { id: "ars_nouveau:enchanting_apparatus" }
+			id: "1185E54EDDD8A164"
+			rewards: [
+			{
+				id: "1ECE45BC6C4C611D"
+				type: "xp"
+				xp: 100
+			}
+			{
+				count: 4
+				id: "1A9514D40D00D7D4"
+				item: { count: 1, id: "ars_nouveau:source_gem" }
+				type: "item"
+			}
+			]
+			tasks: [
+			{
+				id: "15D6FA82B9F0981C"
+				item: { count: 1, id: "ars_nouveau:enchanting_apparatus" }
+				type: "item"
+			}
+			{
+				count: 4L
+				id: "12AFFC15CA660945"
+				item: { count: 1, id: "ars_nouveau:arcane_pedestal" }
+				type: "item"
+			}
+			]
+			x: 6.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1185E54EDDD8A164"]
+			icon: { id: "ars_nouveau:apprentice_spell_book" }
+			id: "14B054C898DBAD59"
+			rewards: [
+			{
+				id: "17887E70D1E961F7"
+				type: "xp"
+				xp: 200
+			}
+			]
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [
+			{
+				id: "1E2F7839599D72D6"
+				item: { count: 1, id: "ars_nouveau:apprentice_spell_book" }
+				type: "item"
+			}
+			]
+			x: 7.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1185E54EDDD8A164"]
+			icon: { id: "ars_nouveau:starbuncle_charm" }
+			id: "1B61743F07E7ED46"
+			rewards: [
+			{
+				id: "1D285D155DE429C0"
+				type: "xp"
+				xp: 150
+			}
+			]
+			tasks: [
+			{
+				id: "1BCF5C95CF090E1E"
+				item: { count: 1, id: "ars_nouveau:starbuncle_charm" }
+				type: "item"
+			}
+			]
+			x: 7.5d
+			y: 1.0d
+		}
+	]
+}
