@@ -13,6 +13,12 @@
  },
  "news": [
   {
+   "date": "12.11.2026",
+   "title": "Сборка 1.7: полёты без лагов",
+   "text": "Постройки из Aeronautics больше не улетают при загрузке и возвращаются из бездны. Меньше лагов на высоте.",
+   "more": "## Полёты на постройках Aeronautics\n- Постройки, упавшие в бездну, возвращаются сами: появляются в 30 блоках над землёй и падают вниз, как игроки. Если под ними пустота небесного биома, возвращаются туда, где в последний раз была земля.\n- Корабли больше не «улетают как тряпичная кукла» после загрузки чанков или перезахода: при загрузке скорость постройки обнуляется.\n- Удар рукой толкает постройки слабее — случайно отправить корабль в полёт стало сложнее.\n- Постройки передаются игрокам в радиусе 192 блоков вместо 320 — меньше нагрузка на сеть и видеокарту.\n## Меньше лагов на высоте\n- Высокие полёты тормозили из-за SkyLands: в этом мире высота до Y 528, а Distant Horizons строил дальние горизонты всех небесных островов.\n- Distant Horizons: дальность 128 чанков, упрощённая вертикальная детализация, без многослойных облаков, 4 потока вместо 12 (раньше он отнимал процессор у самой игры). Твои прежние настройки DH сохранятся рядом как .vibeclub-backup.\n- Сервер: генерация дальних горизонтов для игроков ограничена и не мешает основному миру, дальность прорисовки сервера 10 чанков.\n- Новые небесные острова генерируются чуть реже (только в ещё не открытых местах).\n## Исправленные ошибки сервера\n- Сундуки в Нижней заставе (Create Structures Overhaul) снова с добычей — их файл добычи был сломан.\n- Убран сломанный рецепт мода RecepiesfromJoe.\n## Добавленные моды\n- Новых модов нет."
+  },
+  {
    "date": "11.11.2026",
    "title": "Сборка 1.6: подарок DLC 1 и перенос настроек",
    "text": "Новая команда /gift dlc1 — Набор юного мага. Лаунчер теперь переносит настройки игры и управление сборки.",
@@ -68,18 +74,18 @@
   }
  ],
  "launcher": {
-  "version": "1.0.11",
+  "version": "1.0.12",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
-  "sha1": "119a41931914359e94d17a3a403a3534ad241023",
-  "size": 11517440
+  "sha1": "63fb4a751f08d9ba003100789c3cfa20a1149572",
+  "size": 11518464
  },
  "launcherLinux": {
-  "version": "1.0.11",
+  "version": "1.0.12",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher-linux-x64",
-  "sha1": "6bf32ab8180958824ab90c8fc1daaec68dba3230",
+  "sha1": "45a77f2ce062b568d272d5de3e55d0c492fe9cf8",
   "size": 11186360
  },
- "version": "1.6",
+ "version": "1.7",
  "baseUrl": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/files",
  "modCount": 330,
  "files": [
@@ -100,8 +106,9 @@
   },
   {
    "path": "config/DistantHorizons.toml",
-   "sha1": "6fbaf69a8d9bdaec0247a4ce3ecf61a6b7e85fb4",
-   "size": 37969,
+   "sha1": "f3e05b2c1dd3931b19bb395685cf3afc866e8df4",
+   "size": 36987,
+   "reset": "perf-2026-11-12",
    "policy": "once"
   },
   {
@@ -2282,6 +2289,11 @@
    "size": 68293
   },
   {
+   "path": "config/paxi/datapacks/Vibe Club - Fixes.zip",
+   "sha1": "e508b32df971237ac7520468bd24be9d93a23eb8",
+   "size": 1332
+  },
+  {
    "path": "config/paxi/datapacks/Vibe Club - Psilocybin Update.zip",
    "sha1": "7110631204c45ffbea265757849a983529cfa510",
    "size": 12514
@@ -2455,8 +2467,8 @@
   },
   {
    "path": "config/sable-common.toml",
-   "sha1": "244d4c98d76f7a03afb6d731ae6150427f4c195f",
-   "size": 2243
+   "sha1": "2454cf33ce79bec7d5f6ba75934861db6d201b9c",
+   "size": 2199
   },
   {
    "path": "config/sablejade-client.toml",
@@ -2635,7 +2647,7 @@
   },
   {
    "path": "config/skylands-common.toml",
-   "sha1": "79ba85578b66d5593a58e022741d059fcfe1dc34",
+   "sha1": "78a6d573168ae1b2c2a06f87fb779208655e69ca",
    "size": 4900
   },
   {
@@ -3015,6 +3027,11 @@
    "path": "kubejs/server_scripts/vibeclub_gift.js",
    "sha1": "8be50f8e0e17bd805b0d8cc32a17b248f1c2e2cc",
    "size": 1968
+  },
+  {
+   "path": "kubejs/server_scripts/vibeclub_sable_void.js",
+   "sha1": "0f74d9307ce9450470c9af6b359581feba804693",
+   "size": 5255
   },
   {
    "path": "mods/AkashicTome-1.8-30.jar",

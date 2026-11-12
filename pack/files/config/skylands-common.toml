@@ -14,15 +14,15 @@
 		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
 		# Default: 100
 		# Range: 0 ~ 300
-		small = 120
+		small = 100
 		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
 		# Default: 100
 		# Range: 0 ~ 300
-		medium = 120
+		medium = 100
 		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
 		# Default: 100
 		# Range: 0 ~ 300
-		large = 120
+		large = 100
 
 	[islandDensity.otherBiomes]
 		#Island/structure frequency relative to normal: 100 = default, 50 = roughly half, 200 = roughly double, 300 = roughly triple, 0 = disabled. Does not change island size, biome coverage, vegetation, ores or existing chunks. Large structures generate as a whole. Restart the world/server after changing; only newly generated chunks are affected.
