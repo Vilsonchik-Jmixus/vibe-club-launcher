@@ -1,7 +1,8 @@
 // Vibe Club — постройки Create Aeronautics (Sable), упавшие в бездну, возвращаются и падают сверху,
 // как игроки с Forgiving Void. Раз в секунду сервер проверяет все загруженные постройки:
 // если постройка ниже порога, она появляется в 30 блоках над землёй — на той же X/Z, а если там
-// пустота (небесные биомы SkyLands), то над последним местом, где под ней была земля. Скорость обнуляется.
+// пустота (небесные биомы SkyLands), то над последним местом, где под ней была земля, а если такого
+// места нет — над точкой спавна мира. Скорость обнуляется.
 // Стиль ES5 (var, function): Rhino в KubeJS плохо переносит const/let в блоках.
 var VC_SV = { ok: false, tick: 0, Arg: null, Sys: null, Vec: null, HM: null }
 // below — порог по Y; drop — запасная высота, если землю под постройкой не видно;
@@ -77,6 +78,17 @@ function vcSableRescue(ctx, dim) {
       tz = safe.z
       var g2 = vcGroundAt(level, tx, tz)
       ty = (g2 !== null ? g2 : safe.ground) + cfg.lift
+    } else {
+      // постройку ни разу не видели над землёй — отправляем к точке спавна мира
+      try {
+        var sp = level.getSharedSpawnPos()
+        var g3 = vcGroundAt(level, sp.getX() + 0.5, sp.getZ() + 0.5)
+        if (g3 !== null) {
+          tx = sp.getX() + 0.5
+          tz = sp.getZ() + 0.5
+          ty = g3 + cfg.lift + 10
+        }
+      } catch (e4) { }
     }
     pipe.resetVelocity(sub)
     pipe.teleport(sub, new VC_SV.Vec(tx, ty, tz), pose.orientation())
