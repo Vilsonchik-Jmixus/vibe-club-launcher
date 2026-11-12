@@ -91,7 +91,12 @@ func (f PackFile) urls(m *Manifest) []string {
 	} else if m.BaseURL != "" {
 		out = append(out, strings.TrimRight(m.BaseURL, "/")+"/"+urlPathEscape(f.Path))
 	}
-	return append(out, f.Mirror...)
+	out = append(out, f.Mirror...)
+	for _, u := range out {
+		out = append(out, githubMirrors(u)...)
+		break
+	}
+	return out
 }
 
 func urlPathEscape(p string) string {
@@ -130,26 +135,7 @@ func fetchManifest(force bool) (*Manifest, error) {
 	if strings.HasPrefix(u, "file://") || !strings.Contains(u, "://") {
 		data, err = os.ReadFile(strings.TrimPrefix(u, "file://"))
 	} else {
-		// raw.githubusercontent.com caches files for ~5 minutes; a changing query string
-		// makes a freshly pushed update visible right away.
-		fu := u
-		if !strings.Contains(fu, "?") {
-			fu += fmt.Sprintf("?t=%d", time.Now().Unix()/30)
-		}
-		req, _ := http.NewRequest("GET", fu, nil)
-		req.Header.Set("Cache-Control", "no-cache")
-		req.Header.Set("User-Agent", "VibeClubLauncher/"+LauncherVersion)
-		c := &http.Client{Timeout: 20 * time.Second}
-		var resp *http.Response
-		resp, err = c.Do(req)
-		if err == nil {
-			defer resp.Body.Close()
-			if resp.StatusCode != 200 {
-				err = fmt.Errorf("сервер обновлений ответил %d", resp.StatusCode)
-			} else {
-				data, err = io.ReadAll(io.LimitReader(resp.Body, 64<<20))
-			}
-		}
+		data, err = fetchManifestBytes(u)
 	}
 	if err != nil {
 		return nil, err

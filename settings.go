@@ -14,6 +14,7 @@ type Settings struct {
 	CheckUpdates      bool   `json:"checkUpdates"`
 	CloseAfterLaunch  bool   `json:"closeAfterLaunch"`
 	ManifestURL       string `json:"manifestUrl,omitempty"`
+	Browser           string `json:"browser,omitempty"`
 	PendingSkinHash   string `json:"pendingSkinHash,omitempty"`
 	PendingSkinModel  string `json:"pendingSkinModel,omitempty"`
 	PendingSkinActive bool   `json:"pendingSkinActive,omitempty"`

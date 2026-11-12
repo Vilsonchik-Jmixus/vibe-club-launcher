@@ -140,6 +140,9 @@ func openAppWindow(url string) (*exec.Cmd, error) {
 	if os.Getenv("VC_HEADLESS") != "" {
 		return nil, nil
 	}
+	if cmd, ok := openChosenWindow(url); ok {
+		return cmd, nil
+	}
 	for _, n := range []string{"google-chrome", "google-chrome-stable", "chromium", "chromium-browser", "microsoft-edge", "microsoft-edge-stable", "brave-browser", "brave", "vivaldi", "yandex-browser"} {
 		p, err := exec.LookPath(n)
 		if err != nil {
@@ -150,6 +153,16 @@ func openAppWindow(url string) (*exec.Cmd, error) {
 			"--no-first-run", "--no-default-browser-check", "--disable-sync", "--class=VibeClubLauncher")
 		if err := cmd.Start(); err == nil {
 			return cmd, nil
+		}
+	}
+	// no Chromium browser in PATH: try a Flatpak one before the default browser
+	for _, b := range detectBrowsers() {
+		if b.flatpak && b.chromium {
+			bb := b
+			if cmd, err := startBrowserWindow(&bb, url); err == nil {
+				appendLog("Открываю лаунчер в " + b.Name)
+				return cmd, nil
+			}
 		}
 	}
 	return nil, openURL(url)
@@ -222,4 +235,63 @@ func findPrism(dataDir string) (string, []string, bool) {
 		return "flatpak", []string{"run", "org.prismlauncher.PrismLauncher"}, true
 	}
 	return "", nil, false
+}
+
+// detectBrowsers lists browsers installed as normal packages or as Flatpak apps
+// (Steam Deck / SteamOS ships browsers only as Flatpaks).
+func detectBrowsers() []browserOpt {
+	var out []browserOpt
+	seen := map[string]bool{}
+	add := func(b browserOpt) {
+		if !seen[b.ID] {
+			seen[b.ID] = true
+			out = append(out, b)
+		}
+	}
+	bins := []struct {
+		id, name string
+		names    []string
+		chromium bool
+	}{
+		{"chrome", "Google Chrome", []string{"google-chrome", "google-chrome-stable"}, true},
+		{"chromium", "Chromium", []string{"chromium", "chromium-browser"}, true},
+		{"edge", "Microsoft Edge", []string{"microsoft-edge", "microsoft-edge-stable"}, true},
+		{"brave", "Brave", []string{"brave-browser", "brave"}, true},
+		{"vivaldi", "Vivaldi", []string{"vivaldi", "vivaldi-stable"}, true},
+		{"yandex", "Яндекс Браузер", []string{"yandex-browser", "yandex-browser-stable"}, true},
+		{"opera", "Opera", []string{"opera"}, true},
+		{"firefox", "Firefox", []string{"firefox"}, false},
+	}
+	for _, b := range bins {
+		for _, n := range b.names {
+			if p, err := exec.LookPath(n); err == nil {
+				add(browserOpt{ID: b.id, Name: b.name, argv: []string{p}, chromium: b.chromium})
+				break
+			}
+		}
+	}
+	fp, err := exec.LookPath("flatpak")
+	if err != nil {
+		return out
+	}
+	home, _ := os.UserHomeDir()
+	flats := []struct {
+		id, name, app string
+		chromium      bool
+	}{
+		{"chrome", "Google Chrome", "com.google.Chrome", true},
+		{"chromium", "Chromium", "org.chromium.Chromium", true},
+		{"ungoogled", "Ungoogled Chromium", "io.github.ungoogled_software.ungoogled_chromium", true},
+		{"edge", "Microsoft Edge", "com.microsoft.Edge", true},
+		{"brave", "Brave", "com.brave.Browser", true},
+		{"vivaldi", "Vivaldi", "com.vivaldi.Vivaldi", true},
+		{"opera", "Opera", "com.opera.Opera", true},
+		{"firefox", "Firefox", "org.mozilla.firefox", false},
+	}
+	for _, f := range flats {
+		if dirExists(filepath.Join("/var/lib/flatpak/app", f.app)) || dirExists(filepath.Join(home, ".local/share/flatpak/app", f.app)) {
+			add(browserOpt{ID: f.id, Name: f.name + " (Flatpak)", argv: []string{fp, "run", f.app}, chromium: f.chromium, flatpak: true})
+		}
+	}
+	return out
 }

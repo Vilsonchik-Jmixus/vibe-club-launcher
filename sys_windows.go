@@ -134,6 +134,9 @@ func findEdge() string {
 // openAppWindow shows the UI in a chromeless Edge window with its own profile, so closing the
 // window ends that process and the launcher can exit with it.
 func openAppWindow(url string) (*exec.Cmd, error) {
+	if cmd, ok := openChosenWindow(url); ok {
+		return cmd, nil
+	}
 	edge := findEdge()
 	if edge == "" {
 		return nil, openURL(url)
@@ -211,4 +214,31 @@ func findPrism(dataDir string) (string, []string, bool) {
 		filepath.Join(pf, "PrismLauncher", "prismlauncher.exe"),
 	)
 	return p, nil, p != ""
+}
+
+func detectBrowsers() []browserOpt {
+	pf, pf86, la := os.Getenv("ProgramFiles"), os.Getenv("ProgramFiles(x86)"), os.Getenv("LOCALAPPDATA")
+	cands := []struct {
+		id, name string
+		chromium bool
+		paths    []string
+	}{
+		{"edge", "Microsoft Edge", true, []string{findEdge()}},
+		{"chrome", "Google Chrome", true, []string{filepath.Join(pf, `Google\Chrome\Application\chrome.exe`), filepath.Join(pf86, `Google\Chrome\Application\chrome.exe`), filepath.Join(la, `Google\Chrome\Application\chrome.exe`)}},
+		{"yandex", "Яндекс Браузер", true, []string{filepath.Join(la, `Yandex\YandexBrowser\Application\browser.exe`)}},
+		{"brave", "Brave", true, []string{filepath.Join(pf, `BraveSoftware\Brave-Browser\Application\brave.exe`), filepath.Join(la, `BraveSoftware\Brave-Browser\Application\brave.exe`)}},
+		{"opera", "Opera", true, []string{filepath.Join(la, `Programs\Opera\opera.exe`)}},
+		{"vivaldi", "Vivaldi", true, []string{filepath.Join(la, `Vivaldi\Application\vivaldi.exe`)}},
+		{"firefox", "Firefox", false, []string{filepath.Join(pf, `Mozilla Firefox\firefox.exe`), filepath.Join(pf86, `Mozilla Firefox\firefox.exe`)}},
+	}
+	var out []browserOpt
+	for _, c := range cands {
+		for _, p := range c.paths {
+			if p != "" && fileExists(p) {
+				out = append(out, browserOpt{ID: c.id, Name: c.name, argv: []string{p}, chromium: c.chromium})
+				break
+			}
+		}
+	}
+	return out
 }

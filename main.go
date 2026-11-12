@@ -20,7 +20,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.12"
+const LauncherVersion = "1.0.13"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -37,6 +37,8 @@ var (
 )
 
 func quit() { quitOnce.Do(func() { close(quitCh) }) }
+
+var uiURL string
 
 func main() {
 	loadSettings()
@@ -62,6 +64,7 @@ func main() {
 	go srv.Serve(ln)
 
 	url := fmt.Sprintf("http://%s/%s/index.html", ln.Addr().String(), token)
+	uiURL = url
 	if os.Getenv("VC_HEADLESS") != "" {
 		fmt.Println(url)
 	}
@@ -300,6 +303,18 @@ func registerAPI(mux *http.ServeMux, p string) {
 		}
 		writeJSON(w, describeFolder(p))
 	})
+	h("browsers", func(w http.ResponseWriter, r *http.Request) {
+		writeJSON(w, map[string]any{"current": browserSetting(), "options": browserList()})
+	})
+	// open-in-browser opens the launcher page again in the chosen browser right away.
+	h("open-in-browser", func(w http.ResponseWriter, r *http.Request) {
+		cmd, ok := openChosenWindow(uiURL)
+		if !ok {
+			cmd, _ = openAppWindow(uiURL)
+		}
+		_ = cmd
+		writeJSON(w, map[string]bool{"ok": true})
+	})
 	h("apply-options", func(w http.ResponseWriter, r *http.Request) {
 		dir := getSettings().InstallDir
 		if !isInstalled(dir) {
@@ -336,6 +351,7 @@ func registerAPI(mux *http.ServeMux, p string) {
 			MemoryGB         *int    `json:"memoryGB"`
 			CheckUpdates     *bool   `json:"checkUpdates"`
 			CloseAfterLaunch *bool   `json:"closeAfterLaunch"`
+			Browser          *string `json:"browser"`
 		}
 		if err := json.NewDecoder(io.LimitReader(r.Body, 1<<16)).Decode(&in); err != nil {
 			writeErr(w, err)
@@ -360,6 +376,9 @@ func registerAPI(mux *http.ServeMux, p string) {
 			}
 			if in.CheckUpdates != nil {
 				s.CheckUpdates = *in.CheckUpdates
+			}
+			if in.Browser != nil {
+				s.Browser = *in.Browser
 			}
 			if in.CloseAfterLaunch != nil {
 				s.CloseAfterLaunch = *in.CloseAfterLaunch

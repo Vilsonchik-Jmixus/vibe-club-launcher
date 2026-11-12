@@ -189,8 +189,7 @@ func fetchTo(j *Job, u, dst, wantSHA1 string, counter *atomic.Int64) (int64, err
 	req.Header.Set("User-Agent", "VibeClubLauncher/"+LauncherVersion+" (vibeclub.mcmod.ru)")
 	ctxDone := make(chan struct{})
 	defer close(ctxDone)
-	tr := &http.Client{Timeout: 30 * time.Minute}
-	resp, err := tr.Do(req)
+	resp, err := netClient(30 * time.Minute).Do(req)
 	if err != nil {
 		return 0, err
 	}
@@ -228,8 +227,9 @@ func simpleDownload(j *Job, u, dst string) error {
 	}
 	var c atomic.Int64
 	var last error
-	for attempt := 0; attempt < 3; attempt++ {
-		_, err := fetchTo(j, u, dst+".part", "", &c)
+	urls := append([]string{u}, githubMirrors(u)...)
+	for attempt := 0; attempt < 3*len(urls); attempt++ {
+		_, err := fetchTo(j, urls[attempt%len(urls)], dst+".part", "", &c)
 		if err == nil {
 			return replaceFile(dst+".part", dst)
 		}

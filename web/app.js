@@ -527,3 +527,24 @@ setInterval(() => api('ping').then(() => { pingFails = 0; }).catch(() => { if (+
   setInterval(pollServer, 30000);
   setInterval(() => { if (!(job && job.running)) refresh(false); }, 60000);
 })();
+
+// ---- browser choice
+async function loadBrowsers() {
+  try {
+    const r = await api('browsers');
+    const sel = $('selBrowser');
+    sel.innerHTML = r.options.map((o) => `<option value="${esc(o.id)}">${esc(o.name)}</option>`).join('');
+    sel.value = r.current;
+    if (sel.value !== r.current) sel.value = 'auto';
+  } catch (e) { /* old backend */ }
+}
+$('selBrowser').addEventListener('change', async (e) => {
+  try {
+    S = await api('settings', { method: 'POST', json: { browser: e.target.value } });
+    toast('Готово. Со следующего запуска лаунчер откроется в: ' + e.target.selectedOptions[0].textContent + '. Чтобы открыть сейчас — нажми «Открыть».');
+  } catch (err) { toast(err.message, true); }
+});
+$('btnOpenInBrowser').onclick = async () => {
+  try { await api('open-in-browser', { method: 'POST' }); toast('Открываю в выбранном браузере — это окно можно закрыть'); } catch (e) { toast(e.message, true); }
+};
+loadBrowsers();

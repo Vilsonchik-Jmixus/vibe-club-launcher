@@ -82,3 +82,11 @@ nav{margin-right:62px}
 .path-input:focus{background:#10071d;box-shadow:inset 0 0 0 1px #a56a40}
 .path-input::placeholder{color:#82698f}
 .path-hint{font-size:11px;color:#9d84ab;margin:6px 2px 0}
+
+.browser-field{display:flex;gap:10px;align-items:center;margin-top:6px}
+.browser-select{flex:1;min-width:0;background:#1a0d28;color:#E8D8F0;border:1px solid #765034;border-radius:4px;padding:8px 10px;font:14px 'Segoe UI',sans-serif;outline:none}
+.browser-select:focus{border-color:#e1a05e}
+.browser-select option{background:#1a0d28;color:#E8D8F0}
+.settings{top:144px;height:492px}
+.settings-left label{margin-bottom:8px}
+.settings-left>label:last-of-type{margin-top:12px}
