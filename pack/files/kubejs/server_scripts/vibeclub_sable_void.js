@@ -1,6 +1,7 @@
 // Vibe Club — постройки Create Aeronautics (Sable), упавшие в бездну, возвращаются и падают сверху,
 // как игроки с Forgiving Void. Раз в секунду сервер проверяет все загруженные постройки:
-// если постройка ниже порога, она переносится на ту же X/Z над миром, скорость обнуляется.
+// если постройка ниже порога, она появляется в 30 блоках над землёй — на той же X/Z, а если там
+// пустота (небесные биомы SkyLands), то над последним местом, где под ней была земля. Скорость обнуляется.
 // Стиль ES5 (var, function): Rhino в KubeJS плохо переносит const/let в блоках.
 var VC_SV = { ok: false, tick: 0, Arg: null, Sys: null, Vec: null, HM: null }
 // below — порог по Y; drop — запасная высота, если землю под постройкой не видно;
@@ -25,10 +26,25 @@ try {
   console.error('[Vibe Club] Возврат построек из бездны выключен: ' + e)
 }
 
+// Последняя «безопасная» точка каждой постройки (как returnToLastGrounded у Forgiving Void):
+// запоминаем позицию, когда под постройкой есть земля. Ключ — UUID постройки.
+var VC_SV_SAFE = {}
+
+function vcGroundAt(level, x, z) {
+  if (!VC_SV.HM) return null
+  try {
+    var g = level.getHeight(VC_SV.HM, Math.floor(x), Math.floor(z))
+    return g > -60 ? g : null
+  } catch (e) {
+    return null
+  }
+}
+
 function vcSableRescue(ctx, dim) {
   var cfg = VC_SV_DIMS[dim]
+  var level = ctx.source.level
   var subs = VC_SV.Arg.getSubLevels(ctx, 'targets')
-  var sys = VC_SV.Sys.get(ctx.source.level)
+  var sys = VC_SV.Sys.get(level)
   if (!sys) return 0
   var pipe = sys.getPipeline()
   var moved = 0
@@ -36,25 +52,38 @@ function vcSableRescue(ctx, dim) {
   while (it.hasNext()) {
     var sub = it.next()
     if (sub.isRemoved()) continue
+    var id = dim + ':' + String(sub.getUniqueId())
     var pose = sub.logicalPose()
     var pos = pose.position()
-    var y = pos.get(1)
-    if (y > cfg.below) continue
     var x = pos.get(0)
+    var y = pos.get(1)
     var z = pos.get(2)
-    var dropY = cfg.drop
-    if (VC_SV.HM) {
-      try {
-        var ground = ctx.source.level.getHeight(VC_SV.HM, Math.floor(x), Math.floor(z))
-        if (ground > -60) dropY = ground + cfg.lift
-      } catch (e3) { }
+    if (y > cfg.below) {
+      if (y > 0) {
+        var g = vcGroundAt(level, x, z)
+        if (g !== null) VC_SV_SAFE[id] = { x: x, z: z, ground: g }
+      }
+      continue
+    }
+    var tx = x
+    var tz = z
+    var ty = cfg.drop
+    var safe = VC_SV_SAFE[id]
+    var groundHere = vcGroundAt(level, x, z)
+    if (groundHere !== null) {
+      ty = groundHere + cfg.lift
+    } else if (safe) {
+      tx = safe.x
+      tz = safe.z
+      var g2 = vcGroundAt(level, tx, tz)
+      ty = (g2 !== null ? g2 : safe.ground) + cfg.lift
     }
     pipe.resetVelocity(sub)
-    pipe.teleport(sub, new VC_SV.Vec(x, dropY, z), pose.orientation())
+    pipe.teleport(sub, new VC_SV.Vec(tx, ty, tz), pose.orientation())
     pipe.resetVelocity(sub)
     moved++
     var name = sub.getName()
-    console.info('[Vibe Club] Постройка ' + (name ? '«' + name + '» ' : '') + 'вернулась из бездны: X ' + Math.round(x) + ', Y ' + Math.round(dropY) + ', Z ' + Math.round(z))
+    console.info('[Vibe Club] Постройка ' + (name ? '«' + name + '» ' : '') + 'вернулась из бездны: X ' + Math.round(tx) + ', Y ' + Math.round(ty) + ', Z ' + Math.round(tz))
   }
   return moved
 }
