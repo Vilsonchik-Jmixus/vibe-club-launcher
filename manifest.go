@@ -68,6 +68,10 @@ type PackFile struct {
 	URL    string   `json:"url,omitempty"`
 	Mirror []string `json:"mirrors,omitempty"`
 	Policy string   `json:"policy,omitempty"`
+	// Reset (with policy "once"): when it differs from the value remembered in the state,
+	// the player's copy is replaced once by the pack's (old copy kept as *.vibeclub-backup).
+	// Used to roll out new performance defaults for configs players may have tuned.
+	Reset string `json:"reset,omitempty"`
 	// Manual: the author does not allow third-party downloads. The player downloads the
 	// file in the browser from this page; we pick it up from the Downloads folder.
 	Manual string `json:"manual,omitempty"`
@@ -102,6 +106,7 @@ func urlPathEscape(p string) string {
 type LocalState struct {
 	Version string            `json:"version"`
 	Files   map[string]string `json:"files"` // path -> sha1 of files we manage
+	Resets  map[string]string `json:"resets,omitempty"`
 	Updated time.Time         `json:"updated"`
 }
 
@@ -424,6 +429,12 @@ func runJob(j *Job, kind JobKind) error {
 		if f.Policy == "once" {
 			if statErr != nil {
 				todo = append(todo, f)
+			} else if f.Reset != "" && st.Resets[f.Path] != f.Reset {
+				if b, err := os.ReadFile(local); err == nil {
+					_ = os.WriteFile(local+".vibeclub-backup", b, 0o644)
+				}
+				j.logf("Обновляю настройки по умолчанию: %s (старый файл сохранён как .vibeclub-backup)", f.Path)
+				todo = append(todo, f)
 			}
 			continue
 		}
@@ -494,6 +505,17 @@ func runJob(j *Job, kind JobKind) error {
 			j.logf("Удалён устаревший файл: %s", p)
 		}
 		delete(st.Files, p)
+	}
+	for _, f := range m.Files {
+		if f.Reset == "" {
+			continue
+		}
+		if h, err := sha1File(filepath.Join(dir, filepath.FromSlash(f.Path))); err == nil && strings.EqualFold(h, f.SHA1) {
+			if st.Resets == nil {
+				st.Resets = map[string]string{}
+			}
+			st.Resets[f.Path] = f.Reset
+		}
 	}
 	st.Version = m.Version
 	if err := saveState(dir, st); err != nil {
