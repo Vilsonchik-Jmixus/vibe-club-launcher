@@ -140,11 +140,14 @@ function vcPgStep(server) {
 }
 
 ServerEvents.loaded(function (event) {
-  if (VC_PG.ok) vcPgLoad(event.server)
+  if (VC_PG.ok && !VC_PG.job) { VC_PG.checked = true; vcPgLoad(event.server) }
 })
 
 ServerEvents.tick(function (event) {
-  if (!VC_PG.ok || !VC_PG.job) return
+  if (!VC_PG.ok) return
+  // после /reload событие loaded не приходит — подхватываем сохранённое задание на первом тике
+  if (!VC_PG.checked) { VC_PG.checked = true; if (!VC_PG.job) vcPgLoad(event.server) }
+  if (!VC_PG.job) return
   VC_PG.tick++
   try {
     vcPgStep(event.server)
