@@ -17,15 +17,36 @@ document.querySelectorAll('[data-icon]').forEach((el) => {
   el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#F0A040" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + ICONS[el.dataset.icon] + '</svg>';
 });
 
-// ---- scale the 1280x720 design to the window
+// ---- scale the 1280x720 design to the window and stretch it to fill the rest
+// The design is scaled to fit the window; the leftover space is added to the stage itself
+// (CSS vars --sw/--sh/--ex/--ey), so the background and the layout fill the whole window
+// instead of leaving empty bars. Below MIN_SCALE the window is too small to read: the
+// design stops shrinking and the page scrolls, and we ask the window to grow back.
+const MIN_W = 960, MIN_H = 540, MIN_SCALE = 0.4;
 function fit() {
-  const s = Math.min(innerWidth / 1280, innerHeight / 720);
+  const W = innerWidth, H = innerHeight;
+  let s = Math.min(W / 1280, H / 720);
+  const tiny = s < MIN_SCALE;
+  if (tiny) s = MIN_SCALE;
+  const sw = Math.max(1280, W / s), sh = Math.max(720, H / s);
   const st = $('stage');
+  st.style.setProperty('--sw', sw + 'px');
+  st.style.setProperty('--sh', sh + 'px');
+  st.style.setProperty('--ex', (sw - 1280) + 'px');
+  st.style.setProperty('--ey', (sh - 720) + 'px');
   st.style.transform = `scale(${s})`;
-  st.style.left = Math.max(0, (innerWidth - 1280 * s) / 2) + 'px';
-  st.style.top = Math.max(0, (innerHeight - 720 * s) / 2) + 'px';
+  document.documentElement.classList.toggle('tiny', tiny);
 }
-addEventListener('resize', fit); fit();
+let growTimer = 0;
+function keepMinSize() {
+  clearTimeout(growTimer);
+  growTimer = setTimeout(() => {
+    if (outerWidth >= MIN_W && outerHeight >= MIN_H) return;
+    try { resizeTo(Math.max(outerWidth, MIN_W), Math.max(outerHeight, MIN_H)); } catch (e) { /* not allowed in a normal tab */ }
+  }, 500);
+}
+addEventListener('resize', () => { fit(); keepMinSize(); });
+fit(); keepMinSize();
 
 // ---- helpers
 async function api(name, opts = {}) {
@@ -333,8 +354,12 @@ async function pollJob() {
       $('manualBox').classList.toggle('hidden', !man.length);
       $('btnLog').classList.toggle('hidden', !!man.length);
       if (man.length) {
-        $('errText').textContent = 'Почти готово! Авторы этих модов разрешают скачивать их только со своей страницы. Нажми «Скачать», сохрани файлы в папку «Загрузки» и нажми «Повторить» — лаунчер сам их найдёт.';
-        $('manualList').innerHTML = man.map((m) => `<div class="manual-row"><span>${esc(m.name)}</span><small>${esc(m.file)}</small></div>`).join('');
+        $('errText').textContent = 'Почти готово! Авторы этих модов разрешают скачивать их только со своей страницы на CurseForge. Нажми «Скачать» (или на мод в списке) — откроется его страница, скачивание начнётся само через пару секунд (если нет — нажми там Download). Когда файлы скачаются, нажми «Повторить» — лаунчер сам их найдёт.';
+        const dirs = job.manualDirs || [];
+        $('manualList').innerHTML = man.map((m) => `<button class="manual-row" data-file="${esc(m.file)}" title="Открыть страницу мода"><span>${esc(m.name)} <em>скачать ›</em></span><small>${esc(m.file)}</small></button>`).join('') +
+          (dirs.length ? `<button class="manual-dirs" id="btnDownloads" title="Открыть папку">Ищу скачанные файлы в: ${dirs.map(esc).join(', ')}</button>` : '');
+        $('manualList').querySelectorAll('.manual-row').forEach((b) => { b.onclick = () => api('open-manual?file=' + encodeURIComponent(b.dataset.file), { method: 'POST' }).then(() => toast('Открываю страницу мода…')); });
+        if ($('btnDownloads')) $('btnDownloads').onclick = () => api('open-downloads', { method: 'POST' });
       }
     }
   }

@@ -13,6 +13,12 @@
  },
  "news": [
   {
+   "date": "13.11.2026",
+   "title": "Лаунчер 1.0.14: окно под любой размер и ссылки в твоём браузере",
+   "text": "Интерфейс растягивается под окно без пустых полос, у окна есть минимальный размер. Ссылки открываются в выбранном браузере, ручные моды — со страницы CurseForge.",
+   "more": "## Окно\n- Интерфейс заполняет окно любой формы: фон тянется до краёв, панели остаются по центру, без пустых полос сверху и снизу.\n- Минимальный размер окна — 960×540: если окно сделать меньше, лаунчер попросит его увеличить, а интерфейс перестанет сжиматься и начнёт прокручиваться.\n## Ссылки\n- Ссылки (страницы модов, minecraft.net) открываются в браузере, выбранном в Настройках → «Открывать лаунчер в», обычной вкладкой в твоём профиле.\n## Моды, которые качаются вручную\n- Кнопка «Скачать» теперь открывает страницу мода на CurseForge, а не прямую ссылку — прямая ссылка у части игроков выдавала ошибку 403.\n- На мод в списке можно нажать, чтобы открыть только его страницу.\n- Лаунчер ищет скачанные файлы не только в ~/Downloads, но и в ~/Загрузки, в папке загрузок из настроек системы (Linux) и в перенесённой папке «Загрузки» (Windows); список папок показан под модами.\n## Добавленные моды\n- Новых модов нет."
+  },
+  {
    "date": "12.11.2026",
    "title": "Лаунчер 1.0.13: зеркала и выбор браузера",
    "text": "Если GitHub недоступен, лаунчер качает сборку через зеркало jsDelivr. В настройках можно выбрать браузер для окна лаунчера.",
@@ -80,16 +86,16 @@
   }
  ],
  "launcher": {
-  "version": "1.0.13",
+  "version": "1.0.14",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
-  "sha1": "2d9bcd200d3125033a6e0d6826bfc8475a9b4fdc",
-  "size": 11548160
+  "sha1": "00eebabcc694c648243b712d21ae7b0bb8e6d941",
+  "size": 11560960
  },
  "launcherLinux": {
-  "version": "1.0.13",
+  "version": "1.0.14",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher-linux-x64",
-  "sha1": "dfcaa0f5566e0d212e179aac9ec574e97bf535e3",
-  "size": 11215032
+  "sha1": "02fd6dfb60f166cf6d67d73af61571001a5ea5d4",
+  "size": 11227320
  },
  "version": "1.7",
  "baseUrl": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/files",
@@ -3253,7 +3259,7 @@
    "path": "mods/LovsPlayer-1.5.0.jar",
    "sha1": "aaa2efac07dc6d3223a6c6ad578acc5af93a1ecb",
    "size": 6628967,
-   "manual": "https://www.curseforge.com/api/v1/mods/1725145/files/9369022/download",
+   "manual": "https://www.curseforge.com/minecraft/mc-mods/lovsplayer/download/9369022",
    "name": "LovsPlayer"
   },
   {
@@ -4315,7 +4321,7 @@
    "path": "mods/kaleidoscope-flora-0.3.5.1.jar",
    "sha1": "b54cfab523fed188698cd3e8d2006164636b8ae6",
    "size": 837545,
-   "manual": "https://www.curseforge.com/api/v1/mods/1691074/files/9250897/download",
+   "manual": "https://www.curseforge.com/minecraft/mc-mods/kaleidoscope-flora/download/9250897",
    "name": "Kaleidoscope Flora"
   },
   {

@@ -20,7 +20,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.13"
+const LauncherVersion = "1.0.14"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -402,15 +402,25 @@ func registerAPI(mux *http.ServeMux, p string) {
 	h("open-url", func(w http.ResponseWriter, r *http.Request) {
 		u := r.URL.Query().Get("u")
 		if strings.HasPrefix(u, "https://") {
-			_ = openURL(u)
+			_ = openLink(u)
+		}
+		writeJSON(w, map[string]bool{"ok": true})
+	})
+	h("open-downloads", func(w http.ResponseWriter, r *http.Request) {
+		if d := downloadDirs(); len(d) > 0 {
+			_ = openFolder(d[0])
 		}
 		writeJSON(w, map[string]bool{"ok": true})
 	})
 	h("open-manual", func(w http.ResponseWriter, r *http.Request) {
 		if j := currentJob(); j != nil {
+			one := r.URL.Query().Get("file")
 			for _, it := range j.status().Manual {
+				if one != "" && it.File != one {
+					continue
+				}
 				if strings.HasPrefix(it.URL, "https://") {
-					_ = openURL(it.URL)
+					_ = openLink(it.URL)
 					time.Sleep(700 * time.Millisecond)
 				}
 			}

@@ -295,3 +295,5 @@ func detectBrowsers() []browserOpt {
 	}
 	return out
 }
+
+func platformDownloadDir() string { return "" }

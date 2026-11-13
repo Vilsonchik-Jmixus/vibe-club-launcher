@@ -88,6 +88,26 @@ func openChosenWindow(url string) (cmd *exec.Cmd, ok bool) {
 	return c, true
 }
 
+// openLink opens an ordinary web link (mod pages, minecraft.net) in the browser the player
+// chose in the settings — as a normal tab in their own profile, not in the launcher window.
+// "auto"/"default" leave it to the system (xdg-open / the Windows default browser).
+func openLink(u string) error {
+	choice := browserSetting()
+	if choice != "auto" && choice != "default" && choice != "" {
+		if b := findBrowser(choice); b != nil {
+			args := append(append([]string{}, b.argv[1:]...), u)
+			cmd := exec.Command(b.argv[0], args...)
+			if err := cmd.Start(); err == nil {
+				go func() { _ = cmd.Wait() }()
+				return nil
+			} else {
+				appendLog("Не удалось открыть ссылку в " + b.Name + ": " + err.Error())
+			}
+		}
+	}
+	return openURL(u)
+}
+
 func browserList() []map[string]string {
 	out := []map[string]string{
 		{"id": "auto", "name": "Автоматически"},

@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"sync"
@@ -235,6 +236,7 @@ type JobStatus struct {
 	Finished   bool         `json:"finished"`
 	Log        []string     `json:"log"`
 	Manual     []ManualItem `json:"manual,omitempty"`
+	ManualDirs []string     `json:"manualDirs,omitempty"`
 }
 
 type Job struct {
@@ -469,7 +471,8 @@ func runJob(j *Job, kind JobKind) error {
 	}
 	if missing := pickManual(j, dir, manual, st); len(missing) > 0 {
 		_ = saveState(dir, st)
-		j.set(func(s *JobStatus) { s.Manual = missing })
+		dirs := downloadDirs()
+		j.set(func(s *JobStatus) { s.Manual = missing; s.ManualDirs = dirs })
 		return fmt.Errorf("осталось скачать вручную: %d шт. Авторы этих модов разрешают скачивать их только с их страницы", len(missing))
 	}
 
@@ -567,52 +570,104 @@ func appendLog(line string) {
 	_, _ = f.WriteString(time.Now().Format("2006-01-02 ") + line + "\r\n")
 }
 
-// pickManual looks for manually downloaded files in the player's Downloads folder.
+// pickManual looks for manually downloaded files in the player's download folders.
 func pickManual(j *Job, dir string, files []PackFile, st *LocalState) []ManualItem {
 	var missing []ManualItem
-	home, _ := os.UserHomeDir()
-	dl := filepath.Join(home, "Downloads")
-	entries, _ := os.ReadDir(dl)
+	type cand struct {
+		path string
+		size int64
+	}
+	var all []cand
+	for _, d := range downloadDirs() {
+		entries, _ := os.ReadDir(d)
+		for _, e := range entries {
+			if e.IsDir() {
+				continue
+			}
+			if info, err := e.Info(); err == nil {
+				all = append(all, cand{filepath.Join(d, e.Name()), info.Size()})
+			}
+		}
+	}
 	for _, f := range files {
 		found := ""
 		base := filepath.Base(f.Path)
-		cands := []string{filepath.Join(dl, base)}
-		for _, e := range entries {
-			if e.IsDir() || e.Name() == base {
+		for _, c := range all {
+			if c.size != f.Size {
 				continue
 			}
-			if info, err := e.Info(); err == nil && info.Size() == f.Size {
-				cands = append(cands, filepath.Join(dl, e.Name()))
-			}
-		}
-		for _, c := range cands {
-			if fi, err := os.Stat(c); err != nil || fi.Size() != f.Size {
-				continue
-			}
-			if h, err := sha1File(c); err == nil && strings.EqualFold(h, f.SHA1) {
-				found = c
+			if h, err := sha1File(c.path); err == nil && strings.EqualFold(h, f.SHA1) {
+				found = c.path
 				break
 			}
 		}
+		name := f.Name
+		if name == "" {
+			name = base
+		}
 		if found == "" {
-			name := f.Name
-			if name == "" {
-				name = base
-			}
-			missing = append(missing, ManualItem{Name: name, File: base, URL: f.Manual})
+			missing = append(missing, ManualItem{Name: name, File: base, URL: manualPage(f.Manual)})
 			continue
 		}
 		dst := filepath.Join(dir, filepath.FromSlash(f.Path))
 		_ = os.MkdirAll(filepath.Dir(dst), 0o755)
 		if err := copyFileTo(found, dst); err != nil {
 			j.logf("Не удалось скопировать %s: %v", found, err)
-			missing = append(missing, ManualItem{Name: f.Name, File: base, URL: f.Manual})
+			missing = append(missing, ManualItem{Name: name, File: base, URL: manualPage(f.Manual)})
 			continue
 		}
 		st.Files[f.Path] = strings.ToLower(f.SHA1)
-		j.logf("Взят из «Загрузок»: %s", base)
+		j.logf("Взят из «Загрузок»: %s", found)
 	}
 	return missing
+}
+
+// Old manifests pointed at curseforge.com/api/v1/…/download, which redirects to the CDN with
+// an api-key and answers 403 for some players. Those links are turned into the mod's project
+// page (curseforge.com/projects/<id> redirects there); new manifests carry the page itself.
+var cfAPIDownload = regexp.MustCompile(`^https://www\.curseforge\.com/api/v1/mods/(\d+)/files/(\d+)/download$`)
+
+func manualPage(u string) string {
+	if m := cfAPIDownload.FindStringSubmatch(u); m != nil {
+		return "https://www.curseforge.com/projects/" + m[1]
+	}
+	return u
+}
+
+// downloadDirs lists the folders where a browser may have saved files: ~/Downloads, the
+// localized XDG download folder (~/Загрузки on a Russian Linux desktop) and the user's
+// custom one from user-dirs.dirs.
+func downloadDirs() []string {
+	home, _ := os.UserHomeDir()
+	var out []string
+	seen := map[string]bool{}
+	add := func(p string) {
+		if p == "" {
+			return
+		}
+		p = filepath.Clean(p)
+		if seen[p] || !dirExists(p) {
+			return
+		}
+		seen[p] = true
+		out = append(out, p)
+	}
+	add(platformDownloadDir())
+	if b, err := os.ReadFile(filepath.Join(home, ".config", "user-dirs.dirs")); err == nil {
+		for _, line := range strings.Split(string(b), "\n") {
+			line = strings.TrimSpace(line)
+			if strings.HasPrefix(line, "XDG_DOWNLOAD_DIR=") {
+				v := strings.Trim(strings.TrimPrefix(line, "XDG_DOWNLOAD_DIR="), `"`)
+				v = strings.ReplaceAll(v, "$HOME", home)
+				add(v)
+			}
+		}
+	}
+	add(filepath.Join(home, "Downloads"))
+	add(filepath.Join(home, "Загрузки"))
+	add(filepath.Join(home, "Desktop"))
+	add(filepath.Join(home, "Рабочий стол"))
+	return out
 }
 
 func copyFileTo(src, dst string) error {

@@ -147,3 +147,19 @@ func utf16PtrToString(p *uint16) string {
 	}
 	return syscall.UTF16ToString(s)
 }
+
+var (
+	folderIDDownloads        = guid{0x374DE290, 0x123F, 0x4565, [8]byte{0x91, 0x64, 0x39, 0xC4, 0x92, 0x5E, 0x46, 0x7B}}
+	procSHGetKnownFolderPath = shell32.NewProc("SHGetKnownFolderPath")
+)
+
+// platformDownloadDir is the real "Downloads" folder, also when the player moved it to another drive.
+func platformDownloadDir() string {
+	var p *uint16
+	r, _, _ := procSHGetKnownFolderPath.Call(uintptr(unsafe.Pointer(&folderIDDownloads)), 0, 0, uintptr(unsafe.Pointer(&p)))
+	if r != 0 || p == nil {
+		return ""
+	}
+	defer procCoTaskMemFree.Call(uintptr(unsafe.Pointer(p)))
+	return utf16PtrToString(p)
+}

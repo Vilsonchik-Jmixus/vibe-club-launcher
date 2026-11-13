@@ -1,7 +1,8 @@
 html,body{height:100%;overflow:hidden;background:#13091b}
+html.tiny,html.tiny body{overflow:auto}
 body{user-select:none}
-#stage{position:fixed;left:0;top:0;width:1280px;height:720px;transform-origin:0 0}
-.screen{border-radius:0;border:0}
+#stage{position:absolute;left:0;top:0;width:var(--sw,1280px);height:var(--sh,720px);transform-origin:0 0}
+.screen{border-radius:0;border:0;width:100%;height:100%}
 .hidden{display:none!important}
 .view{display:none}
 .view.active{display:block}
@@ -66,7 +67,9 @@ nav{margin-right:62px}
 .toast.bad{border-color:#b56561;color:#ffd0cb}
 .play-area .quiet{min-height:16px}
 .manual-box{margin:-8px 30px 16px;max-height:96px;overflow:auto;text-align:left}
-.manual-row{display:flex;justify-content:space-between;gap:12px;padding:6px 12px;border-bottom:1px solid #3d2a45;font-size:14px}
+.manual-row{display:flex;width:100%;justify-content:space-between;align-items:center;gap:12px;padding:6px 12px;border:0;border-bottom:1px solid #3d2a45;background:none;color:#E8D8F0;font:14px 'Segoe UI',sans-serif;text-align:left;cursor:pointer}
+.manual-row:hover{background:#ffffff0c}.manual-row em{font-style:normal;font-size:12px;color:#e1a05e;margin-left:6px}.manual-row:hover em{color:#ffcb7a}
+.manual-dirs{display:block;width:100%;background:none;border:0;color:#9d86a8;font:11px 'Segoe UI',sans-serif;text-align:left;padding:6px 12px;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.manual-dirs:hover{color:#ffcb7a}
 .manual-row small{color:#9d86a8;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #installError:has(#manualBox.hidden) #btnManual{display:none}
 .skin-stage{position:absolute;left:0;right:0;top:0;bottom:70px;perspective:1100px;cursor:grab;touch-action:none;display:flex;align-items:center;justify-content:center}
@@ -87,6 +90,18 @@ nav{margin-right:62px}
 .browser-select{flex:1;min-width:0;background:#1a0d28;color:#E8D8F0;border:1px solid #765034;border-radius:4px;padding:8px 10px;font:14px 'Segoe UI',sans-serif;outline:none}
 .browser-select:focus{border-color:#e1a05e}
 .browser-select option{background:#1a0d28;color:#E8D8F0}
-.settings{top:144px;height:492px}
+.settings{height:492px}
 .settings-left label{margin-bottom:8px}
 .settings-left>label:last-of-type{margin-top:12px}
+
+/* ---- the window can have any size: the 1280x720 design grows to fill it.
+   --ex/--ey are the extra width/height (in design pixels) beyond 1280x720; header and
+   footer stick to the edges, side panels move outwards a little, centred panels stay centred. */
+.news{left:calc(40px + var(--ex,0px)*.12);top:calc(167px + var(--ey,0px)/2)}
+.play-area{right:calc(67px + var(--ex,0px)*.12);top:calc(339px + var(--ey,0px)/2)}
+.newsfeed{left:calc(110px + var(--ex,0px)/2);top:calc(150px + var(--ey,0px)/2)}
+.install{left:calc(260px + var(--ex,0px)/2);top:calc(170px + var(--ey,0px)/2)}
+.settings{left:calc(173px + var(--ex,0px)/2);top:calc(144px + var(--ey,0px)/2)}
+.skin{left:calc(173px + var(--ex,0px)/2);top:calc(150px + var(--ey,0px)/2)}
+header{padding-left:calc(38px + var(--ex,0px)*.05);padding-right:calc(38px + var(--ex,0px)*.05)}
+footer{padding-left:calc(40px + var(--ex,0px)*.05);padding-right:calc(40px + var(--ex,0px)*.05)}
