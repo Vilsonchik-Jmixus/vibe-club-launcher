@@ -1,6 +1,6 @@
-// Vibe Club — самопроверка скриптов «Теста», /mine и /vibeclub на живом игроке, НИЧЕГО НЕ МЕНЯЯ:
-// сохраняет инвентарь, эндер-сундук, Curios, эффекты в NBT и загружает их в КОПИИ (новые объекты),
-// сравнивает число предметов. Только для операторов и консоли.
+// Vibe Club — самопроверка «Теста» на живом игроке, НИЧЕГО НЕ МЕНЯЯ: прогоняет те же функции
+// сохранения и восстановления, что и vibeclub_test.js, но восстанавливает в КОПИИ (новый объект
+// инвентаря), и сравнивает число предметов. Только для операторов и консоли.
 //   /vc_selftest <ник>
 // Стиль ES5 (var, function): Rhino в KubeJS плохо переносит const/let в блоках.
 ServerEvents.commandRegistry(function (event) {
@@ -14,44 +14,41 @@ ServerEvents.commandRegistry(function (event) {
       function step(name, fn) {
         try { out.push(name + ': ' + fn()) } catch (e) { ok = false; out.push(name + ': ОШИБКА ' + e) }
       }
-      var ListTag = Java.loadClass('net.minecraft.nbt.ListTag')
+      function check(a, b) { if (a != b) ok = false; return a + ' → ' + b + (a == b ? ' ✔' : ' ✘') }
       var Inventory = Java.loadClass('net.minecraft.world.entity.player.Inventory')
-            var Effect = Java.loadClass('net.minecraft.world.effect.MobEffectInstance')
       var reg = pl.registryAccess()
       function count(c) { var n = 0; for (var i = 0; i < c.getContainerSize(); i++) if (!c.getItem(i).isEmpty()) n++; return n }
-      step('измерение', function () { var lv = (typeof pl.level === 'function') ? pl.level() : pl.level; return String(lv.dimension) })
-      step('KubeJS level.dimension', function () { return String(ctx.source.level.dimension) })
-      step('NeoForge PlayerPersisted', function () { return pl.forgePersistentData ? 'есть' : 'НЕТ (будет KubeJS persistentData)' })
-      step('данные сервера', function () { return pl.getServer().persistentData ? 'есть' : 'НЕТ' })
-      step('UUID', function () { return String(pl.uuid) })
-      step('режим', function () { return (pl.isCreative() ? 'creative' : pl.isSpectator() ? 'spectator' : pl.getAbilities().mayBuild ? 'survival' : 'adventure') })
-      step('инвентарь → NBT → копия', function () {
-        var l = new ListTag(); pl.getInventory().save(l)
-        var copy = new Inventory(pl); copy.load(l)
-        var a = count(pl.getInventory()), b = count(copy)
-        if (a != b) ok = false
-        return a + ' → ' + b + (a == b ? ' ✔' : ' ✘')
+      step('скрипт «Теста» виден', function () { if (typeof vcTestSaveContainer !== 'function') throw 'нет'; return 'да' })
+      step('измерение', function () { var lv = (typeof pl.level === 'function') ? pl.level() : pl.level; return vcTestDimId(lv) })
+      step('NeoForge PlayerPersisted', function () { return pl.forgePersistentData ? 'есть' : 'нет (KubeJS persistentData)' })
+      step('хранилище', function () { var d = vcTestData(pl); return 'ок, active=' + d.getBoolean('active') + ', ключ ' + (pl.uuid ? String(pl.uuid) : '—') })
+      step('режим', function () { return vcTestMode(pl) })
+      step('инвентарь: сохранить → вернуть в копию', function () {
+        var t = vcTestSaveContainer(pl.getInventory(), reg)
+        var copy = new Inventory(pl)
+        vcTestLoadContainer(copy, t, reg)
+        return check(count(pl.getInventory()), count(copy))
       })
-      step('эндер-сундук → NBT → копия', function () {
-        var t = pl.getEnderChestInventory().createTag(reg)
-        var a = count(pl.getEnderChestInventory()), b = t.size()
-        if (a != b) ok = false
-        return a + ' → ' + b + (a == b ? ' ✔' : ' ✘')
+      step('эндер-сундук: сохранить → вернуть в копию', function () {
+        var t = vcTestSaveContainer(pl.getEnderChestInventory(), reg)
+        var copy = new Inventory(pl)
+        vcTestLoadContainer(copy, t, reg)
+        return check(count(pl.getEnderChestInventory()), count(copy))
       })
-      step('Curios', function () {
-        var opt = Java.loadClass('top.theillusivec4.curios.api.CuriosApi').getCuriosInventory(pl)
-        if (!opt.isPresent()) return 'нет инвентаря Curios'
-        var h = opt.get()
-        return 'saveInventory(false): ' + h.saveInventory(false).size() + ' групп слотов, loadInventory: ' + (typeof h.loadInventory)
+      step('Curios: сохранить', function () {
+        var cur = vcTestCurios(pl)
+        if (!cur) return 'нет инвентаря Curios'
+        var n = 0
+        vcTestCuriosEach(cur, function (prefix, stacks) { for (var i = 0; i < stacks.getSlots(); i++) if (!stacks.getStackInSlot(i).isEmpty()) n++ })
+        return check(n, vcTestCount(vcTestSaveCurios(cur, reg)))
       })
-      step('эффекты → NBT → обратно', function () {
-        var n = 0, m = 0, it = pl.getActiveEffects().iterator()
-        while (it.hasNext()) { n++; if (Effect.load(it.next().save())) m++ }
-        return n + ' → ' + m
+      step('эффекты: сохранить → загрузить', function () {
+        var a = 0, b = 0
+        vcTestEach(pl.getActiveEffects(), function (x) { a++; if (VC_TEST.Effect.load(x.save())) b++ })
+        return check(a, b)
       })
       step('опыт', function () { return pl.experienceLevel + ' ур. + ' + pl.experienceProgress })
-      step('/mine данные', function () { return typeof vcMineData === 'function' ? 'ок' : 'скрипт не виден' })
-      step('/test данные', function () { return typeof vcTestData === 'function' ? ('ок, active=' + vcTestData(pl).getBoolean('active')) : 'скрипт не виден' })
+      step('/mine данные', function () { return typeof vcMineData === 'function' ? (vcMineData(pl) ? 'ок' : 'нет') : 'скрипт не виден' })
       console.info('[Vibe Club] Самопроверка ' + pl.username + (ok ? ' — ВСЁ ОК' : ' — ЕСТЬ ОШИБКИ') + ':\n  ' + out.join('\n  '))
       ctx.source.sendSystemMessage(Text.of((ok ? 'Самопроверка: всё ок' : 'Самопроверка: есть ошибки') + ' (подробности в логе)'))
       return ok ? 1 : 0

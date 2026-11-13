@@ -9,12 +9,12 @@
 // обычные возвращаются вместе с прежним режимом игры. Хранилище — PlayerPersisted.vc_test в данных
 // игрока и в данных сервера (переживает смерть и перезапуск). Проверка идёт каждый тик.
 // Стиль ES5 (var, function): Rhino в KubeJS плохо переносит const/let в блоках.
-var VC_TEST = { dim: 'vibeclub:test', ok: false, Tag: null, ListTag: null, Effect: null, Curios: null,
+var VC_TEST = { dim: 'vibeclub:test', ok: false, Tag: null, Stack: null, Effect: null, Curios: null, errAt: {},
   spawn: { x: 0.5, y: -48, z: 0.5 }, cooldown: {} }
 
 try {
   VC_TEST.Tag = Java.loadClass('net.minecraft.nbt.CompoundTag')
-  VC_TEST.ListTag = Java.loadClass('net.minecraft.nbt.ListTag')
+  VC_TEST.Stack = Java.loadClass('net.minecraft.world.item.ItemStack')
   VC_TEST.Effect = Java.loadClass('net.minecraft.world.effect.MobEffectInstance')
   VC_TEST.ok = true
 } catch (e) {
@@ -91,20 +91,101 @@ function vcTestCurios(pl) {
   }
 }
 
-// Обычные вещи → хранилище, игрок получает креатив.
+// ВАЖНО: KubeJS превращает ListTag в обычный список JS, и обратно в методы игры он не проходит
+// («Cannot cast ArrayList to ListTag»). Поэтому вещи сохраняются по одной: каждый предмет — отдельный
+// CompoundTag с ключом-номером слота.
+function vcTestSaveContainer(c, reg) {
+  var t = new VC_TEST.Tag()
+  for (var i = 0; i < c.getContainerSize(); i++) {
+    var st = c.getItem(i)
+    if (!st.isEmpty()) t.put(String(i), st.save(reg))
+  }
+  return t
+}
+
+function vcTestLoadContainer(c, t, reg) {
+  c.clearContent()
+  vcTestEach(t.getAllKeys(), function (key) {
+    var k = String(key)
+    var st = VC_TEST.Stack.parseOptional(reg, t.getCompound(k))
+    if (!st.isEmpty()) c.setItem(parseInt(k), st)
+  })
+}
+
+function vcTestCount(t) { return t.getAllKeys().size() }
+
+// Обход Java-коллекции, даже если KubeJS превратил её в массив или объект JS.
+function vcTestEach(coll, fn) {
+  if (coll == null) return
+  if (typeof coll.iterator === 'function') {
+    var it = coll.iterator()
+    while (it.hasNext()) fn(it.next())
+  } else if (typeof coll.length === 'number') {
+    for (var i = 0; i < coll.length; i++) fn(coll[i])
+  }
+}
+
+// Обход Java-словаря (ключ, значение), даже если KubeJS превратил его в объект JS.
+function vcTestEachEntry(map, fn) {
+  if (map == null) return
+  if (typeof map.entrySet === 'function') {
+    vcTestEach(map.entrySet(), function (e) { fn(String(e.getKey()), e.getValue()) })
+  } else {
+    for (var k in map) fn(String(k), map[k])
+  }
+}
+
+// Curios: каждая группа слотов (кольца, пояс…) — обычные и косметические слоты по номерам.
+function vcTestCuriosEach(cur, fn) {
+  vcTestEachEntry(cur.getCurios(), function (id, h) {
+    fn(id + '|s|', h.getStacks())
+    fn(id + '|c|', h.getCosmeticStacks())
+  })
+}
+
+function vcTestSaveCurios(cur, reg) {
+  var t = new VC_TEST.Tag()
+  vcTestCuriosEach(cur, function (prefix, stacks) {
+    for (var i = 0; i < stacks.getSlots(); i++) {
+      var st = stacks.getStackInSlot(i)
+      if (!st.isEmpty()) t.put(prefix + i, st.save(reg))
+    }
+  })
+  return t
+}
+
+function vcTestClearCurios(cur) {
+  vcTestCuriosEach(cur, function (prefix, stacks) {
+    for (var i = 0; i < stacks.getSlots(); i++) stacks.setStackInSlot(i, VC_TEST.Stack.EMPTY)
+  })
+}
+
+function vcTestLoadCurios(cur, t, reg) {
+  vcTestClearCurios(cur)
+  vcTestCuriosEach(cur, function (prefix, stacks) {
+    for (var i = 0; i < stacks.getSlots(); i++) {
+      if (t.contains(prefix + i)) stacks.setStackInSlot(i, VC_TEST.Stack.parseOptional(reg, t.getCompound(prefix + i)))
+    }
+  })
+}
+
+// Обычные вещи → хранилище, игрок получает креатив. Сначала всё сохраняется, и только если
+// сохранение прошло без ошибок — очищается.
 function vcTestEnter(server, pl) {
   var d = vcTestData(pl)
   var name = String(pl.username)
   var reg = pl.registryAccess()
-  var inv = new VC_TEST.ListTag()
-  pl.getInventory().save(inv)
-  d.put('inv', inv)
-  d.put('ender', pl.getEnderChestInventory().createTag(reg))
+  var inv = pl.getInventory()
+  var invTag = vcTestSaveContainer(inv, reg)
+  var enderTag = vcTestSaveContainer(pl.getEnderChestInventory(), reg)
   var cur = vcTestCurios(pl)
-  if (cur) d.put('curios', cur.saveInventory(false))
-  var eff = new VC_TEST.ListTag()
-  var it = pl.getActiveEffects().iterator()
-  while (it.hasNext()) eff.add(it.next().save())
+  var curTag = cur ? vcTestSaveCurios(cur, reg) : null
+  var eff = new VC_TEST.Tag()
+  var n = 0
+  vcTestEach(pl.getActiveEffects(), function (x) { eff.put(String(n++), x.save()) })
+  d.put('inv', invTag)
+  d.put('ender', enderTag)
+  if (curTag) d.put('curios', curTag); else d.remove('curios')
   d.put('effects', eff)
   d.putString('mode', vcTestMode(pl))
   d.putInt('xpl', pl.experienceLevel)
@@ -113,14 +194,14 @@ function vcTestEnter(server, pl) {
   d.putBoolean('active', true)
   vcTestSync(pl)
   // всё сохранено (в двух местах) — теперь очищаем
-  pl.getInventory().clearContent()
+  inv.clearContent()
   pl.getEnderChestInventory().clearContent()
-  if (cur) cur.saveInventory(true)
+  if (cur) vcTestClearCurios(cur)
   pl.removeAllEffects()
   pl.inventoryMenu.broadcastChanges()
   server.runCommandSilent('gamemode creative ' + name)
   pl.sendSystemMessage(Text.aqua('🧪 Мир «Тест»: креатив для проектирования. Твои вещи сохранены и вернутся, когда выйдешь. /test или /vibeclub — обратно.'))
-  console.info('[Vibe Club] ' + name + ' вошёл в «Тест», вещи сохранены')
+  console.info('[Vibe Club] ' + name + ' вошёл в «Тест», вещи сохранены: инвентарь ' + vcTestCount(invTag) + ', эндер-сундук ' + vcTestCount(enderTag) + (curTag ? ', Curios ' + vcTestCount(curTag) : ''))
 }
 
 // Креативные вещи → удалить, вернуть обычные.
@@ -138,35 +219,31 @@ function vcTestLeave(server, pl) {
   }
   var reg = pl.registryAccess()
   try {
-    pl.getInventory().clearContent()
-    pl.getInventory().load(d.getList('inv', 10))
+    vcTestLoadContainer(pl.getInventory(), d.getCompound('inv'), reg)
   } catch (e) {
     d.putBoolean('broken', true)
     vcTestSync(pl)
     server.runCommandSilent('gamemode survival ' + name)
-    console.error('[Vibe Club] НЕ УДАЛОСЬ вернуть вещи ' + name + ' после «Теста» — они сохранены в PlayerPersisted.vc_test: ' + e)
+    console.error('[Vibe Club] НЕ УДАЛОСЬ вернуть вещи ' + name + ' после «Теста» — они сохранены в данных сервера vc_test: ' + e)
     pl.sendSystemMessage(Text.red('Не получилось вернуть твои вещи. Они не пропали — напиши администратору.'))
     return
   }
   var errs = []
-  try {
-    pl.getEnderChestInventory().clearContent()
-    pl.getEnderChestInventory().fromTag(d.getList('ender', 10), reg)
-  } catch (e) { errs.push('эндер-сундук: ' + e) }
+  try { vcTestLoadContainer(pl.getEnderChestInventory(), d.getCompound('ender'), reg) } catch (e) { errs.push('эндер-сундук: ' + e) }
   var cur = vcTestCurios(pl)
-  if (cur && d.contains('curios')) {
+  if (cur) {
     try {
-      cur.saveInventory(true)
-      cur.loadInventory(d.getList('curios', 10))
+      if (d.contains('curios')) vcTestLoadCurios(cur, d.getCompound('curios'), reg)
+      else vcTestClearCurios(cur)
     } catch (e) { errs.push('Curios: ' + e) }
   }
   try {
     pl.removeAllEffects()
-    var eff = d.getList('effects', 10)
-    for (var i = 0; i < eff.size(); i++) {
-      var inst = VC_TEST.Effect.load(eff.getCompound(i))
+    var eff = d.getCompound('effects')
+    vcTestEach(eff.getAllKeys(), function (key) {
+      var inst = VC_TEST.Effect.load(eff.getCompound(String(key)))
       if (inst) pl.addEffect(inst)
-    }
+    })
   } catch (e) { errs.push('эффекты: ' + e) }
   try {
     pl.experienceLevel = d.getInt('xpl')
@@ -179,11 +256,18 @@ function vcTestLeave(server, pl) {
   server.runCommandSilent('gamemode ' + mode + ' ' + name)
   pl.inventoryMenu.broadcastChanges()
   d.putBoolean('active', false)
+  if (errs.length) {
+    // что-то вернулось не полностью — сохранённое не удаляем, чтобы администратор мог восстановить
+    d.putBoolean('partial', true)
+    vcTestSync(pl)
+    console.error('[Vibe Club] ' + name + ' вышел из «Теста», ошибки: ' + errs.join('; '))
+    pl.sendSystemMessage(Text.yellow('Вещи вернулись, но не всё (см. лог). Сохранённое не удалено — напиши администратору.'))
+    return
+  }
   d.remove('inv'); d.remove('ender'); d.remove('curios'); d.remove('effects')
   vcTestSync(pl)
   pl.sendSystemMessage(Text.yellow('Твои вещи вернулись. Креатив выключен.'))
-  if (errs.length) console.error('[Vibe Club] ' + name + ' вышел из «Теста», ошибки: ' + errs.join('; '))
-  else console.info('[Vibe Club] ' + name + ' вышел из «Теста», вещи возвращены')
+  console.info('[Vibe Club] ' + name + ' вышел из «Теста», вещи возвращены')
 }
 
 function vcTestTp(server, name, dim, x, y, z) {
@@ -225,8 +309,16 @@ function vcTestCmd(ctx) {
   d.putString('r_dim', here); d.putDouble('r_x', pl.x); d.putDouble('r_y', pl.y); d.putDouble('r_z', pl.z)
   vcTestSync(pl)
   var t = d.contains('t_dim') ? { x: d.getDouble('t_x'), y: d.getDouble('t_y'), z: d.getDouble('t_z') } : VC_TEST.spawn
+  if (!d.getBoolean('active')) {
+    try {
+      vcTestEnter(server, pl)
+    } catch (e) {
+      console.error('[Vibe Club] Не удалось сохранить вещи ' + name + ' для «Теста»: ' + e)
+      src.sendFailure(Text.red('Не получилось сохранить твои вещи — в «Тест» не переношу. Ничего не пропало.'))
+      return 0
+    }
+  }
   vcTestTp(server, name, VC_TEST.dim, t.x, t.y, t.z)
-  if (!d.getBoolean('active')) vcTestEnter(server, pl)
   return 1
 }
 
@@ -244,7 +336,18 @@ ServerEvents.tick(function (event) {
       if (inTest && !active) vcTestEnter(server, pl)
       else if (!inTest && active) vcTestLeave(server, pl)
     } catch (e) {
-      console.error('[Vibe Club] Ошибка переключения «Теста» для ' + pl.username + ': ' + e)
+      var nm = String(pl.username)
+      var now = Date.now()
+      if (now - (VC_TEST.errAt[nm] || 0) > 30000) {
+        VC_TEST.errAt[nm] = now
+        console.error('[Vibe Club] Ошибка переключения «Теста» для ' + nm + ': ' + e)
+        if (inTest && /^[A-Za-z0-9_]{1,16}$/.test(nm)) {
+          // в «Тесте», но вещи сохранить не удалось — выводим обратно, креатив не даём
+          var sp = vcTestLevel(server, 'minecraft:overworld').getSharedSpawnPos()
+          vcTestTp(server, nm, 'minecraft:overworld', sp.getX() + 0.5, sp.getY() + 1, sp.getZ() + 0.5)
+          pl.sendSystemMessage(Text.red('«Тест» сейчас не работает, ты перенесён на спавн. Вещи не тронуты.'))
+        }
+      }
     }
   }
 })
