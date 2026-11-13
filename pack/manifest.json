@@ -3088,8 +3088,8 @@
   },
   {
    "path": "kubejs/server_scripts/vibeclub_selftest.js",
-   "sha1": "b6f71b8add38009f3d501704f0ac166aa16864f8",
-   "size": 4491
+   "sha1": "e607eddff0f4c968339843c5aec5738ef1507319",
+   "size": 4365
   },
   {
    "path": "kubejs/server_scripts/vibeclub_test.js",
