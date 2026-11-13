@@ -14,8 +14,12 @@ try {
   console.error('[Vibe Club] /mine выключена: ' + e)
 }
 
+// В KubeJS level.dimension — это свойство (а не метод), и в разных версиях оно отдаёт либо
+// "minecraft:overworld", либо "ResourceKey[minecraft:dimension / minecraft:overworld]".
 function vcDimId(level) {
-  return String(level.dimension().location())
+  var s = String(level.dimension)
+  var m = s.match(/([a-z0-9_.-]+:[a-z0-9_.\/-]+)\]?$/)
+  return m ? m[1] : s
 }
 
 function vcFindLevel(server, id) {
@@ -102,7 +106,7 @@ function vcMine(ctx) {
     if (data.contains('r_dim') && vcFindLevel(server, dim)) {
       vcTp(server, name, dim, data.getDouble('r_x'), data.getDouble('r_y'), data.getDouble('r_z'))
     } else {
-      var ow = server.overworld()
+      var ow = vcFindLevel(server, 'minecraft:overworld')
       var sp = ow.getSharedSpawnPos()
       vcTp(server, name, 'minecraft:overworld', sp.getX() + 0.5, sp.getY() + 1, sp.getZ() + 0.5)
     }
