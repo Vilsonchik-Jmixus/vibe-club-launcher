@@ -7,7 +7,7 @@
 // Curios, опыт и эффекты; игрок получает креатив. При выходе из «Теста» ЛЮБЫМ способом (команда,
 // путевой камень, смерть, выход с сервера и вход в другом мире) креативные вещи удаляются, а
 // обычные возвращаются вместе с прежним режимом игры. Хранилище — PlayerPersisted.vc_test в данных
-// игрока (переживает смерть и перезапуск сервера). Проверка идёт каждый тик.
+// игрока и в данных сервера (переживает смерть и перезапуск). Проверка идёт каждый тик.
 // Стиль ES5 (var, function): Rhino в KubeJS плохо переносит const/let в блоках.
 var VC_TEST = { dim: 'vibeclub:test', ok: false, Tag: null, ListTag: null, Effect: null, Curios: null,
   spawn: { x: 0.5, y: -48, z: 0.5 }, cooldown: {} }
@@ -41,12 +41,36 @@ function vcTestLevel(server, id) {
   return null
 }
 
-function vcTestData(pl) {
-  var root = pl.persistentData
+// Хранилище вещей — в двух местах сразу:
+//  1) основное: данные сервера (server.persistentData.vc_test.<UUID>) — не зависят от смерти игрока;
+//  2) запасное: NeoForge-данные игрока, раздел PlayerPersisted (игра переносит его после смерти).
+// Читаем из основного, если оно потерялось — из запасного.
+function vcTestPlayerTag(pl) {
+  var root = pl.forgePersistentData
+  if (!root) root = pl.persistentData
   if (!root.contains('PlayerPersisted')) root.put('PlayerPersisted', new VC_TEST.Tag())
-  var pp = root.getCompound('PlayerPersisted')
-  if (!pp.contains('vc_test')) pp.put('vc_test', new VC_TEST.Tag())
-  return pp.getCompound('vc_test')
+  return root.getCompound('PlayerPersisted')
+}
+
+function vcTestData(pl) {
+  var srv = pl.getServer().persistentData
+  if (!srv.contains('vc_test')) srv.put('vc_test', new VC_TEST.Tag())
+  var all = srv.getCompound('vc_test')
+  var id = String(pl.getUUID())
+  if (!all.contains(id)) {
+    var pp = vcTestPlayerTag(pl)
+    all.put(id, pp.contains('vc_test') ? pp.getCompound('vc_test').copy() : new VC_TEST.Tag())
+  }
+  return all.getCompound(id)
+}
+
+// Копия основного хранилища → запасное (вызывать после каждого изменения).
+function vcTestSync(pl) {
+  vcTestPlayerTag(pl).put('vc_test', vcTestData(pl).copy())
+}
+
+function vcTestIsActive(pl) {
+  return vcTestData(pl).getBoolean('active')
 }
 
 function vcTestMode(pl) {
@@ -86,7 +110,8 @@ function vcTestEnter(server, pl) {
   d.putFloat('xpp', pl.experienceProgress)
   d.putInt('xpt', pl.totalExperience)
   d.putBoolean('active', true)
-  // всё сохранено — теперь очищаем
+  vcTestSync(pl)
+  // всё сохранено (в двух местах) — теперь очищаем
   pl.getInventory().clearContent()
   pl.getEnderChestInventory().clearContent()
   if (cur) cur.saveInventory(true)
@@ -102,12 +127,21 @@ function vcTestLeave(server, pl) {
   var d = vcTestData(pl)
   var name = String(pl.username)
   if (d.getBoolean('broken')) return
+  if (!d.contains('inv')) {
+    // нечего возвращать (не должно случаться) — просто выключаем креатив
+    d.putBoolean('active', false)
+    vcTestSync(pl)
+    server.runCommandSilent('gamemode survival ' + name)
+    console.error('[Vibe Club] ' + name + ' вышел из «Теста», но сохранённых вещей нет')
+    return
+  }
   var reg = pl.registryAccess()
   try {
     pl.getInventory().clearContent()
     pl.getInventory().load(d.getList('inv', 10))
   } catch (e) {
     d.putBoolean('broken', true)
+    vcTestSync(pl)
     server.runCommandSilent('gamemode survival ' + name)
     console.error('[Vibe Club] НЕ УДАЛОСЬ вернуть вещи ' + name + ' после «Теста» — они сохранены в PlayerPersisted.vc_test: ' + e)
     pl.sendSystemMessage(Text.red('Не получилось вернуть твои вещи. Они не пропали — напиши администратору.'))
@@ -145,6 +179,7 @@ function vcTestLeave(server, pl) {
   pl.inventoryMenu.broadcastChanges()
   d.putBoolean('active', false)
   d.remove('inv'); d.remove('ender'); d.remove('curios'); d.remove('effects')
+  vcTestSync(pl)
   pl.sendSystemMessage(Text.yellow('Твои вещи вернулись. Креатив выключен.'))
   if (errs.length) console.error('[Vibe Club] ' + name + ' вышел из «Теста», ошибки: ' + errs.join('; '))
   else console.info('[Vibe Club] ' + name + ' вышел из «Теста», вещи возвращены')
@@ -175,6 +210,7 @@ function vcTestCmd(ctx) {
   var here = vcTestDimId(src.level)
   if (here == VC_TEST.dim) {
     d.putString('t_dim', here); d.putDouble('t_x', pl.x); d.putDouble('t_y', pl.y); d.putDouble('t_z', pl.z)
+    vcTestSync(pl)
     if (d.getBoolean('active')) vcTestLeave(server, pl)
     var dim = d.contains('r_dim') ? String(d.getString('r_dim')) : 'minecraft:overworld'
     if (d.contains('r_dim') && vcTestLevel(server, dim)) {
@@ -186,6 +222,7 @@ function vcTestCmd(ctx) {
     return 1
   }
   d.putString('r_dim', here); d.putDouble('r_x', pl.x); d.putDouble('r_y', pl.y); d.putDouble('r_z', pl.z)
+  vcTestSync(pl)
   var t = d.contains('t_dim') ? { x: d.getDouble('t_x'), y: d.getDouble('t_y'), z: d.getDouble('t_z') } : VC_TEST.spawn
   vcTestTp(server, name, VC_TEST.dim, t.x, t.y, t.z)
   if (!d.getBoolean('active')) vcTestEnter(server, pl)
@@ -201,8 +238,7 @@ ServerEvents.tick(function (event) {
     var pl = it.next()
     var lv = (typeof pl.level === 'function') ? pl.level() : pl.level
     var inTest = vcTestDimId(lv) == VC_TEST.dim
-    var root = pl.persistentData
-    var active = root.contains('PlayerPersisted') && root.getCompound('PlayerPersisted').getCompound('vc_test').getBoolean('active')
+    var active = vcTestIsActive(pl)
     try {
       if (inTest && !active) vcTestEnter(server, pl)
       else if (!inTest && active) vcTestLeave(server, pl)

@@ -3063,13 +3063,13 @@
   },
   {
    "path": "kubejs/server_scripts/vibeclub_home.js",
-   "sha1": "344e794db0808d5094887e8fbbcd23bc685b8f14",
-   "size": 4109
+   "sha1": "01a588ba6b24decb560d48bde50e13af481e7eb8",
+   "size": 4433
   },
   {
    "path": "kubejs/server_scripts/vibeclub_mines.js",
-   "sha1": "c59c734663721a5743265ea392f8a14e29c3809b",
-   "size": 7197
+   "sha1": "b7e4a2f31b3ff513fa210114781d51a37a6c8cac",
+   "size": 7318
   },
   {
    "path": "kubejs/server_scripts/vibeclub_pregen.js",
@@ -3087,9 +3087,14 @@
    "size": 5255
   },
   {
+   "path": "kubejs/server_scripts/vibeclub_selftest.js",
+   "sha1": "50da5410b25a1bd56b57064c4c9a355f2df86460",
+   "size": 4512
+  },
+  {
    "path": "kubejs/server_scripts/vibeclub_test.js",
-   "sha1": "c2d76226d3b9b292cce2ccd954d6b0c929cc17ec",
-   "size": 9679
+   "sha1": "f9ba5f708591ee911ecd647e8d41b4cfd3ca13d2",
+   "size": 11221
   },
   {
    "path": "kubejs/startup_scripts/vibeclub_test_guard.js",

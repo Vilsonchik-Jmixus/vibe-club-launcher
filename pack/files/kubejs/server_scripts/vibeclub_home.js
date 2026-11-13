@@ -28,7 +28,10 @@ function vcHomeLevel(server, id) {
 }
 
 function vcHomeData(pl, key) {
-  var root = pl.persistentData
+  // «Тест» хранит данные в своём хранилище (vibeclub_test.js) — берём оттуда
+  if (key == 'vc_test' && typeof vcTestData === 'function') return vcTestData(pl)
+  var root = pl.forgePersistentData
+  if (!root) root = pl.persistentData
   if (!root.contains('PlayerPersisted')) root.put('PlayerPersisted', new VC_HOME.Tag())
   var pp = root.getCompound('PlayerPersisted')
   if (!pp.contains(key)) pp.put(key, new VC_HOME.Tag())
@@ -63,6 +66,7 @@ function vcHome(ctx) {
   // запоминаем, где игрок был, чтобы /mine и /test вернули его сюда же
   var p = key == 'vc_mine' ? 'm_' : 't_'
   d.putString(p + 'dim', here); d.putDouble(p + 'x', pl.x); d.putDouble(p + 'y', pl.y); d.putDouble(p + 'z', pl.z)
+  if (key == 'vc_test' && typeof vcTestSync === 'function') vcTestSync(pl)
 
   // из «Теста» — сначала вернуть обычные вещи (сторож в vibeclub_test.js сделал бы это через тик)
   if (key == 'vc_test' && d.getBoolean('active') && typeof vcTestLeave === 'function') vcTestLeave(server, pl)

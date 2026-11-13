@@ -31,9 +31,11 @@ function vcFindLevel(server, id) {
   return null
 }
 
-// Данные, которые переживают смерть игрока (NeoForge копирует PlayerPersisted при возрождении).
+// Данные, которые переживают смерть игрока.
 function vcMineData(pl) {
-  var root = pl.persistentData
+  // NeoForge-данные игрока: раздел PlayerPersisted переносится после смерти (KubeJS persistentData — нет)
+  var root = pl.forgePersistentData
+  if (!root) root = pl.persistentData
   if (!root.contains('PlayerPersisted')) root.put('PlayerPersisted', new VC_MINE.Tag())
   var pp = root.getCompound('PlayerPersisted')
   if (!pp.contains('vc_mine')) pp.put('vc_mine', new VC_MINE.Tag())
