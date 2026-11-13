@@ -24,7 +24,7 @@ ServerEvents.commandRegistry(function (event) {
       step('KubeJS level.dimension', function () { return String(ctx.source.level.dimension) })
       step('NeoForge PlayerPersisted', function () { return pl.forgePersistentData ? 'есть' : 'НЕТ (будет KubeJS persistentData)' })
       step('данные сервера', function () { return pl.getServer().persistentData ? 'есть' : 'НЕТ' })
-      step('UUID', function () { return String(pl.getUUID()) })
+      step('UUID', function () { return String(pl.uuid) })
       step('режим', function () { return (pl.isCreative() ? 'creative' : pl.isSpectator() ? 'spectator' : pl.getAbilities().mayBuild ? 'survival' : 'adventure') })
       step('инвентарь → NBT → копия', function () {
         var l = new ListTag(); pl.getInventory().save(l)

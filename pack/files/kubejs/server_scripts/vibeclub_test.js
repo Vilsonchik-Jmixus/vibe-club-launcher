@@ -56,7 +56,8 @@ function vcTestData(pl) {
   var srv = pl.getServer().persistentData
   if (!srv.contains('vc_test')) srv.put('vc_test', new VC_TEST.Tag())
   var all = srv.getCompound('vc_test')
-  var id = String(pl.getUUID())
+  // getUUID() в KubeJS скрыт — берём свойство uuid (а если его нет — ник)
+  var id = pl.uuid ? String(pl.uuid) : String(pl.username).toLowerCase()
   if (!all.contains(id)) {
     var pp = vcTestPlayerTag(pl)
     all.put(id, pp.contains('vc_test') ? pp.getCompound('vc_test').copy() : new VC_TEST.Tag())
@@ -238,8 +239,8 @@ ServerEvents.tick(function (event) {
     var pl = it.next()
     var lv = (typeof pl.level === 'function') ? pl.level() : pl.level
     var inTest = vcTestDimId(lv) == VC_TEST.dim
-    var active = vcTestIsActive(pl)
     try {
+      var active = vcTestIsActive(pl)
       if (inTest && !active) vcTestEnter(server, pl)
       else if (!inTest && active) vcTestLeave(server, pl)
     } catch (e) {
