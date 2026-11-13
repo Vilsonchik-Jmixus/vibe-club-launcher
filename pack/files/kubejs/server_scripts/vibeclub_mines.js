@@ -136,7 +136,7 @@ function vcMine(ctx) {
   vcTp(server, name, VC_MINE.dim, target.x, target.y, target.z)
   server.runCommandSilent('effect give ' + name + ' minecraft:resistance 5 4 true')
   server.runCommandSilent('effect give ' + name + ' minecraft:slow_falling 5 0 true')
-  src.sendSystemMessage(Text.gold('⛏ Мир шахтёра. ').append(Text.yellow('Здесь бесконечные шахты, руды и постройки. /mine — обратно.')))
+  src.sendSystemMessage(Text.gold('⛏ Мир шахтёра. ').append(Text.yellow('Здесь бесконечные шахты, руды и постройки. /mine или /vibeclub — обратно.')))
   console.info('[Vibe Club] ' + name + ' ушёл в мир шахтёра: ' + Math.round(target.x) + ', ' + Math.round(target.y) + ', ' + Math.round(target.z))
   return 1
 }

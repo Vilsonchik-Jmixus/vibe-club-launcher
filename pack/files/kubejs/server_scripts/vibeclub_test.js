@@ -93,7 +93,7 @@ function vcTestEnter(server, pl) {
   pl.removeAllEffects()
   pl.inventoryMenu.broadcastChanges()
   server.runCommandSilent('gamemode creative ' + name)
-  pl.sendSystemMessage(Text.aqua('🧪 Мир «Тест»: креатив для проектирования. Твои вещи сохранены и вернутся, когда выйдешь. /test — обратно.'))
+  pl.sendSystemMessage(Text.aqua('🧪 Мир «Тест»: креатив для проектирования. Твои вещи сохранены и вернутся, когда выйдешь. /test или /vibeclub — обратно.'))
   console.info('[Vibe Club] ' + name + ' вошёл в «Тест», вещи сохранены')
 }
 
