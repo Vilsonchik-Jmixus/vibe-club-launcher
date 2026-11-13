@@ -57,7 +57,10 @@ function vcSafeSurface(level, x, z) {
   for (var i = 0; i < offs.length; i++) {
     var px = Math.floor(x) + offs[i][0]
     var pz = Math.floor(z) + offs[i][1]
-    var y = level.getHeight(VC_MINE.HM, px, pz)
+    // level.getHeight() для непрогруженного чанка отдаёт дно мира, поэтому сначала
+    // прогружаем (при необходимости — генерируем) чанк и берём высоту из него самого.
+    var chunk = level.getChunk(px >> 4, pz >> 4)
+    var y = chunk.getHeight(VC_MINE.HM, px & 15, pz & 15) + 1
     if (y < -50 || y > 310) continue
     var below = level.getBlockState(new VC_MINE.BlockPos(px, y - 1, pz))
     if (!below.getFluidState().isEmpty()) continue
