@@ -1,0 +1,7 @@
+{
+  "Hotkeys": {
+    "openGuiMainMenu": "F9",
+    "openGuiSettings": "F9,C",
+    "togglePrintingMode": "CAPS_LOCK"
+  }
+}

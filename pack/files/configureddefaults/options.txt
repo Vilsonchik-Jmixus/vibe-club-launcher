@@ -457,7 +457,7 @@ key_justzoom.keybinds.keybind.zoom_in:key.mouse.9
 key_justzoom.keybinds.keybind.zoom_out:key.mouse.10
 key_justzoom.keybinds.keybind.open_options:key.keyboard.unknown
 key_key.kaleidoscope_contraption.remove_block:key.keyboard.backspace
-key_key.kaleidoscope_grilling.rack_swap:key.keyboard.caps.lock
+key_key.kaleidoscope_grilling.rack_swap:key.keyboard.right.alt
 key_key.entityculling.toggle:key.keyboard.unknown
 key_key.quickskin.open_menu:key.keyboard.f7
 key_key.punchy.triggerable.punchy_sword_inspect_old:key.keyboard.unknown
