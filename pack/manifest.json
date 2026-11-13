@@ -3062,6 +3062,16 @@
    "size": 7180
   },
   {
+   "path": "kubejs/server_scripts/vibeclub_pregen.js",
+   "sha1": "0b419470ec972e2a8e775248a5803ec9ce13b743",
+   "size": 8733
+  },
+  {
+   "path": "kubejs/server_scripts/vibeclub_restart.js",
+   "sha1": "22f24660523abbace2bb41a43570bd55eab8dc14",
+   "size": 5049
+  },
+  {
    "path": "kubejs/server_scripts/vibeclub_sable_void.js",
    "sha1": "0f74d9307ce9450470c9af6b359581feba804693",
    "size": 5255
