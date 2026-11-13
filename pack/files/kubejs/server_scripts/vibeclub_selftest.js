@@ -16,7 +16,7 @@ ServerEvents.commandRegistry(function (event) {
       }
       var ListTag = Java.loadClass('net.minecraft.nbt.ListTag')
       var Inventory = Java.loadClass('net.minecraft.world.entity.player.Inventory')
-      var Ender = Java.loadClass('net.minecraft.world.inventory.PlayerEnderChestInventory')
+      var Simple = Java.loadClass('net.minecraft.world.SimpleContainer')
       var Effect = Java.loadClass('net.minecraft.world.effect.MobEffectInstance')
       var reg = pl.registryAccess()
       function count(c) { var n = 0; for (var i = 0; i < c.getContainerSize(); i++) if (!c.getItem(i).isEmpty()) n++; return n }
@@ -35,7 +35,7 @@ ServerEvents.commandRegistry(function (event) {
       })
       step('эндер-сундук → NBT → копия', function () {
         var t = pl.getEnderChestInventory().createTag(reg)
-        var copy = new Ender(); copy.fromTag(t, reg)
+        var copy = new Simple(27); copy.fromTag(t, reg)
         var a = count(pl.getEnderChestInventory()), b = count(copy)
         if (a != b) ok = false
         return a + ' → ' + b + (a == b ? ' ✔' : ' ✘')
