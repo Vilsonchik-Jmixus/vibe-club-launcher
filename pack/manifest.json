@@ -2327,6 +2327,11 @@
    "size": 2591
   },
   {
+   "path": "config/paxi/datapacks/Vibe Club - Test World.zip",
+   "sha1": "78c270d7ea15c4e49c84b01f58a61279dab74aaa",
+   "size": 896
+  },
+  {
    "path": "config/paxi/datapacks/thingsandmisc_crushedmagma_disable.zip",
    "sha1": "6fbf8114df2b9fea3e96a5f4e6b3aac58e8dea6e",
    "size": 1143
@@ -3075,6 +3080,16 @@
    "path": "kubejs/server_scripts/vibeclub_sable_void.js",
    "sha1": "0f74d9307ce9450470c9af6b359581feba804693",
    "size": 5255
+  },
+  {
+   "path": "kubejs/server_scripts/vibeclub_test.js",
+   "sha1": "48292b2fe3d06b14c084ecddbe7298b6560f174a",
+   "size": 9662
+  },
+  {
+   "path": "kubejs/startup_scripts/vibeclub_test_guard.js",
+   "sha1": "9a6aadd78c7f4c1f1b12c1bae26ebbc318b61952",
+   "size": 1586
   },
   {
    "path": "mods/AkashicTome-1.8-30.jar",
