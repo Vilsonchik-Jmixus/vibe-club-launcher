@@ -1,0 +1,12 @@
+renderDistance:6
+simulationDistance:5
+graphicsMode:0
+particles:1
+entityShadows:false
+biomeBlendRadius:0
+mipmapLevels:2
+maxFps:120
+entityDistanceScaling:0.75
+menuBackgroundBlurriness:0
+renderClouds:"false"
+resourcePacks:["vanilla","mod_resources","file/Recolourful Containers DARK 3.1.4 (1.19.4+).zip","file/Enchantment Outlines.zip","file/Vibe Club - Soft Edges","file/Vibe Club - Tips","mod/createfood:resourcepacks/minecraft_overrides","mod/createfood:resourcepacks/create_overrides","mod/createfood:resourcepacks/farmersdelight_overrides","mod/createfood:resourcepacks/culturaldelights_overrides","mod/createfood:resourcepacks/farmersrespite_overrides","mod/createfood:resourcepacks/rusticdelight_overrides","mod/createfood:resourcepacks/expandeddelight_overrides","mod/createfood:resourcepacks/ends_delight_overrides","mod/createfood:resourcepacks/ubesdelight_overrides","mod/createfood:resourcepacks/endersdelight_overrides","mod/createfood:resourcepacks/brewinandchewin_overrides","mod/createfood:resourcepacks/create_bic_bit_overrides","mod/createfood:resourcepacks/create_confectionery_overrides","mod/createfood:resourcepacks/displaydelight_overrides","mod/createfood:resourcepacks/frightsdelight_overrides","mod/createfood:resourcepacks/fruitsdelight_overrides","mod/createfood:resourcepacks/hearthandharvest_overrides","mod/createfood:resourcepacks/kaleidoscope_cookery_overrides","mod/createfood:resourcepacks/moredelight_overrides","mod/createfood:resourcepacks/mynethersdelight_overrides","mod/createfood:resourcepacks/ratatouille_fried_delights_overrides","mod/createfood:resourcepacks/veggiesdelight_overrides"]

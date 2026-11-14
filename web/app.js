@@ -109,8 +109,12 @@ function render() {
   // footer
   const ver = S.installed ? (S.localVersion || '?') : (R ? R.version : '—');
   const nf = R ? `NeoForge ${R.minecraft}` : 'NeoForge';
-  const mods = R ? `${R.mods} ${plural(R.mods, 'мод', 'мода', 'модов')}` : '';
-  $('footVersion').innerHTML = `Версия сборки: ${esc(ver)} <em>•</em> ${esc(nf)}${mods ? ' <em>•</em> ' + esc(mods) : ''}`;
+  const shownEd = S.installed ? (S.localEdition || 'full') : S.edition;
+  const edInfo = R && R.editions ? R.editions.find((e) => e.id === shownEd) : null;
+  const modN = edInfo ? edInfo.mods : (R ? R.mods : 0);
+  const mods = R ? `${modN} ${plural(modN, 'мод', 'мода', 'модов')}` : '';
+  const edName = editionName(shownEd);
+  $('footVersion').innerHTML = `Версия сборки: ${esc(ver)}${edName ? ' (' + esc(edName.toLowerCase()) + ')' : ''} <em>•</em> ${esc(nf)}${mods ? ' <em>•</em> ' + esc(mods) : ''}`;
   if (R && R.server && R.server.address) $('footAddress').textContent = R.server.address;
 
   // main
@@ -120,7 +124,7 @@ function render() {
   const upd = S.installed && S.updateAvailable;
   $('btnUpdate').disabled = !S.installed || !!busy || (!upd && !R);
   $('updateBadge').classList.toggle('hidden', !upd);
-  if (upd) $('updateBadge').textContent = 'доступна версия ' + R.version;
+  if (upd) $('updateBadge').textContent = (S.localEdition && S.localEdition !== S.edition) ? 'смена на ' + editionName(S.edition).toLowerCase() + ' версию' : 'доступна версия ' + R.version;
   let hint = 'Уютный мир. Большие приключения.';
   if (S.remoteError) hint = 'Нет связи с сервером обновлений: ' + S.remoteError;
   else if (!S.installed) hint = 'Сначала установи сборку — это займёт несколько минут';
@@ -131,6 +135,7 @@ function render() {
 
   // install form
   setPathField('installDir', st.installDir);
+  renderEditions();
   const need = R ? R.size : 0;
   $('spaceLine').textContent = R ? `Нужно ${fmtBytes(need)} • свободно ${fmtBytes(S.freeBytes)}` : (S.remoteError ? 'Нет связи с сервером обновлений' : '');
   $('btnDownload').disabled = !R || !!busy;
@@ -152,6 +157,35 @@ function render() {
   // skin
   $('tglSlim').classList.toggle('on', !!S.skinSlim);
 }
+
+// ---- 2.0: версии сборки
+function editionList() { return (S && S.remote && S.remote.editions) || []; }
+function editionName(id) { const e = editionList().find((x) => x.id === id); return e ? e.name : (id === 'lite' ? 'Облегчённая' : (id === 'full' ? 'Полная' : '')); }
+let editionsKey = '';
+function renderEditions() {
+  const list = editionList();
+  const pick = $('editionPick'); const sel = $('selEdition');
+  const key = JSON.stringify(list) + S.edition;
+  if (key === editionsKey) return;
+  editionsKey = key;
+  pick.parentElement.querySelector('.edition-label').classList.toggle('hidden', !list.length);
+  pick.innerHTML = list.map((e) => `<button class="edition-card${e.id === S.edition ? ' on' : ''}" data-id="${esc(e.id)}"><strong>${esc(e.name)}</strong><span>${e.mods} ${plural(e.mods, 'мод', 'мода', 'модов')} • ${fmtBytes(e.size)}${e.memoryGB ? ' • от ' + e.memoryGB + ' ГБ памяти' : ''}</span></button>`).join('');
+  const cur = list.find((e) => e.id === S.edition);
+  $('editionDesc').textContent = cur ? cur.description : '';
+  pick.querySelectorAll('.edition-card').forEach((b) => { b.onclick = () => chooseEdition(b.dataset.id); });
+  sel.innerHTML = list.map((e) => `<option value="${esc(e.id)}"${e.id === S.edition ? ' selected' : ''}>${esc(e.name)} — ${e.mods} ${plural(e.mods, 'мод', 'мода', 'модов')}</option>`).join('');
+  sel.parentElement.classList.toggle('hidden', !list.length);
+}
+async function chooseEdition(id) {
+  if (!S || id === S.edition) return;
+  try {
+    S = await api('settings', { method: 'POST', json: { edition: id } });
+    editionsKey = '';
+    render();
+    if (S.installed) toast(`Выбрана ${editionName(id).toLowerCase()} версия. Нажми «Обновить» — лишнее уберу, недостающее докачаю (миры и настройки не тронуты)`);
+  } catch (e) { toast(e.message, true); }
+}
+$('selEdition').addEventListener('change', (e) => chooseEdition(e.target.value));
 
 function jobName(k) { return { install: 'установка', update: 'обновление', repair: 'проверка файлов', reinstall: 'переустановка' }[k] || 'операция'; }
 

@@ -20,6 +20,29 @@ import (
 // Keys outside the preset (other mods, the player's own extras) are never touched.
 
 const packOptionsPath = "configureddefaults/options.txt"
+const packOptionsLitePath = "configureddefaults/options.lite.txt"
+
+// overlayOptions returns base with every key of top set to top's value (new keys appended).
+func overlayOptions(base, top []byte) []byte {
+	topMap := optMap(parseOptions(top))
+	var sb strings.Builder
+	done := map[string]bool{}
+	for _, l := range parseOptions(base) {
+		if v, ok := topMap[l.key]; ok && l.key != "" {
+			sb.WriteString(l.key + ":" + v + "\n")
+			done[l.key] = true
+			continue
+		}
+		sb.WriteString(l.raw + "\n")
+	}
+	for _, l := range parseOptions(top) {
+		if l.key != "" && !done[l.key] {
+			sb.WriteString(l.key + ":" + l.val + "\n")
+			done[l.key] = true
+		}
+	}
+	return []byte(sb.String())
+}
 
 type optLine struct{ key, val, raw string }
 
@@ -59,6 +82,12 @@ func applyPackOptions(dir string, force bool) (int, error) {
 	presetB, err := os.ReadFile(filepath.Join(dir, filepath.FromSlash(packOptionsPath)))
 	if err != nil {
 		return 0, nil // the pack has no preset
+	}
+	// Lite edition: its own values on top of the usual preset (graphics, render distance…).
+	if currentEdition() == "lite" {
+		if liteB, err := os.ReadFile(filepath.Join(dir, filepath.FromSlash(packOptionsLitePath))); err == nil {
+			presetB = overlayOptions(presetB, liteB)
+		}
 	}
 	preset := parseOptions(presetB)
 	target := filepath.Join(dir, "options.txt")

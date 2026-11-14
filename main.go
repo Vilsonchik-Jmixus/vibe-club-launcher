@@ -20,7 +20,7 @@ import (
 	"time"
 )
 
-const LauncherVersion = "1.0.14"
+const LauncherVersion = "1.0.15"
 
 // DefaultManifestURL is where the pack list lives. It is replaced once the GitHub repo exists;
 // settings.json "manifestUrl" or env VIBECLUB_MANIFEST override it.
@@ -166,6 +166,9 @@ type StateResp struct {
 	HasSkin         bool        `json:"hasSkin"`
 	Profile         ProfileInfo `json:"profile"`
 	SkinSlim        bool        `json:"skinSlim"`
+	Edition         string      `json:"edition"`       // chosen in the settings
+	LocalEdition    string      `json:"localEdition"`  // installed in the folder
+	EditionChosen   bool        `json:"editionChosen"` // the player picked one explicitly
 }
 
 type RemoteInfo struct {
@@ -178,6 +181,7 @@ type RemoteInfo struct {
 	Files     int        `json:"files"`
 	Mods      int        `json:"mods"`
 	Size      int64      `json:"size"`
+	Editions  []Edition  `json:"editions,omitempty"`
 }
 
 func buildState(force bool) StateResp {
@@ -185,8 +189,12 @@ func buildState(force bool) StateResp {
 	r := StateResp{LauncherVersion: LauncherVersion, Settings: s}
 	r.Settings.PendingSkinHash = ""
 	r.Installed = isInstalled(s.InstallDir)
+	r.Edition = currentEdition()
+	r.EditionChosen = s.Edition != ""
 	if r.Installed {
-		r.LocalVersion = loadState(s.InstallDir).Version
+		lst := loadState(s.InstallDir)
+		r.LocalVersion = lst.Version
+		r.LocalEdition = lst.edition()
 	}
 	r.FreeBytes = freeSpace(s.InstallDir)
 	r.ProfileExists = profileExists()
@@ -197,7 +205,9 @@ func buildState(force bool) StateResp {
 	if err != nil {
 		r.RemoteError = err.Error()
 	} else {
-		ri := &RemoteInfo{Pack: m.Pack, Version: m.Version, Minecraft: m.Minecraft, Loader: m.Loader, Server: m.Server, News: m.News, Files: len(m.Files), Mods: m.ModCount}
+		editions := m.Editions
+		m = m.forEdition(r.Edition)
+		ri := &RemoteInfo{Pack: m.Pack, Version: m.Version, Minecraft: m.Minecraft, Loader: m.Loader, Server: m.Server, News: m.News, Files: len(m.Files), Mods: m.ModCount, Editions: editions}
 		for _, f := range m.Files {
 			ri.Size += f.Size
 			if m.ModCount == 0 && strings.HasPrefix(f.Path, "mods/") && strings.HasSuffix(f.Path, ".jar") {
@@ -206,7 +216,7 @@ func buildState(force bool) StateResp {
 		}
 		r.Remote = ri
 		r.Profile = detectProfile(s.InstallDir, m)
-		r.UpdateAvailable = r.Installed && r.LocalVersion != m.Version
+		r.UpdateAvailable = r.Installed && (r.LocalVersion != m.Version || r.LocalEdition != r.Edition)
 		if lr := m.launcherRelease(); lr != nil && versionLess(LauncherVersion, lr.Version) {
 			r.LauncherUpdate = lr
 		}
@@ -352,12 +362,17 @@ func registerAPI(mux *http.ServeMux, p string) {
 			CheckUpdates     *bool   `json:"checkUpdates"`
 			CloseAfterLaunch *bool   `json:"closeAfterLaunch"`
 			Browser          *string `json:"browser"`
+			Edition          *string `json:"edition"`
 		}
 		if err := json.NewDecoder(io.LimitReader(r.Body, 1<<16)).Decode(&in); err != nil {
 			writeErr(w, err)
 			return
 		}
-		if j := currentJob(); j != nil && j.status().Running && in.InstallDir != nil {
+		if in.Edition != nil && !validEdition(*in.Edition) {
+			writeErr(w, errors.New("неизвестная версия сборки"))
+			return
+		}
+		if j := currentJob(); j != nil && j.status().Running && (in.InstallDir != nil || in.Edition != nil) {
 			writeErr(w, errors.New("дождись окончания загрузки"))
 			return
 		}
@@ -380,11 +395,20 @@ func registerAPI(mux *http.ServeMux, p string) {
 			if in.Browser != nil {
 				s.Browser = *in.Browser
 			}
+			if in.Edition != nil {
+				// память по умолчанию подстраивается под версию (если игрок её не менял)
+				if *in.Edition == "lite" && s.MemoryGB == 8 {
+					s.MemoryGB = 6
+				} else if *in.Edition == "full" && s.MemoryGB == 6 && s.Edition == "lite" {
+					s.MemoryGB = 8
+				}
+				s.Edition = *in.Edition
+			}
 			if in.CloseAfterLaunch != nil {
 				s.CloseAfterLaunch = *in.CloseAfterLaunch
 			}
 		})
-		if (in.MemoryGB != nil || in.InstallDir != nil) && profileExists() {
+		if (in.MemoryGB != nil || in.InstallDir != nil || in.Edition != nil) && profileExists() {
 			if m, err := fetchManifest(false); err == nil && isInstalled(s.InstallDir) {
 				_ = writeProfile(m)
 			}

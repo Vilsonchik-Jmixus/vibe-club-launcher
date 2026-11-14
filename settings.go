@@ -15,6 +15,7 @@ type Settings struct {
 	CloseAfterLaunch  bool   `json:"closeAfterLaunch"`
 	ManifestURL       string `json:"manifestUrl,omitempty"`
 	Browser           string `json:"browser,omitempty"`
+	Edition           string `json:"edition,omitempty"` // "full" or "lite"; "" = not chosen yet (full)
 	PendingSkinHash   string `json:"pendingSkinHash,omitempty"`
 	PendingSkinModel  string `json:"pendingSkinModel,omitempty"`
 	PendingSkinActive bool   `json:"pendingSkinActive,omitempty"`

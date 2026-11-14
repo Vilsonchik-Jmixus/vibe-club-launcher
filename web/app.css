@@ -105,3 +105,22 @@ nav{margin-right:62px}
 .skin{left:calc(173px + var(--ex,0px)/2);top:calc(150px + var(--ey,0px)/2)}
 header{padding-left:calc(38px + var(--ex,0px)*.05);padding-right:calc(38px + var(--ex,0px)*.05)}
 footer{padding-left:calc(40px + var(--ex,0px)*.05);padding-right:calc(40px + var(--ex,0px)*.05)}
+
+/* ---- 2.0: выбор версии сборки (полная / облегчённая) */
+.install{height:500px;top:calc(140px + var(--ey,0px)/2)}
+.install-content{padding:22px 38px}
+.edition-label{margin:14px 0 8px}
+.edition-pick{display:flex;gap:12px}
+.edition-card{flex:1;text-align:left;cursor:pointer;border:1px solid #76513f;border-radius:7px;background:#10071d99;color:#E8D8F0;padding:10px 14px;font:14px 'Segoe UI',sans-serif;display:flex;flex-direction:column;gap:3px}
+.edition-card strong{font:20px Pixel;font-weight:500}
+.edition-card span{font-size:12px;color:#b89fc4}
+.edition-card:hover{border-color:#ffcb7a}
+.edition-card.on{border-color:#eba55c;background:linear-gradient(180deg,#5a1f5ccc,#2a1236e6);box-shadow:0 0 18px #e040c844,inset 0 0 0 2px #632152}
+.edition-card.on strong:after{content:' ✔';color:#ffcb7a;font-size:15px}
+.edition-desc{font-size:12px;line-height:1.45;color:#c4adc9;margin:9px 0 14px;min-height:34px}
+.install .download{height:58px}
+.install .quiet{margin-top:10px}
+.edition-setting label{margin-bottom:6px}
+.edition-setting{margin-bottom:2px}
+.settings-right{gap:11px}
+.settings{height:514px;top:calc(132px + var(--ey,0px)/2)}

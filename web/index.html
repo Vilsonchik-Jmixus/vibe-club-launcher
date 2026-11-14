@@ -60,7 +60,9 @@
         <label>Папка сборки</label>
         <div class="folder-field"><span class="icon" data-icon="folder"></span><input id="installDir" class="path path-input" spellcheck="false" autocomplete="off" placeholder="Вставь путь (Ctrl+V) или нажми «Выбрать папку»" title="Можно вставить скопированный путь: Ctrl+V и Enter"><button class="plate small" id="btnPick"><span>Выбрать папку</span><i></i><b></b></button></div>
         <p class="space" id="spaceLine"></p>
-        <div class="install-divider"></div>
+        <label class="edition-label">Версия сборки</label>
+        <div class="edition-pick" id="editionPick"></div>
+        <p class="edition-desc" id="editionDesc"></p>
         <button class="plate primary download" id="btnDownload"><span class="icon" data-icon="update"></span><span>СКАЧАТЬ СБОРКУ</span><i></i><b></b></button>
         <p class="quiet" id="installHint">Можно выбрать уже созданный профиль Minecraft (папку, где лежат mods и config) — сборка встанет прямо в него</p>
       </div>
@@ -117,6 +119,7 @@
           <div class="browser-field"><select id="selBrowser" class="browser-select"></select><button class="plate small" id="btnOpenInBrowser" title="Открыть лаунчер в выбранном браузере прямо сейчас"><span>Открыть</span><i></i><b></b></button></div>
         </div>
         <div class="settings-right">
+          <div class="edition-setting"><label>Версия сборки</label><select id="selEdition" class="browser-select" title="Полная — всё как задумано; облегчённая — для слабых ПК. После смены нажми «Обновить» на главной."></select></div>
           <button class="plate" id="btnRepair"><span class="icon" data-icon="update"></span><span>Проверить и починить файлы</span><i></i><b></b></button>
           <button class="plate" id="btnApplyOptions" title="Перенести настройки графики, звука и управление из сборки. Старый options.txt сохранится рядом как резервная копия."><span class="icon" data-icon="settings"></span><span>Настройки и управление сборки</span><i></i><b></b></button>
           <button class="plate danger" id="btnReinstall"><span>Переустановить сборку</span><i></i><b></b></button>

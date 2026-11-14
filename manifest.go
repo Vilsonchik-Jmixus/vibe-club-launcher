@@ -31,6 +31,7 @@ type Manifest struct {
 	ModCount   int        `json:"modCount,omitempty"`
 	Files      []PackFile `json:"files"`
 	BaseURL    string     `json:"baseUrl,omitempty"` // for files without url: baseUrl + path
+	Editions   []Edition  `json:"editions,omitempty"`
 	fetchedURL string
 }
 
@@ -77,6 +78,8 @@ type PackFile struct {
 	// file in the browser from this page; we pick it up from the Downloads folder.
 	Manual string `json:"manual,omitempty"`
 	Name   string `json:"name,omitempty"`
+	// Editions this file belongs to ("full", "lite"); empty means every edition.
+	Editions []string `json:"editions,omitempty"`
 }
 
 type ManualItem struct {
@@ -111,7 +114,8 @@ func urlPathEscape(p string) string {
 // LocalState is stored in <install>/.vibeclub/state.json and remembers what we installed.
 type LocalState struct {
 	Version string            `json:"version"`
-	Files   map[string]string `json:"files"` // path -> sha1 of files we manage
+	Edition string            `json:"edition,omitempty"` // "" = full (installed before editions existed)
+	Files   map[string]string `json:"files"`             // path -> sha1 of files we manage
 	Resets  map[string]string `json:"resets,omitempty"`
 	Updated time.Time         `json:"updated"`
 }
@@ -169,6 +173,14 @@ func checkRelPath(p string) error {
 		return fmt.Errorf("недопустимый путь в списке сборки: %q", p)
 	}
 	return nil
+}
+
+// edition installed in this folder ("full" for installs made before editions existed).
+func (st *LocalState) edition() string {
+	if st.Edition == "" {
+		return defaultEdition
+	}
+	return st.Edition
 }
 
 func statePath(dir string) string { return filepath.Join(dir, ".vibeclub", "state.json") }
@@ -368,12 +380,17 @@ func runJob(j *Job, kind JobKind) error {
 		return fmt.Errorf("не удалось создать папку: %w", err)
 	}
 	j.set(func(st *JobStatus) { st.PhaseText = "Получаю список сборки…" })
-	m, err := fetchManifest(true)
+	full, err := fetchManifest(true)
 	if err != nil {
 		return fmt.Errorf("не удалось получить список сборки: %w", err)
 	}
-	j.logf("Сборка %s, файлов: %d", m.Version, len(m.Files))
+	ed := currentEdition()
+	m := full.forEdition(ed)
+	j.logf("Сборка %s (%s версия), файлов: %d", m.Version, strings.ToLower(editionName(full, ed)), len(m.Files))
 	st := loadState(dir)
+	if prev := st.edition(); len(st.Files) > 0 && prev != ed {
+		j.logf("Меняю версию сборки: %s → %s. Лишние файлы уберу, недостающие докачаю", strings.ToLower(editionName(full, prev)), strings.ToLower(editionName(full, ed)))
+	}
 
 	if kind == JobReinstall {
 		j.set(func(s *JobStatus) { s.PhaseText = "Удаляю старые файлы сборки…" })
@@ -507,6 +524,7 @@ func runJob(j *Job, kind JobKind) error {
 		}
 	}
 	st.Version = m.Version
+	st.Edition = ed
 	if err := saveState(dir, st); err != nil {
 		return err
 	}
