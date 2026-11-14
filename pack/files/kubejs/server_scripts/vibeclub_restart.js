@@ -30,10 +30,21 @@ function vcRsAnnounce(server, text, sound) {
   vcRsCmd(server, 'execute as @a at @s run playsound ' + (sound || 'minecraft:block.note_block.bell') + ' master @s ~ ~ ~ 1 1')
 }
 
-function vcRsStart(server, secs) {
+// Время конца отсчёта хранится в данных сервера: если сервер перезапустят вручную посреди отсчёта,
+// после запуска отсчёт продолжится до того же времени (перезапуск по расписанию всё равно придёт),
+// а полоска-таймер (игра сохраняет её вместе с миром) не зависнет.
+function vcRsSaveEnd(server, end) {
+  try {
+    if (end) server.persistentData.putString('vc_restart_end', String(end))
+    else server.persistentData.remove('vc_restart_end')
+  } catch (e) { }
+}
+
+function vcRsStart(server, secs, keepEnd) {
   VC_RS.total = secs
-  VC_RS.end = Date.now() + secs * 1000
+  VC_RS.end = keepEnd || (Date.now() + secs * 1000)
   VC_RS.said = {}
+  vcRsSaveEnd(server, VC_RS.end)
   vcRsCmd(server, 'bossbar remove ' + VC_RS.bar)
   vcRsCmd(server, 'bossbar add ' + VC_RS.bar + ' {"text":"Перезапуск сервера"}')
   vcRsCmd(server, 'bossbar set ' + VC_RS.bar + ' color red')
@@ -44,10 +55,28 @@ function vcRsStart(server, secs) {
 
 function vcRsStop(server) {
   VC_RS.end = 0
+  vcRsSaveEnd(server, 0)
   vcRsCmd(server, 'bossbar remove ' + VC_RS.bar)
 }
 
+// После запуска сервера (и после /reload): продолжить начатый отсчёт или убрать зависшую полоску.
+function vcRsResume(server) {
+  if (VC_RS.end) return
+  var end = 0
+  try { end = Number(String(server.persistentData.getString('vc_restart_end'))) || 0 } catch (e) { }
+  var left = Math.ceil((end - Date.now()) / 1000)
+  if (end && left > 5) {
+    console.info('[Vibe Club] Продолжаю отсчёт до перезапуска: ' + left + ' с')
+    vcRsStart(server, left, end)
+  } else {
+    vcRsStop(server)
+  }
+}
+
+ServerEvents.loaded(function (event) { VC_RS.checked = true; vcRsResume(event.server) })
+
 ServerEvents.tick(function (event) {
+  if (!VC_RS.checked) { VC_RS.checked = true; vcRsResume(event.server) }
   if (!VC_RS.end) return
   var server = event.server
   var left = Math.max(0, Math.ceil((VC_RS.end - Date.now()) / 1000))
