@@ -124,3 +124,5 @@ footer{padding-left:calc(40px + var(--ex,0px)*.05);padding-right:calc(40px + var
 .edition-setting{margin-bottom:2px}
 .settings-right{gap:11px}
 .settings{height:514px;top:calc(132px + var(--ey,0px)/2)}
+
+#mainHint.link{cursor:pointer;text-decoration:underline dotted}

@@ -13,6 +13,12 @@
  },
  "news": [
   {
+   "date": "15.11.2026",
+   "title": "Сборка 2.1: GUI & Seasons update — сезоны, часы и кувырок",
+   "text": "В мире теперь настоящие времена года по календарю: сейчас поздняя осень, с 1 декабря — зима. Часы и счётчик дней на экране, карта справа, кувырок, свои пластинки и северное сияние почти каждую ночь.",
+   "more": "## Времена года\n- Сезоны идут по настоящему календарю (московское время): декабрь–февраль — зима, март–май — весна, июнь–август — лето, сентябрь–ноябрь — осень. Каждый месяц — своя часть сезона: ранняя, середина, поздняя.\n- Трава и листва меняют цвет: весной сочная, летом яркая, осенью рыжая и золотая, зимой седая. Зимой идёт снег и наметает сугробы, лёд на воде; весной всё тает.\n- Урожай зависит от сезона: у семян в подсказке видно, когда они растут лучше всего.\n- Текущий сезон написан под мини-картой.\n- Новые сезонные украшения: гирлянды, свечи, ёлки и другой декор (мод Seasonal Decorations).\n## Интерфейс\n- Мини-карта Xaero теперь в правом верхнем углу и чуть больше.\n- Часы и номер дня всегда видны в правом нижнем углу — часы в инвентаре не нужны.\n- В начале каждого нового дня на экране появляется «День N». Счёт продолжается с дня, который уже прожит на сервере.\n## Управление\n- **Кувырок — G** (уклонение на пару блоков, перезарядка 4 секунды).\n- Способность расы — **боковая кнопка мыши 4**, способность класса — **боковая кнопка мыши 5**.\n- Метка (Ping Wheel) — **нажатие на колёсико мыши**; выбор блока (как раньше на колёсико) — **Alt + колёсико**.\n- Удар прикладом (TaCZ) — **Ж**, способность оружия Cataclysm — **Э** (раньше были на кнопке мыши 4).\n- Если ты сам менял эти клавиши — лаунчер их не тронет. Всё можно поменять в Настройки → Управление.\n## Небо и прочее\n- Северное сияние теперь видно почти каждую ночь в любом биоме и переливается зелёным, бирюзовым и фиолетовым, каждую ночь по-разному (в полной версии сборки — сиянием управляет Cirrus).\n- Свои музыкальные пластинки: мод Etched — станок для гравировки пластинок, можно записать музыку по ссылке.\n- Анимация еды (в полной версии сборки).\n## Лаунчер 1.0.16\n- В верхнем меню появилась вкладка «Загрузка»: если во время скачивания или на экране ручных модов ушёл в другое меню, можно вернуться обратно.\n## Добавленные моды\n- Serene Seasons 10.1.0.9 — времена года\n- Serene Seasons Plus 5.2.1 + Gabou's Libs 1.9 — снег и рост растений по сезонам\n- Serene Seasons: Colorful Seasons 1.1.0 — яркие цвета сезонов\n- Seasonal Integration 1.6.3 — совместимость сезонов с модами еды и фермерства\n- Snow Real Magic × Serene Seasons 1.1 — снег тает весной (только на сервере)\n- SeasonHud 2.0.10 — сезон под мини-картой\n- [🎄] Seasonal Decorations 1.0712 — сезонный декор\n- GUI Clock 4.8 — часы на экране\n- Day Counter (AG's) 6.1 — счётчик дней\n- Combat Roll 2.0.6 — кувырок\n- Etched 5.1.0 — свои музыкальные пластинки\n- Eating Animation 6.0.1 + GroovyModLoader 6.0.2 — анимация еды (только полная версия)"
+  },
+  {
    "date": "14.11.2026",
    "title": "Сборка 2.0: Optimization update — облегчённая версия",
    "text": "Теперь сборку можно поставить в облегчённой версии для слабых ПК: без тяжёлой графики и с экономными настройками. На сервер с ней пускает как обычно.",
@@ -110,20 +116,20 @@
   }
  ],
  "launcher": {
-  "version": "1.0.15",
+  "version": "1.0.16",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher.exe",
-  "sha1": "dfc80f1f4f116b7833bb81fabcaf8ead98a8a791",
-  "size": 11577856
+  "sha1": "79f34bc9280fee5b8a70fd9b0e6703041619ca45",
+  "size": 11578368
  },
  "launcherLinux": {
-  "version": "1.0.15",
+  "version": "1.0.16",
   "url": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/launcher/VibeClubLauncher-linux-x64",
-  "sha1": "b410254a3bea20a31779cc653f1618f756f199bc",
+  "sha1": "ff0657e5ab81c0e579267a09690787a60590a65f",
   "size": 11243704
  },
- "version": "2.0",
+ "version": "2.1",
  "baseUrl": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/files",
- "modCount": 333,
+ "modCount": 346,
  "files": [
   {
    "path": "bivrik/common.json",
@@ -580,8 +586,8 @@
   },
   {
    "path": "config/cirrus-client.json",
-   "sha1": "3cd5c68a2eea9bc66cc9e82c1056b5105d806b6a",
-   "size": 4154
+   "sha1": "48bada9645e81103208ae48a41d4b023164e0928",
+   "size": 4670
   },
   {
    "path": "config/clientsort-server.json",
@@ -597,6 +603,11 @@
    "path": "config/colored_lighting.json",
    "sha1": "0f4b545bb193a5eebce3124d92f46c3bbb28b3b2",
    "size": 2080
+  },
+  {
+   "path": "config/colorful_seasons.json",
+   "sha1": "b03a51bd37a3a086f6aa281482efd33e4c8afc89",
+   "size": 665
   },
   {
    "path": "config/colorfulhearts.toml",
@@ -2704,6 +2715,11 @@
    "size": 146
   },
   {
+   "path": "config/seasonhud-client.toml",
+   "sha1": "6cf313a695527c3107d94e143493173804290092",
+   "size": 975
+  },
+  {
    "path": "config/selling_bin-client.toml",
    "sha1": "9f1df8b5a3e7ea73949833d201ca89954f3c63c1",
    "size": 131
@@ -2715,8 +2731,8 @@
   },
   {
    "path": "config/sereneseasons/seasons.toml",
-   "sha1": "cd42db6c1f539a623211b742d133f90d5ede2e49",
-   "size": 13899
+   "sha1": "4b66e16278d6952ddde45456f4ed905eed369e70",
+   "size": 13901
   },
   {
    "path": "config/serilum/collective.json",
@@ -2727,6 +2743,11 @@
    "path": "config/serilum/doubledoors.json",
    "sha1": "ec0ea94fbfd8722e7eecf6ebbbbba6e6af25e643",
    "size": 1649
+  },
+  {
+   "path": "config/serilum/guiclock.json",
+   "sha1": "4bde8b539151e697db162d17f2d1b094ed93cfe7",
+   "size": 2098
   },
   {
    "path": "config/serilum/stackrefill.json",
@@ -3212,9 +3233,17 @@
    "size": 593
   },
   {
+   "path": "config/xaero/minimap/profiles/default.cfg",
+   "sha1": "1665b0d15cd5afdea6ca5ebcd5f92f69d68705ea",
+   "size": 3827,
+   "reset": "gui-2026-11-15",
+   "policy": "once"
+  },
+  {
    "path": "config/xaerohud.txt",
-   "sha1": "9b2b47ea69e26908152d7ed1c6f90222745dced0",
-   "size": 123,
+   "sha1": "517916c1f2e0a8b75735859edb7d692bba2c079e",
+   "size": 121,
+   "reset": "gui-2026-11-15",
    "policy": "once"
   },
   {
@@ -3248,8 +3277,8 @@
   },
   {
    "path": "configureddefaults/options.txt",
-   "sha1": "4b13cca80219582d7d8c92627c93680d8d146235",
-   "size": 23716
+   "sha1": "7fbef884103a2c8a321720d6d24501dc6ab77c61",
+   "size": 23828
   },
   {
    "path": "defaultconfigs/biolith/general.json",
@@ -16249,6 +16278,11 @@
    ]
   },
   {
+   "path": "kubejs/client_scripts/vibeclub_clock.js",
+   "sha1": "1ee328d08daca4d38ab051f5ec33c4263008d6cc",
+   "size": 1370
+  },
+  {
    "path": "kubejs/server_scripts/vibeclub_gift.js",
    "sha1": "cb7c61430a2704ebe95be552a447f9afbc8acbd0",
    "size": 2176
@@ -16277,6 +16311,11 @@
    "path": "kubejs/server_scripts/vibeclub_sable_void.js",
    "sha1": "0f74d9307ce9450470c9af6b359581feba804693",
    "size": 5255
+  },
+  {
+   "path": "kubejs/server_scripts/vibeclub_seasons.js",
+   "sha1": "5ff723cd121f0afe8d32b8905822d6508120cfbc",
+   "size": 5121
   },
   {
    "path": "kubejs/server_scripts/vibeclub_selftest.js",
@@ -16565,6 +16604,18 @@
    "url": "https://cdn.modrinth.com/data/fPetb5Kh/versions/nFniEtJV/NaturesCompass-1.21.1-3.4.0-neoforge.jar"
   },
   {
+   "path": "mods/NeoForge-1.21.1-ColorfulSeasons-1.1.0.jar",
+   "sha1": "731cab4467c1055489970d7605ac70cf9c80e1cc",
+   "size": 55213,
+   "url": "https://edge.forgecdn.net/files/8107/791/NeoForge-1.21.1-ColorfulSeasons-1.1.0.jar"
+  },
+  {
+   "path": "mods/NeoForge-Version-Serene Seasons Plus-1.21.1-5.2.1.jar",
+   "sha1": "70d2771a8242d9fce0f51560bb40ee7dafbe1e29",
+   "size": 427252,
+   "url": "https://cdn.modrinth.com/data/4Al4H3t9/versions/Z7VKF9c6/NeoForge-Version-Serene%20Seasons%20Plus-1.21.1-5.2.1.jar"
+  },
+  {
    "path": "mods/NeoForgematicaPrinter-0.1.0+mc1.21.1.jar",
    "sha1": "c7a6365b1521f74012c6525b6c120605d053d76a",
    "size": 212929,
@@ -16638,6 +16689,18 @@
    "sha1": "e713547a837a80791f76fa92f21fc1ba41b6759e",
    "size": 86944,
    "url": "https://cdn.modrinth.com/data/yXAvIk0x/versions/I0KbSlL9/Scribble-1.5.1%2Bmc1.21-neoforge.jar"
+  },
+  {
+   "path": "mods/Seasonal Integration-v1.6.3-Mc1.21.1+.jar",
+   "sha1": "0d133b711bc77bb232c9296b65904c72ed448228",
+   "size": 263148,
+   "url": "https://cdn.modrinth.com/data/w3gipv9f/versions/ZZNWuhWc/Seasonal%20Integration-v1.6.3-Mc1.21.1%2B.jar"
+  },
+  {
+   "path": "mods/SereneSeasons-neoforge-1.21.1-10.1.0.9.jar",
+   "sha1": "6b98eb4e64344bb8aba424187ed08bf04e59dccf",
+   "size": 163020,
+   "url": "https://cdn.modrinth.com/data/e0bNACJD/versions/pHEgQQUE/SereneSeasons-neoforge-1.21.1-10.1.0.9.jar"
   },
   {
    "path": "mods/SkyLands-UnofficialPort-NeoForge-1.21.1-v0.9.3.jar",
@@ -16734,6 +16797,12 @@
    "sha1": "0dffcd74781e2f7d0495c4aad1165eb3473476ec",
    "size": 790152,
    "url": "https://cdn.modrinth.com/data/P26k79kP/versions/6kk7ruR3/aeroworks-1.5.0.jar"
+  },
+  {
+   "path": "mods/ags_day_counter-6.1-neoforge-1.21.1.jar",
+   "sha1": "fccda1834a809fe5bc84d6e98f32727a8fa448c6",
+   "size": 587745,
+   "url": "https://cdn.modrinth.com/data/rvq6KsSD/versions/Eb0oGYmJ/ags_day_counter-6.1-neoforge-1.21.1.jar"
   },
   {
    "path": "mods/almanac-neoforge-1.21.1-1.26.11.1.jar",
@@ -16937,6 +17006,12 @@
    "sha1": "93d0a51015655f6cb450dee0421d2fcb9cc11310",
    "size": 1620271,
    "url": "https://cdn.modrinth.com/data/e0M1UDsY/versions/3UYXTEpg/collective-1.21.1-8.84.jar"
+  },
+  {
+   "path": "mods/combat_roll-neoforge-2.0.6+1.21.1.jar",
+   "sha1": "8b9676996e2b49520ac29d92e6068089c5f40baa",
+   "size": 193381,
+   "url": "https://cdn.modrinth.com/data/wGKYL7st/versions/FT7t1n1a/combat_roll-neoforge-2.0.6%2B1.21.1.jar"
   },
   {
    "path": "mods/comforts-neoforge-9.0.5+1.21.1.jar",
@@ -17296,6 +17371,15 @@
    ]
   },
   {
+   "path": "mods/eatinganimation-1.21.0-6.0.1.jar",
+   "sha1": "68f276dc8cf57658b0afc2112c6ee63325989e02",
+   "size": 289863,
+   "url": "https://cdn.modrinth.com/data/X8CISwXp/versions/D7saUVV5/eatinganimation-1.21.0-6.0.1.jar",
+   "editions": [
+    "full"
+   ]
+  },
+  {
    "path": "mods/effortlessbuilding-4.2+1.21.1.jar",
    "sha1": "34af0d5e57f771fa9a37e6b1b5e59c38a03afd01",
    "size": 958842,
@@ -17366,6 +17450,12 @@
    "sha1": "34854b74bd9c627b873cb21bb5ec15fbad038db6",
    "size": 512624,
    "url": "https://cdn.modrinth.com/data/LyOBYG8Q/versions/vJ49zRJl/escalated-1.3.2%2Bmc.1.21.1.jar"
+  },
+  {
+   "path": "mods/etched-5.1.0.jar",
+   "sha1": "0cc1f1d0bc5d9af3f9ffbb8ce166f5cc9b59ec89",
+   "size": 628299,
+   "url": "https://cdn.modrinth.com/data/zi3Fnfmc/versions/h6eJfwiW/etched-5.1.0.jar"
   },
   {
    "path": "mods/exposure-aperture-1.0.01.21.1-neoforge.jar",
@@ -17509,6 +17599,12 @@
    "url": "https://edge.forgecdn.net/files/9344/504/ftb-xmod-compat-neoforge-21.1.14.jar"
   },
   {
+   "path": "mods/gaboulibs-neoforge-1.9.jar",
+   "sha1": "aa39c5645c0479dbd7a485432e9694c78ad6082a",
+   "size": 31997,
+   "url": "https://cdn.modrinth.com/data/N8aGZtvj/versions/wnGOTFh4/gaboulibs-neoforge-1.9.jar"
+  },
+  {
    "path": "mods/gachaaddiction-1.1.4.jar",
    "sha1": "c67ea05e08cda6465ba6dddc0ec96ba7ce49cf0b",
    "size": 1577084,
@@ -17533,6 +17629,15 @@
    "url": "https://cdn.modrinth.com/data/XiC6HzoU/versions/XMduptKZ/gliders-1.21.1-neoforge-1.1.8.jar"
   },
   {
+   "path": "mods/gml-6.0.2.jar",
+   "sha1": "29a8153c54b9b03a3b4b42be7d77fe4ac2459720",
+   "size": 10981280,
+   "url": "https://cdn.modrinth.com/data/zg2tT2Vu/versions/IDRMIIb4/gml-6.0.2.jar",
+   "editions": [
+    "full"
+   ]
+  },
+  {
    "path": "mods/goety-3.2.2.jar",
    "sha1": "d7fe0abd288d279f6996d5e9e2bd4f74f476fc48",
    "size": 95799757,
@@ -17549,6 +17654,12 @@
    "sha1": "eca50e36c425eab332482bbc62407f2276b9218a",
    "size": 591075,
    "url": "https://cdn.modrinth.com/data/hGWjTxOA/versions/a6eWmkUI/grapplemod-neoforge-1.21.1-1.21.1-v13.jar"
+  },
+  {
+   "path": "mods/guiclock-1.21.1-4.8.jar",
+   "sha1": "43d904f8cc36a782f5256e5ac517078007d0c6f2",
+   "size": 53640,
+   "url": "https://cdn.modrinth.com/data/g1yXisD2/versions/hECEBQwv/guiclock-1.21.1-4.8.jar"
   },
   {
    "path": "mods/handcrafted-neoforge-1.21.1-4.0.3.jar",
@@ -18104,6 +18215,18 @@
    "url": "https://cdn.modrinth.com/data/2eT495vq/versions/V5lIEjKs/saturn-mc1.21.1-0.1.5.jar"
   },
   {
+   "path": "mods/seasonal_decorations-1.0712-neoforge-1.21.1.jar",
+   "sha1": "991484e612a8c630aa325a4052ef3f34bbc6472c",
+   "size": 505843,
+   "url": "https://cdn.modrinth.com/data/lcQpdCeI/versions/MXnKohiV/seasonal_decorations-1.0712-neoforge-1.21.1.jar"
+  },
+  {
+   "path": "mods/seasonhud-neoforge-1.21.1-2.0.10.jar",
+   "sha1": "4a36e6b0096707981236392430c7b9db14930a50",
+   "size": 222940,
+   "url": "https://cdn.modrinth.com/data/VNjUn3NA/versions/2vmfujjt/seasonhud-neoforge-1.21.1-2.0.10.jar"
+  },
+  {
    "path": "mods/selling_bin-1.6-NEOFORGE-1.21.1.jar",
    "sha1": "6c67b55385cb029e77b96144a0ed530896450c79",
    "size": 595102,
@@ -18636,16 +18759,16 @@
    "name": "Полная",
    "description": "Всё как задумано: дальняя прорисовка Distant Horizons, живая музыка, анимации, эффекты погоды и частиц, 812 эмоций. Для мощных ПК (16 ГБ ОЗУ и выше).",
    "memoryGB": 8,
-   "mods": 333,
-   "size": 1398072920
+   "mods": 346,
+   "size": 1412491225
   },
   {
    "id": "lite",
    "name": "Облегчённая",
    "description": "Для слабых ПК: без тяжёлой графики (Distant Horizons, музыкального мода, анимаций, эффектов, 3D-скинов, объёмных облаков) и с экономными настройками. Весь контент сервера тот же — играешь с остальными.",
    "memoryGB": 6,
-   "mods": 311,
-   "size": 887245400
+   "mods": 322,
+   "size": 890392562
   }
  ]
 }

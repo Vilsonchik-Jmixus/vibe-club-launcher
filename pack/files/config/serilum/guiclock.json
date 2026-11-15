@@ -1,0 +1,75 @@
+{
+	"//": "These settings are easier to change in-game! Mod List -> GUI Clock -> Config",
+	"mustHaveClockInInventoryForGameTime": {
+		"//": "When enabled, will only show the game time when a clock is present in the inventory.",
+		"value": false
+	},
+	"mustHaveClockInInventoryForRealTime": {
+		"//": "When enabled, will only show the real time when a clock is present in the inventory.",
+		"value": false
+	},
+	"lowerClockWhenPlayerHasEffects": {
+		"//": "Whether the clock in the GUI should be lowered when the player has potion effects to prevent overlap.",
+		"value": false
+	},
+	"_24hourformat": {
+		"//": "Sets the format of the clock to the 24-hour format.",
+		"value": true
+	},
+	"showOnlyMinecraftClockIcon": {
+		"//": "When enabled, shows the clock item icon instead of a clock with numbers.",
+		"value": false
+	},
+	"showBothTimes": {
+		"//": "Show both in-game time and real local time.",
+		"value": false
+	},
+	"showRealTime": {
+		"//": "Show actual local time instead of in-game time.",
+		"value": false
+	},
+	"showRealTimeSeconds": {
+		"//": "Show the seconds in the clock.",
+		"value": false
+	},
+	"showDaysPlayedWorld": {
+		"//": "Show the days played in the world.",
+		"value": true
+	},
+	"clockPositionIsLeft": {
+		"//": "Places the GUI clock on the left.",
+		"value": false
+	},
+	"clockPositionIsCenter": {
+		"//": "Places the GUI clock in the middle.",
+		"value": false
+	},
+	"clockPositionIsRight": {
+		"//": "Places the GUI clock on the right.",
+		"value": true
+	},
+	"clockHeightOffset": {
+		"//": "Vibe Club: the vertical offset is set automatically by kubejs/client_scripts/vibeclub_clock.js (bottom right corner).",
+		"value": 5
+	},
+	"clockWidthOffset": {
+		"//": "The horizontal offset (x coord) for the Clock.",
+		"value": 0
+	},
+	"drawTextShadow": {
+		"//": "If the text displayed should have a shadow drawn below it.",
+		"value": true
+	},
+	"RGB_R": {
+		"//": "The red RGB value for the clock text.",
+		"value": 255
+	},
+	"RGB_G": {
+		"//": "The green RGB value for the clock text.",
+		"value": 230
+	},
+	"RGB_B": {
+		"//": "The blue RGB value for the clock text.",
+		"value": 160
+	}
+}

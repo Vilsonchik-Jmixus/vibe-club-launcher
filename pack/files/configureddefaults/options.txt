@@ -89,7 +89,7 @@ key_key.drop:key.keyboard.q
 key_key.inventory:key.keyboard.e
 key_key.chat:key.keyboard.t
 key_key.playerlist:key.keyboard.tab
-key_key.pickItem:key.mouse.middle
+key_key.pickItem:key.mouse.middle:ALT
 key_key.command:key.keyboard.slash
 key_key.socialInteractions:key.keyboard.p
 key_key.screenshot:key.keyboard.f2
@@ -315,7 +315,7 @@ key_webdisplays.key.toggle_mouse:key.keyboard.r
 key_key.starcatcher.minigame_hit:key.keyboard.space
 key_key.starcatcher.expand_tournament:key.keyboard.tab
 key_key.starcatcher.open_guide:key.keyboard.unknown
-key_key.cataclysm.ability:key.mouse.4
+key_key.cataclysm.ability:key.keyboard.apostrophe
 key_key.cataclysm.helmet_ability:key.keyboard.j
 key_key.cataclysm.chestplate_ability:key.keyboard.j
 key_key.cataclysm.boots_ability:key.keyboard.j
@@ -388,9 +388,9 @@ key_key.tacz.aim.desc:key.mouse.right
 key_key.tacz.crawl.desc:key.keyboard.x
 key_key.tacz.refit.desc:key.keyboard.y
 key_key.tacz.zoom.desc:key.keyboard.z
-key_key.tacz.melee.desc:key.mouse.4
+key_key.tacz.melee.desc:key.keyboard.semicolon
 key_key.tacz.open_config.desc:key.keyboard.t:ALT
-key_key.pingwheel.ping_location:key.mouse.5
+key_key.pingwheel.ping_location:key.mouse.middle
 key_key.pingwheel.open_settings:key.keyboard.unknown
 key_create.keyinfo.toolmenu:key.keyboard.left.alt
 key_create.keyinfo.toolbelt:key.keyboard.left.alt
@@ -479,5 +479,7 @@ modelPart_right_sleeve:true
 modelPart_left_pants_leg:true
 modelPart_right_pants_leg:true
 modelPart_hat:true
-key_key.origins.primary_active:key.keyboard.semicolon
-key_key.origins.secondary_active:key.keyboard.apostrophe
+key_key.origins.primary_active:key.mouse.4
+key_key.origins.secondary_active:key.mouse.5
+key_keybinds.combat_roll.roll:key.keyboard.g
+key_key.colorful_seasons.open_config:key.keyboard.unknown

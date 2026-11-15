@@ -8,6 +8,7 @@ const ICONS = {
   folder: '<path d="M3 8h9l3 3h10v13H3Z"/><path d="M3 8V5h9l3 3h10v3"/>',
   close: '<path d="m7 7 14 14M21 7 7 21"/>',
   play: '<path d="m9 5 13 9-13 9Z"/>',
+  download: '<path d="M14 3v15m-6-6 6 6 6-6M4 20v5h20v-5"/>',
   update: '<path d="M23 11a10 10 0 0 0-17-5L3 9m0-6v6h6M5 17a10 10 0 0 0 17 5l3-3m0 6v-6h-6"/>',
   check: '<path d="m5 14 6 6L24 7"/>',
   left: '<path d="m17 5-9 9 9 9"/>',
@@ -128,9 +129,14 @@ function render() {
   let hint = 'Уютный мир. Большие приключения.';
   if (S.remoteError) hint = 'Нет связи с сервером обновлений: ' + S.remoteError;
   else if (!S.installed) hint = 'Сначала установи сборку — это займёт несколько минут';
-  else if (busy) hint = 'Идёт ' + jobName(job.kind) + '… можно открыть вкладку установки';
+  else if (busy) hint = 'Идёт ' + jobName(job.kind) + '… нажми, чтобы открыть загрузку';
   else if (S.profile && S.profile.kind && S.profile.kind !== 'official') hint = 'Игра запускается через ' + S.profile.name + (S.profile.profile ? ' (профиль «' + S.profile.profile + '»)' : '') + (S.profile.loaderOk === false ? ' — проверь версию NeoForge в профиле!' : '');
   $('mainHint').textContent = hint;
+  // вкладка «Загрузка»: пока сборка не установлена или есть незаконченная/непросмотренная загрузка —
+  // с неё можно уйти в другие меню и вернуться обратно
+  const pending = !S.installed || busy || (job && job.finished && jobShown && (job.error || view === 'install'));
+  $('navInstall').classList.toggle('hidden', !pending);
+  $('mainHint').classList.toggle('link', !!busy || !S.installed);
   renderNews(R ? R.news : null);
 
   // install form
@@ -259,6 +265,7 @@ $('btnPlay').onclick = async () => {
   }
 };
 $('btnUpdate').onclick = () => startJob('update');
+$('mainHint').onclick = () => { if (S && (!S.installed || (job && job.running))) go('install'); };
 $('btnDownload').onclick = () => startJob(S && S.installed ? 'update' : 'install');
 $('btnManual').onclick = () => api('open-manual', { method: 'POST' }).then(() => toast('Открываю страницы загрузки в браузере…'));
 $('btnRetry').onclick = () => startJob(lastKind || 'install');
