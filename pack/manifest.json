@@ -13,6 +13,12 @@
  },
  "news": [
   {
+   "date": "17.11.2026",
+   "title": "Сборка 2.2: Dinosaurs update — динозавры и новый мир шахтёра",
+   "text": "Archie’s Dinosaurs: динозавры, босс, янтарь и новые структуры. Обновление клиента готово; сервер проходит технические работы.",
+   "more": "## Добавленные моды\n- Archie’s Dinosaurs 1.0.6 — динозавры, босс, снаряжение и структуры.\n- Astemir Re Lib 1.2.986-SNAPSHOT — обязательная библиотека.\n## Мир шахтёра\n- Старый мир /mine сохранён отдельно и в резервной копии. Подготовлена новая генерация с динозаврами; завершение запуска и проверки сервера будет объявлено отдельно. Основной мир и мир «Тест» сохранены.\n- Сохранены прежние настройки пещер, ущелий, руд и учащённых шахт.\n- Старые точки возвращения под землю сброшены для безопасного входа.\n## Структуры динозавров\n- Кратеры и останки: интервалы уменьшены примерно на треть, число потенциальных мест выросло примерно в 2,25 раза.\n- Места обитания Lushsaur, Therimoss и Coralosaur тоже встречаются чаще. Настройка действует в новых чанках подходящих биомов, включая мир шахтёра.\n- Незерские структуры оставлены с исходной частотой.\n## Установка\nНажмите «Обновить» перед входом на сервер. Оба мода входят в полную и облегчённую версии."
+  },
+  {
    "date": "15.11.2026",
    "title": "Сборка 2.1: GUI & Seasons update — сезоны, часы и кувырок",
    "text": "В мире теперь настоящие времена года по календарю: сейчас поздняя осень, с 1 декабря — зима. Часы и счётчик дней на экране, карта справа, кувырок, свои пластинки и северное сияние почти каждую ночь.",
@@ -127,9 +133,9 @@
   "sha1": "ff0657e5ab81c0e579267a09690787a60590a65f",
   "size": 11243704
  },
- "version": "2.1",
+ "version": "2.2",
  "baseUrl": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/files",
- "modCount": 346,
+ "modCount": 348,
  "files": [
   {
    "path": "bivrik/common.json",
@@ -2501,6 +2507,11 @@
    "path": "config/paxi/datapacks/Vibe Club - DLC3 Mines.zip",
    "sha1": "c23d74aa474e43fa9de04f7a50935476d09a7084",
    "size": 78460
+  },
+  {
+   "path": "config/paxi/datapacks/Vibe Club - Dinosaurs.zip",
+   "sha1": "453ef4cf62d959614e7e73cc3d97e2022c48fcb3",
+   "size": 2235
   },
   {
    "path": "config/paxi/datapacks/Vibe Club - Fixes.zip",
@@ -16294,8 +16305,8 @@
   },
   {
    "path": "kubejs/server_scripts/vibeclub_mines.js",
-   "sha1": "b7e4a2f31b3ff513fa210114781d51a37a6c8cac",
-   "size": 7318
+   "sha1": "31e20c3d79265dab4820d56bc29e0aff78d77622",
+   "size": 8392
   },
   {
    "path": "kubejs/server_scripts/vibeclub_pregen.js",
@@ -16882,6 +16893,12 @@
    "url": "https://cdn.modrinth.com/data/P0Mu4wcQ/versions/lMfuK0o7/artifacts-neoforge-13.2.5.jar"
   },
   {
+   "path": "mods/astemirlib_re-1.21.1-forge-1.2.986-SNAPSHOT.jar",
+   "sha1": "1da0fc40abfded1862ea2f868522f79c52ca371a",
+   "size": 1139410,
+   "url": "https://cdn.modrinth.com/data/xMZpvyiF/versions/RszvEUSz/astemirlib_re-1.21.1-forge-1.2.986-SNAPSHOT.jar"
+  },
+  {
    "path": "mods/atmospherics-2.6.5-mc-1.21.1.jar",
    "sha1": "f0981c0f177f5ad2d8473fe09b59f1e7a19bf094",
    "size": 2342565,
@@ -17378,6 +17395,12 @@
    "editions": [
     "full"
    ]
+  },
+  {
+   "path": "mods/ec_ad-neoforge-1.21.1-1.0.6.jar",
+   "sha1": "39191af10e62497c4d8fcb548d9bdca42bf816bf",
+   "size": 8686367,
+   "url": "https://cdn.modrinth.com/data/RQU6eQq9/versions/89b8tSoe/ec_ad-neoforge-1.21.1-1.0.6.jar"
   },
   {
    "path": "mods/effortlessbuilding-4.2+1.21.1.jar",
