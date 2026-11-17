@@ -3,6 +3,7 @@
 // а из мира шахт — обратно туда, откуда игрок пришёл. В мире шахт игрок появляется на поверхности:
 // там, где был в прошлый раз, а в первый раз — рядом со своими координатами, на суше (не в воде).
 // Стиль ES5 (var, function): Rhino в KubeJS плохо переносит const/let в блоках.
+var VC_MINE_EPOCH = 'dinosaurs-2026-11-17'
 var VC_MINE = { dim: 'vibeclub:mines', ok: false, HM: null, BlockPos: null, Tag: null, cooldown: {} }
 
 try {
@@ -39,7 +40,14 @@ function vcMineData(pl) {
   if (!root.contains('PlayerPersisted')) root.put('PlayerPersisted', new VC_MINE.Tag())
   var pp = root.getCompound('PlayerPersisted')
   if (!pp.contains('vc_mine')) pp.put('vc_mine', new VC_MINE.Tag())
-  return pp.getCompound('vc_mine')
+  var data = pp.getCompound('vc_mine')
+  if (String(data.getString('epoch')) != VC_MINE_EPOCH) {
+    // Old underground coordinates may now be solid rock after regeneration.
+    data.remove('m_dim')
+    data.putString('epoch', VC_MINE_EPOCH)
+    data.putBoolean('needs_safe_arrival', true)
+  }
+  return data
 }
 
 function vcSavePos(tag, prefix, dim, x, y, z) {
@@ -136,6 +144,7 @@ function vcMine(ctx) {
     return 0
   }
   vcTp(server, name, VC_MINE.dim, target.x, target.y, target.z)
+  data.remove('needs_safe_arrival')
   server.runCommandSilent('effect give ' + name + ' minecraft:resistance 5 4 true')
   server.runCommandSilent('effect give ' + name + ' minecraft:slow_falling 5 0 true')
   src.sendSystemMessage(Text.gold('⛏ Мир шахтёра. ').append(Text.yellow('Здесь бесконечные шахты, руды и постройки. /mine или /vibeclub — обратно.')))
@@ -148,4 +157,17 @@ ServerEvents.commandRegistry(function (event) {
   var Commands = event.commands
   event.register(Commands.literal('mine').executes(function (ctx) { return vcMine(ctx) }))
   event.register(Commands.literal('mines').executes(function (ctx) { return vcMine(ctx) }))
+})
+
+// Players who logged out in the old mining world must arrive on the new surface.
+PlayerEvents.loggedIn(function (event) {
+  var pl = event.player
+  var data = vcMineData(pl)
+  if (!data.getBoolean('needs_safe_arrival') || vcDimId(pl.level) != VC_MINE.dim) return
+  var level = vcFindLevel(event.server, VC_MINE.dim)
+  var target = vcSafeSurface(level, pl.x, pl.z) || vcSafeSurface(level, 0, 0)
+  if (!target) { console.error('[Vibe Club] No safe arrival after mine reset: ' + pl.username); return }
+  vcTp(event.server, String(pl.username), VC_MINE.dim, target.x, target.y, target.z)
+  data.remove('needs_safe_arrival')
+  event.server.runCommandSilent('effect give ' + pl.username + ' minecraft:resistance 10 4 true')
 })
