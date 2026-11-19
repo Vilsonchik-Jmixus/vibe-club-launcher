@@ -3,7 +3,7 @@
 // а из мира шахт — обратно туда, откуда игрок пришёл. В мире шахт игрок появляется на поверхности:
 // там, где был в прошлый раз, а в первый раз — рядом со своими координатами, на суше (не в воде).
 // Стиль ES5 (var, function): Rhino в KubeJS плохо переносит const/let в блоках.
-var VC_MINE_EPOCH = 'dinosaurs-2026-11-17'
+var VC_MINE_EPOCH = 'magic-2026-11-18'
 var VC_MINE = { dim: 'vibeclub:mines', ok: false, HM: null, BlockPos: null, Tag: null, cooldown: {} }
 
 try {
