@@ -1,0 +1,67 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "magic_astral_sorcery"
+	group: "19CCC74618E165DE"
+	icon: { id: "astralsorcery:tome" }
+	id: "2D4C000000000113"
+	images: [ ]
+	order_index: 7
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1FB65BAEFEE46BF6"]
+			icon: { id: "astralsorcery:tome" }
+			id: "2D4C000000000114"
+			tasks: [{ id: "2D4C000000000115", item: { count: 1, id: "astralsorcery:tome" }, type: "item" }]
+			rewards: [{ id: "2D4C000000000116", type: "xp", xp: 30 }]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C000000000114"]
+			icon: { id: "astralsorcery:wand" }
+			id: "2D4C000000000117"
+			tasks: [{ id: "2D4C000000000118", item: { count: 1, id: "astralsorcery:wand" }, type: "item" }]
+			rewards: [{ id: "2D4C000000000119", type: "xp", xp: 45 }]
+			x: 1.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C000000000117"]
+			icon: { id: "astralsorcery:glass_lens" }
+			id: "2D4C00000000011A"
+			tasks: [{ id: "2D4C00000000011B", item: { count: 1, id: "astralsorcery:glass_lens" }, type: "item" }]
+			rewards: [{ id: "2D4C00000000011C", type: "xp", xp: 60 }]
+			x: 3.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C00000000011A"]
+			icon: { id: "astralsorcery:rock_crystal" }
+			id: "2D4C00000000011D"
+			tasks: [{ id: "2D4C00000000011E", item: { count: 1, id: "astralsorcery:rock_crystal" }, type: "item" }]
+			rewards: [{ id: "2D4C00000000011F", type: "xp", xp: 75 }]
+			x: 4.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C00000000011D"]
+			icon: { id: "astralsorcery:altar_illumination" }
+			id: "2D4C000000000120"
+			tasks: [{ id: "2D4C000000000121", item: { count: 1, id: "astralsorcery:altar_illumination" }, type: "item" }]
+			rewards: [{ id: "2D4C000000000122", type: "xp", xp: 90 }]
+			x: 6.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C000000000120"]
+			icon: { id: "astralsorcery:attunement_altar" }
+			id: "2D4C000000000123"
+			tasks: [{ id: "2D4C000000000124", item: { count: 1, id: "astralsorcery:attunement_altar" }, type: "item" }]
+			rewards: [{ id: "2D4C000000000125", type: "xp", xp: 105 }]
+			x: 7.5d
+			y: 0.0d
+		}
+	]
+}

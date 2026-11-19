@@ -1,0 +1,67 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "magic_thaumaturge"
+	group: "19CCC74618E165DE"
+	icon: { id: "thaumaturge:thaumonomicon" }
+	id: "2D4C000000000100"
+	images: [ ]
+	order_index: 6
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["1FB65BAEFEE46BF6"]
+			icon: { id: "thaumaturge:thaumonomicon" }
+			id: "2D4C000000000101"
+			tasks: [{ id: "2D4C000000000102", item: { count: 1, id: "thaumaturge:thaumonomicon" }, type: "item" }]
+			rewards: [{ id: "2D4C000000000103", type: "xp", xp: 30 }]
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C000000000101"]
+			icon: { id: "thaumaturge:thaumometer" }
+			id: "2D4C000000000104"
+			tasks: [{ id: "2D4C000000000105", item: { count: 1, id: "thaumaturge:thaumometer" }, type: "item" }]
+			rewards: [{ id: "2D4C000000000106", type: "xp", xp: 45 }]
+			x: 1.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C000000000104"]
+			icon: { id: "thaumaturge:arcane_workbench" }
+			id: "2D4C000000000107"
+			tasks: [{ id: "2D4C000000000108", item: { count: 1, id: "thaumaturge:arcane_workbench" }, type: "item" }]
+			rewards: [{ id: "2D4C000000000109", type: "xp", xp: 60 }]
+			x: 3.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C000000000107"]
+			icon: { id: "thaumaturge:research_table" }
+			id: "2D4C00000000010A"
+			tasks: [{ id: "2D4C00000000010B", item: { count: 1, id: "thaumaturge:research_table" }, type: "item" }]
+			rewards: [{ id: "2D4C00000000010C", type: "xp", xp: 75 }]
+			x: 4.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C00000000010A"]
+			icon: { id: "thaumaturge:crucible" }
+			id: "2D4C00000000010D"
+			tasks: [{ id: "2D4C00000000010E", item: { count: 1, id: "thaumaturge:crucible" }, type: "item" }]
+			rewards: [{ id: "2D4C00000000010F", type: "xp", xp: 90 }]
+			x: 6.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["2D4C00000000010D"]
+			icon: { id: "thaumaturge:infusion_matrix" }
+			id: "2D4C000000000110"
+			tasks: [{ id: "2D4C000000000111", item: { count: 1, id: "thaumaturge:infusion_matrix" }, type: "item" }]
+			rewards: [{ id: "2D4C000000000112", type: "xp", xp: 105 }]
+			x: 7.5d
+			y: 0.0d
+		}
+	]
+}
