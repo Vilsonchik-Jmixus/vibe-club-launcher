@@ -13,6 +13,12 @@
  },
  "news": [
   {
+   "date": "18.11.2026",
+   "title": "1.12.2 вернулся! thaumcraft и astral sorcery вернулись!",
+   "text": "Сборка 2.3 возвращает магию Thaumaturge и Astral Sorcery. Новый мир шахтёра ждёт исследователей.",
+   "more": "## Магия в Vibe Club 2.3\n- Thaumaturge 1.1.0, Thaumaturge Additions 1.2.1, Thaumic Bases и Thaumaturge Tinkerer.\n- Astral Sorcery 2.0.3 и библиотека ObserverLib 1.10.3.\n- Мир /mine пересоздан с сидом `69420025063331702`.\n- Сборка работает на Minecraft 1.21.1 с NeoForge. Нажмите «Обновить» в лаунчере.\n- В разделе «Магия» появились две новые ветки квестов.\n- Одноразовый /gift dlc4 выдаёт две книги, таумометр, письменные принадлежности, Salis Mundus, резонирующий жезл и две линзы."
+  },
+  {
    "date": "17.11.2026",
    "title": "Сборка 2.2.1: Dinosaurs update — динозавры и новый мир шахтёра",
    "text": "Archie’s Dinosaurs: динозавры, босс, янтарь и новые структуры. Мир /mine пересоздан, сервер запущен.",
@@ -133,9 +139,9 @@
   "sha1": "ff0657e5ab81c0e579267a09690787a60590a65f",
   "size": 11243704
  },
- "version": "2.2.1",
+ "version": "2.3",
  "baseUrl": "https://raw.githubusercontent.com/Vilsonchik-Jmixus/vibe-club-launcher/main/pack/files",
- "modCount": 348,
+ "modCount": 354,
  "files": [
   {
    "path": "bivrik/common.json",
@@ -1722,6 +1728,11 @@
    "size": 4471
   },
   {
+   "path": "config/ftbquests/quests/chapters/magic_astral_sorcery.snbt",
+   "size": 2082,
+   "sha1": "cb57898a1b630ba67fce287bb52271f42b5be21a"
+  },
+  {
    "path": "config/ftbquests/quests/chapters/magic_goety.snbt",
    "sha1": "57db298ce8d45b293d39c58330aefb778c018c15",
    "size": 2550
@@ -1745,6 +1756,11 @@
    "path": "config/ftbquests/quests/chapters/magic_occultism.snbt",
    "sha1": "a5972c963b307e7f1e02284002b14a977e7f53b3",
    "size": 3256
+  },
+  {
+   "path": "config/ftbquests/quests/chapters/magic_thaumaturge.snbt",
+   "size": 2088,
+   "sha1": "fc39ba5aa7eb1b88d0a8c8af2dab351ebad1a0ee"
   },
   {
    "path": "config/ftbquests/quests/chapters/magic_theurgy.snbt",
@@ -1803,13 +1819,13 @@
   },
   {
    "path": "config/ftbquests/quests/lang/en_us.snbt",
-   "sha1": "25f9d47bdd9d9b79eeacf1285d6197e9415dee4d",
-   "size": 157455
+   "sha1": "7e66124a3a0d47f7ce7803190dbc0236ff5fdcc1",
+   "size": 160778
   },
   {
    "path": "config/ftbquests/quests/lang/ru_ru.snbt",
-   "sha1": "0d355c4b4210c13b5694f175bd08a0ea466368aa",
-   "size": 181092
+   "sha1": "74784f3c3679d77e660ab8b2db6a5b99ce0e011f",
+   "size": 184415
   },
   {
    "path": "config/ftbquests/quests/reward_tables/captain.snbt",
@@ -2517,6 +2533,11 @@
    "path": "config/paxi/datapacks/Vibe Club - Fixes.zip",
    "sha1": "e508b32df971237ac7520468bd24be9d93a23eb8",
    "size": 1332
+  },
+  {
+   "path": "config/paxi/datapacks/Vibe Club - Magic Mines.zip",
+   "sha1": "4b94cd9108bfe09aa172e2e77f9c7123c559276a",
+   "size": 3876
   },
   {
    "path": "config/paxi/datapacks/Vibe Club - Psilocybin Update.zip",
@@ -16295,8 +16316,8 @@
   },
   {
    "path": "kubejs/server_scripts/vibeclub_gift.js",
-   "sha1": "cb7c61430a2704ebe95be552a447f9afbc8acbd0",
-   "size": 2176
+   "sha1": "275844c3f6fcfbbe1f57508406296294cc0247f4",
+   "size": 2433
   },
   {
    "path": "kubejs/server_scripts/vibeclub_home.js",
@@ -16305,8 +16326,8 @@
   },
   {
    "path": "kubejs/server_scripts/vibeclub_mines.js",
-   "sha1": "31e20c3d79265dab4820d56bc29e0aff78d77622",
-   "size": 8392
+   "sha1": "7d5e2f0bf22bd153ea52e5193b22f3afd46e2708",
+   "size": 8388
   },
   {
    "path": "kubejs/server_scripts/vibeclub_pregen.js",
@@ -16354,6 +16375,12 @@
    "sha1": "972b0ab7f0f07f4dbcb00af80c1addf5325d0683",
    "size": 608905,
    "url": "https://cdn.modrinth.com/data/Vl1uNAuy/versions/EVDXfAI9/Aquaculture-1.21.1-2.7.22.jar"
+  },
+  {
+   "path": "mods/AstralSorcery-2.0.3.59.jar",
+   "sha1": "66f36655eae7cb404c9c16da6f33db31dff6ed9a",
+   "size": 18168322,
+   "url": "https://edge.forgecdn.net/files/9281/73/AstralSorcery-2.0.3.59.jar"
   },
   {
    "path": "mods/BOMD-NeoForge-1.21-1.3.3.jar",
@@ -18073,6 +18100,12 @@
    ]
   },
   {
+   "path": "mods/observerlib-1.10.3.jar",
+   "sha1": "f8b357513c22b62f0cdbe0259305620541a45fa2",
+   "size": 114651,
+   "url": "https://edge.forgecdn.net/files/8726/128/observerlib-1.10.3.jar"
+  },
+  {
    "path": "mods/occultism-1.21.1-neoforge-1.226.0.jar",
    "sha1": "e64edef739d711678097c40969f5f9718bfa453b",
    "size": 6961785,
@@ -18433,6 +18466,30 @@
    ]
   },
   {
+   "path": "mods/thaumaturge-1.21.1-NeoForge-1.1.0.jar",
+   "sha1": "89c6320f8dc0b50b72ee1e6d38314e7573beb316",
+   "size": 33840402,
+   "url": "https://edge.forgecdn.net/files/9452/543/thaumaturge-1.21.1-NeoForge-1.1.0.jar"
+  },
+  {
+   "path": "mods/thaumaturge-tinkerer-1.9-1.21.1.jar",
+   "sha1": "a7cdb9e247f9cdbaa5fe3919689ae0f7a5cb42f7",
+   "size": 3127234,
+   "url": "https://edge.forgecdn.net/files/9372/849/thaumaturge-tinkerer-1.9-1.21.1.jar"
+  },
+  {
+   "path": "mods/thaumaturgeadditions-1.2.1-NeoForge-1.21.1.jar",
+   "sha1": "c18ef823fa13f274c7edfb3c6ef4fa59fccdfbd6",
+   "size": 255932,
+   "url": "https://edge.forgecdn.net/files/9591/936/thaumaturgeadditions-1.2.1-NeoForge-1.21.1.jar"
+  },
+  {
+   "path": "mods/thaumicbases-3.6.023.5-1.21.1.jar",
+   "sha1": "f420e619a4f149887a324980acc73ad7c473f661",
+   "size": 4000379,
+   "url": "https://edge.forgecdn.net/files/9586/82/thaumicbases-3.6.023.5-1.21.1.jar"
+  },
+  {
    "path": "mods/theurgy-1.21.1-neoforge-1.79.0.jar",
    "sha1": "a4e4707a5396b15d1d51eaf44fb4765114adfb26",
    "size": 5323910,
@@ -18782,16 +18839,16 @@
    "name": "Полная",
    "description": "Всё как задумано: дальняя прорисовка Distant Horizons, живая музыка, анимации, эффекты погоды и частиц, 812 эмоций. Для мощных ПК (16 ГБ ОЗУ и выше).",
    "memoryGB": 8,
-   "mods": 348,
-   "size": 1422321090
+   "mods": 354,
+   "size": 1481842955
   },
   {
    "id": "lite",
    "name": "Облегчённая",
    "description": "Для слабых ПК: без тяжёлой графики (Distant Horizons, музыкального мода, анимаций, эффектов, 3D-скинов, объёмных облаков) и с экономными настройками. Весь контент сервера тот же — играешь с остальными.",
    "memoryGB": 6,
-   "mods": 324,
-   "size": 900222427
+   "mods": 330,
+   "size": 959744292
   }
  ]
 }
